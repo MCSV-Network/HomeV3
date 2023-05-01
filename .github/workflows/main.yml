@@ -22,4 +22,4 @@ jobs:
             cd ${{ secrets.SERVER_PULL_DIR }}
             git checkout .
             git pull origin main
-            cp compressv2.sk ${{ secrets.SERVER_DEPLOY_DIR }}
+            cp homev3.sk ${{ secrets.SERVER_DEPLOY_DIR }}
