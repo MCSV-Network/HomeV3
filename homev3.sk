@@ -1,0 +1,16 @@
+#Home v3.0.0
+#home.sk、homev2を改良したSkript
+
+#!=======[DO NOT EDIT]=======
+#?Prefix
+Variables:
+	{homev3.prefix} = "&a[&bHomeV3&a]&f"
+
+#?Skript読み込み時のメッセージ
+on skript load:
+	send "&b=================" to console
+	send "&bHome &7- &av0.5" to console
+	send "Created by ringoXD" to console
+	send "Github: &bhttps://github.com/MCSV-Network/CompressV2" to console
+	send "&b=================" to console
+#!=======[DO NOT EDIT]=======
