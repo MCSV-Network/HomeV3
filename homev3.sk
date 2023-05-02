@@ -17,3 +17,35 @@ on skript load:
 #!=======[DO NOT EDIT]=======
 
 #*コマンド
+
+#!HOME
+command /homev3 [<text>] [<text>] [<text>]:
+	permission: admin
+	permission message: HomeV3は製作中です!
+	executable by: players
+	trigger:
+		if arg-1 is not set:
+			set {_h} to "&a%{homev2name1.%player's uuid%}% %{homev2name2.%player's uuid%}% %{homev2name3.%player's uuid%}% %{homev2name4.%player's uuid%}% %{homev2name5.%player's uuid%}%"
+			replace all "<none>" in {_h} with ""
+			replace all "  " in {_h} with " "
+			send "&d登録済みのhome: %{_h}%"
+			send "&e/homev3 [ホーム名] で登録したホームへテレポートできます!"
+			send "&e例: /homev3 ringohouse"
+			stop
+		
+		if arg-1 is set:
+			if arg-1 is "help":
+				send "help"
+			
+
+			if arg-1 is "set":
+				if {homev2.amount.%player's uuid%} is not set:
+					set {homev2.amount.%player's uuid%} to 0
+				set {_x} to arg-2
+				set {_uuid} to player's uuid
+				set {_n} to 1
+				if {_x} is not {homev3.name.{_n}.%{_uuid}%}
+
+function permcheck(p: player):
+	if player has permission "homev3.homelimit.1":
+		set {homev3.limitcount.%player%}
