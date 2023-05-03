@@ -47,7 +47,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
 				loop {homev3.limitcount.%player%} time:
-					if {_x} is {homev3.name.{_n}.%{_uuid}%}:
+					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						send "&cそのホームは既に存在しています! 別の名前にしてください!"
 						stop
 					add 1 to {_n}
