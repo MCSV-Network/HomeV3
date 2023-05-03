@@ -48,9 +48,16 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
 						send "&cそのホームは既に存在しています! 別の名前にしてください!"
 						stop
+					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
 					add 1 to {_n}
+				debug(player, "checked(ok)", info)
+				
+				set {_n} to 1
+				loop {homev3.limitcount.%player%} time:
+					
 
 #?devlog
 function debug(p: player, t: text, m: text):
