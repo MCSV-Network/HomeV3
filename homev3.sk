@@ -41,11 +41,25 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "set":
 				if {homev2.amount.%player's uuid%} is not set:
 					set {homev2.amount.%player's uuid%} to 0
+				permcheck(player)
 				set {_x} to arg-2
 				set {_uuid} to player's uuid
 				set {_n} to 1
-				if {_x} is not {homev3.name.{_n}.%{_uuid}%}
+				debug(player, "count: %{homev3.limitcount.%player%}%")
+				loop {homev3.limitcount.%player%} time:
+					if {_x} is {homev3.name.{_n}.%{_uuid}%}:
+						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						stop
+					add 1 to {_n}
 
+#?devlog
+function debug(p: player t: text m: text):
+	if {_m} is "info":
+		send "&7[debug] %{_t}%" to {_p}
+	if {_m} is "warn":
+		send "&7[debug] &e%{_t}%" to {_p}
+	if {_m} is "error":
+		send "&7[debug] &c%{_t}%" to {_p}
 
 #?check
 function permcheck(p: player):
@@ -65,5 +79,5 @@ function permcheck(p: player):
 		set {homev3.limitcount.%player%} to 8
 	if player has permission "homev3.homelimit.9":
 		set {homev3.limitcount.%player%} to 9
-	if player has permission "homev3.homelimit.12":
+	if player has permission "homev3.homelimit.12" or "op":
 		set {homev3.limitcount.%player%} to 12
