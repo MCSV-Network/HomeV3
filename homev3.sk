@@ -63,21 +63,21 @@ function debug(p: player, t: text, m: text):
 
 #?check
 function permcheck(p: player):
-	if player has permission "homev3.homelimit.1":
-		set {homev3.limitcount.%player%} to 1
-	if player has permission "homev3.homelimit.3":
-		set {homev3.limitcount.%player%} to 3
-	if player has permission "homev3.homelimit.4":
-		set {homev3.limitcount.%player%} to 4
-	if player has permission "homev3.homelimit.5":
-		set {homev3.limitcount.%player%} to 5
-	if player has permission "homev3.homelimit.6":
-		set {homev3.limitcount.%player%} to 6
-	if player has permission "homev3.homelimit.7":
-		set {homev3.limitcount.%player%} to 7
-	if player has permission "homev3.homelimit.8":
-		set {homev3.limitcount.%player%} to 8
-	if player has permission "homev3.homelimit.9":
-		set {homev3.limitcount.%player%} to 9
-	if player has permission "homev3.homelimit.12" or "op":
-		set {homev3.limitcount.%player%} to 12
+	if {_p} has permission "homev3.homelimit.1":
+		set {homev3.limitcount.%{_p}%} to 1
+	if {_p} has permission "homev3.homelimit.3":
+		set {homev3.limitcount.%{_p}%} to 3
+	if {_p} has permission "homev3.homelimit.4":
+		set {homev3.limitcount.%{_p}%} to 4
+	if {_p} has permission "homev3.homelimit.5":
+		set {homev3.limitcount.%{_p}%} to 5
+	if {_p} has permission "homev3.homelimit.6":
+		set {homev3.limitcount.%{_p}%} to 6
+	if {_p} has permission "homev3.homelimit.7":
+		set {homev3.limitcount.%{_p}%} to 7
+	if {_p} has permission "homev3.homelimit.8":
+		set {homev3.limitcount.%{_p}%} to 8
+	if {_p} has permission "homev3.homelimit.9":
+		set {homev3.limitcount.%{_p}%} to 9
+	if {_p} has permission "homev3.homelimit.12" or "op":
+		set {homev3.limitcount.%{_p}%} to 12
