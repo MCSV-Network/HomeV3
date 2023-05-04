@@ -48,9 +48,14 @@ command /homev3 [<text>] [<text>] [<text>]:
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)", "info")
-						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						teleport player to {homev3.loc.%{_n}%.%{_uuid}%}
+						send "%{homev3.prefix}% &a%{homev3.name.%{_n}%.%{_uuid}%}%にテレポートしました!"
 						delete {homev3.limitcount.%player%}
 						stop
+					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "warn")
+					add 1 to {_n}
+				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
+				stop
 
 			#*Home set
 			if arg-1 is "set":
@@ -114,6 +119,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 						delete {homev3.limitcount.%player%}
 						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
 						stop
+					add 1 to {_n}
+				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
+				stop
+
+
 #?devlog
 function debug(p: player, t: text, m: text):
 	if {_m} is "info":
