@@ -38,6 +38,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "help"
 			
 
+			#*Home Set
 			if arg-1 is "set":
 				set {_uuid} to player's uuid
 				if {homev3.amount.%{_uuid}%} is not set:
@@ -50,6 +51,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
 						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						delete {homev3.limitcount.%player%}
 						stop
 					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
 					add 1 to {_n}
@@ -66,10 +68,38 @@ command /homev3 [<text>] [<text>] [<text>]:
 						set {homev3.loc.%{_n}%.%{_uuid}%} to {_l}
 						debug(player, "loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
 						send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!"
+						delete {homev3.limitcount.%player%}
 						stop
 					debug(player, "home.number %{_n}% is set", "warn")
 					add 1 to {_n}
 				debug(player, "failed(home is full / loop ended)", "error")
+				send "&cError! 何らかの問題により処理が失敗しました。 デバッグログを確認してください!"
+				delete {homev3.limitcount.%player%}
+				stop
+			
+
+			if arg-1 is "delete":
+				set {_uuid} to player's uuid
+				set {_x} to arg-2
+				permcheck(player)
+				set {_n} to 1
+				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				loop {homev3.limitcount.%player%} time:
+					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)", "warn")
+						#?DELETE HOME=
+						set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
+						delete {homev3.name.%{_n}%.%{_uuid}%}
+						delete {homev3.loc.%{_n}%.%{_uuid}%}
+						debug(player, "deleted. name: %{homev3.name.%{_n}%.%{_uuid}%}%, loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
+						debug(player, "None = Successfully Deleted", info)
+						debug(player, "deleting amount (%{homev3.amount.%{_uuid}%}%)", "info")
+						remove 1 from {homev3.amount.%{_uuid}%}
+						debug(player, "Success(%{homev3.amount.%{_uuid}%}%)", "info")
+						#?===
+						delete {homev3.limitcount.%player%}
+						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
+						stop
 
 #?devlog
 function debug(p: player, t: text, m: text):
