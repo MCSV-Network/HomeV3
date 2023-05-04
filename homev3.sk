@@ -39,11 +39,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 			
 
 			if arg-1 is "set":
-				if {homev2.amount.%player's uuid%} is not set:
-					set {homev2.amount.%player's uuid%} to 0
+				set {_uuid} to player's uuid
+				if {homev3.amount.%{_uuid}%} is not set:
+					set {homev3.amount.%{_uuid}%} to 0
 				permcheck(player)
 				set {_x} to arg-2
-				set {_uuid} to player's uuid
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
 				loop {homev3.limitcount.%player%} time:
@@ -56,8 +56,20 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "checked(ok)", info)
 				
 				set {_n} to 1
+				set {_l} to location of player
 				loop {homev3.limitcount.%player%} time:
-					
+					debug(player, "count: %{_n}%", info)
+					if {homev3.name.%{_n}%.%{_uuid}%} is not set:
+						add 1 to {homev3.amount.%{_uuid}%}
+						set {homev3.name.%{_n}%.%{_uuid}%} to {_x}
+						debug(player, "name: %{homev3.name.%{_n}%.%{_uuid}%}%", "info")
+						set {homev3.loc.%{_n}%.%{_uuid}%} to {_l}
+						debug(player, "loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
+						send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!"
+						stop
+					debug(player, "home.number %{_n}% is set", "warn")
+					add 1 to {_n}
+				debug(player, "failed(home is full / loop ended)", "error")
 
 #?devlog
 function debug(p: player, t: text, m: text):
