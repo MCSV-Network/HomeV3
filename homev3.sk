@@ -38,7 +38,21 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "help"
 			
 
-			#*Home Set
+			#*Home warp
+			if arg-1 is "warp":
+				set {_uuid} to player's uuid
+				permcheck(player)
+				set {_x} to arg-2
+				set {_n} to 1
+				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				loop {homev3.limitcount.%player%} time:
+					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)", "info")
+						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						delete {homev3.limitcount.%player%}
+						stop
+
+			#*Home set
 			if arg-1 is "set":
 				set {_uuid} to player's uuid
 				if {homev3.amount.%{_uuid}%} is not set:
@@ -77,7 +91,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				delete {homev3.limitcount.%player%}
 				stop
 			
-
+			#*Home delete
 			if arg-1 is "delete":
 				set {_uuid} to player's uuid
 				set {_x} to arg-2
@@ -86,7 +100,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
-						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)", "warn")
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)", "info")
 						#?DELETE HOME=
 						set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
 						delete {homev3.name.%{_n}%.%{_uuid}%}
@@ -100,7 +114,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 						delete {homev3.limitcount.%player%}
 						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
 						stop
-
 #?devlog
 function debug(p: player, t: text, m: text):
 	if {_m} is "info":
