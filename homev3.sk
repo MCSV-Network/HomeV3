@@ -74,12 +74,12 @@ command /homev3 [<text>] [<text>] [<text>]:
 						stop
 					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
 					add 1 to {_n}
-				debug(player, "checked(ok)", info)
+				debug(player, "checked(ok)", "info")
 				
 				set {_n} to 1
 				set {_l} to location of player
 				loop {homev3.limitcount.%player%} time:
-					debug(player, "count: %{_n}%", info)
+					debug(player, "count: %{_n}%", "info")
 					if {homev3.name.%{_n}%.%{_uuid}%} is not set:
 						add 1 to {homev3.amount.%{_uuid}%}
 						set {homev3.name.%{_n}%.%{_uuid}%} to {_x}
@@ -111,7 +111,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						delete {homev3.name.%{_n}%.%{_uuid}%}
 						delete {homev3.loc.%{_n}%.%{_uuid}%}
 						debug(player, "deleted. name: %{homev3.name.%{_n}%.%{_uuid}%}%, loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
-						debug(player, "None = Successfully Deleted", info)
+						debug(player, "None = Successfully Deleted", "info")
 						debug(player, "deleting amount (%{homev3.amount.%{_uuid}%}%)", "info")
 						remove 1 from {homev3.amount.%{_uuid}%}
 						debug(player, "Success(%{homev3.amount.%{_uuid}%}%)", "info")
