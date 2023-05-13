@@ -30,6 +30,8 @@ command /homev3 [<text>] [<text>] [<text>]:
 		
 		if arg-1 is set:
 			if arg-1 is "help":
+				permcheck(player)
+				wait a tick
 				homev3help(player)
 			
 
@@ -164,7 +166,6 @@ function homev3help(p: player):
 
 #?home表示
 function homev3list(p: player):
-	permcheck(%{_p}%)
 	set {_n} to 1
 	set {_n2} to 1
 	loop {homev3.limitcount.%{_p}%} time:
@@ -177,6 +178,6 @@ function homev3list(p: player):
 	loop {_x} time:
 		add {_hv3_list.%{_p}%::*} to {_h.%{_n2}%}
 		add 1 to {_n2}
-	send "&e登録済みのhome&7: &a%{_hv3_list.%{_p}%::*}%"
-	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!"
-	send "&7e例: &a/homev3 ringohouse"
+	send "&e登録済みのhome&7: &a%{_hv3_list.%{_p}%::*}%" to {_p}
+	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!" to {_p}
+	send "&7e例: &a/homev3 ringohouse" to {_p}
