@@ -180,7 +180,7 @@ function homev3list(p: player):
 	loop {_x} time:
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
-	send "before: %{_hv3_list.%{_p}%::*}%"
+	send "before: %{_hv3_list.%{_p}%::*}%" to {_p}
 	replace all "and" with "," in {_hv3_list.%{_p}%::*}
 	send "&e登録済みのhome&7: &a%{_hv3_list.%{_p}%::*}%" to {_p}
 	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!" to {_p}
