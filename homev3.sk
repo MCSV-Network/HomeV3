@@ -25,7 +25,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 	executable by: players
 	trigger:
 		if arg-1 is not set:
-			set {_h} to "&a%{homev2name1.%player's uuid%}% %{homev2name2.%player's uuid%}% %{homev2name3.%player's uuid%}% %{homev2name4.%player's uuid%}% %{homev2name5.%player's uuid%}%"
+			set {_h} to "&anone"
 			replace all "<none>" in {_h} with ""
 			replace all "  " in {_h} with " "
 			send "&d登録済みのhome: %{_h}%"
@@ -125,16 +125,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 			
 			else:
 				send "&carg-2 error(unknown command)"
-
-
-#?devlog
-function debug(p: player, t: text, m: text):
-	if {_m} is "info":
-		send "&7[debug] %{_t}%" to {_p}
-	if {_m} is "warn":
-		send "&7[debug] &e%{_t}%" to {_p}
-	if {_m} is "error":
-		send "&7[debug] &c%{_t}%" to {_p}
 
 #?check
 function permcheck(p: player):
