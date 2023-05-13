@@ -3,9 +3,10 @@
 #Created by ringo360xd
 
 #!=======[DO NOT EDIT]=======
-#?Prefix
 Variables:
+	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
+	#*Version
 	{hv3.version} = "&dv3&8.0.1"
 
 #?Skript読み込み時のメッセージ
