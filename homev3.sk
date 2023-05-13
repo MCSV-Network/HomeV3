@@ -189,45 +189,36 @@ function homev3list(p: player):
 	set {_n} to 1
 	set {_n2} to 1
 	set {_uuid} to {_p}'s uuid
-	send "Your uuid: %{_uuid}%" to {_p}
+	send "&7Creating list" to {_p}
 	loop 12 time:
 		if {homev3.name.%{_n}%.%{_uuid}%} is set:
-			send "found (%{homev3.name.%{_n}%.%{_uuid}%}%)" to {_p}
 			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
 			add 1 to {_n2}
 		add 1 to {_n}
 	set {_x} to {_n2}
 	set {_n2} to 0
-	send "looping (%{_x}%)" to {_p}
 	loop {_x} time:
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
-	send "before: %{_hv3_list.%{_p}%::*}%" to {_p}
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
-	send "done" to {_p}
-	send "result: %{temp.hv3_list.%{_p}%}%" to {_p}
+	send "&7done" to {_p}
 
 function homev3list_lite(p: player):
-	send "creating list" to {_p}
+	send "&7Creating list(background)" to {_p}
 	set {_n} to 1
 	set {_n2} to 1
 	set {_uuid} to {_p}'s uuid
-	send "Your uuid: %{_uuid}%" to {_p}
 	loop 12 time:
 		if {homev3.name.%{_n}%.%{_uuid}%} is set:
-			send "found (%{homev3.name.%{_n}%.%{_uuid}%}%)" to {_p}
 			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
 			add 1 to {_n2}
 		add 1 to {_n}
 		wait a tick
 	set {_x} to {_n2}
 	set {_n2} to 0
-	send "looping (%{_x}%)" to {_p}
 	loop {_x} time:
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
 		wait a tick
-	send "before: %{_hv3_list.%{_p}%::*}%" to {_p}
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
-	send "done" to {_p}
-	send "result: %{temp.hv3_list.%{_p}%}%" to {_p}
+	send "&7done" to {_p}
