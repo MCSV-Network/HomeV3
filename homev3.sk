@@ -25,17 +25,12 @@ command /homev3 [<text>] [<text>] [<text>]:
 	executable by: players
 	trigger:
 		if arg-1 is not set:
-			set {_h} to "&anone"
-			replace all "<none>" in {_h} with ""
-			replace all "  " in {_h} with " "
-			send "&d登録済みのhome: %{_h}%"
-			send "&e/homev3 [ホーム名] で登録したホームへテレポートできます!"
-			send "&e例: /homev3 ringohouse"
+			homev3list(player)
 			stop
 		
 		if arg-1 is set:
 			if arg-1 is "help":
-				send "help"
+				homev3help(player)
 			
 
 			#*Home warp
@@ -132,6 +127,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 			
 			else:
 				send "&carg-2 error(unknown command)"
+				send "&a/homev3 help&7でコマンドを確認できます!"
 
 #?check
 function permcheck(p: player):
@@ -153,3 +149,34 @@ function permcheck(p: player):
 		set {homev3.limitcount.%{_p}%} to 9
 	if {_p} has permission "homev3.homelimit.12" or "op":
 		set {homev3.limitcount.%{_p}%} to 12
+
+#?help homev3
+function homev3help(p: player):
+	send "&7=================" to {_p}
+	send "&bHome &dv3&7.0.0 &8- &aCommands" to {_p}
+	send "&a/homev3 warp ホーム名 &7- 登録したホームにワープできます!" to {_p}
+	send "&a/homev3 set ホーム名 &7- ホームを登録します!" to {_p}
+	send "&a/homev3 delete ホーム名 &7- ホームを削除します!" to {_p}
+	send "&a/homev3 help &7- このヘルプを見れます!" to {_p}
+	send "&c/homev3 reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
+	send "&b=================" to {_p}
+
+
+#?home表示
+function homev3list(p: player):
+	permcheck(%{_p}%)
+	set {_n} to 1
+	set {_n2} to 1
+	loop {homev3.limitcount.%{_p}%} time:
+		if {homev3.name.%{_n}%.%{_uuid}%} is set:
+			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
+			add 1 to {_n2}
+		add 1 to {_n}
+	set {_x} to {_n2}
+	set {_n2} to 0
+	loop {_x} time:
+		add {_hv3_list.%{_p}%::*} to {_h.%{_n2}%}
+		add 1 to {_n2}
+	send "&e登録済みのhome&7: &a%{_hv3_list.%{_p}%::*}%"
+	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!"
+	send "&7e例: &a/homev3 ringohouse"
