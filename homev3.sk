@@ -208,7 +208,7 @@ function homev3list(p: player):
 	send "result: %{temp.hv3_list.%{_p}%}%" to {_p}
 
 function homev3list_lite(p: player):
-	send "creating list"
+	send "creating list" to {_p}
 	set {_n} to 1
 	set {_n2} to 1
 	set {_uuid} to {_p}'s uuid
