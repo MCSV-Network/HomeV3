@@ -178,7 +178,7 @@ function homev3list(p: player):
 	set {_n2} to 0
 	send "looping (%{_x}%)" to {_p}
 	loop {_x} time:
-		add {_hv3_list.%{_p}%::*} to {_h.%{_n2}%}
+		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
 	send "&e登録済みのhome&7: &a%{_hv3_list.%{_p}%::*}%" to {_p}
 	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!" to {_p}
