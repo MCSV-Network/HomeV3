@@ -66,6 +66,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_x} to arg-2
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				#?if reached max amount
 				if {homev3.amount.%{_uuid}%} is {homev3.limitcount.%{_p}%}:
 					debug(player, "amount is %{homev3.amount.%{_uuid}%}%. but max is %{homev3.limitcount.%{_p}%}% (reached max amount)", "warn")
 					send "&cこれ以上Homeを追加できません!他のホームを消してからもう一度試してください!"
