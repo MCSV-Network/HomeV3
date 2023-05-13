@@ -136,22 +136,18 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
 				stop
 			
+			#*Home Share
+			if arg-1 is "share":
+				permcheck(player)
+				hv3isfound(player)
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
 
-#?check
 
+#!=======[FUNCTIONS]=======
 #メモ
-#STONE: 1
-#BRONZE: 3
-#IRON: 4
-#GOLD: 5
-#DIAMOND: 6
-#PLATINA: 7
-#MITHRIL: 8
-#ORICHALCUM: 9
-#ADAMANTITE: 12
+#STONE: 1, BRONZE: 3, IRON: 4, GOLD: 5, DIAMOND: 6, PLATINA: 7, MITHRIL: 8, ORICHALCUM: 9, ADAMANTITE: 12
 function permcheck(p: player):
 	if {_p} has permission "homev3.homelimit.1":
 		set {homev3.limitcount.%{_p}%} to 1
@@ -225,3 +221,15 @@ function homev3list_lite(p: player):
 		wait a tick
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
 	send "&7done" to {_p}
+
+function hv3isfound(p: player x: text):
+	set {_uuid} to {_p}'s uuid
+	set {_x} to arg-2
+	set {_n} to arg-1
+	loop {homev3.limitcount.%{_p}%} time:
+		if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+			send "&7arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)"
+			set {temp.hv3.isfound.%{_p}%} to true
+			stop
+	 set {temp.hv3.isfound.%{_p}%} to false
+#!=======[FUNCTIONS]=======
