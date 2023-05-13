@@ -168,8 +168,8 @@ function homev3help(p: player):
 function homev3list(p: player):
 	set {_n} to 1
 	set {_n2} to 1
-	send "looping (%{homev3.limitcount.%{_p}%}%)" to {_p}
-	loop {homev3.limitcount.%{_p}%} time:
+	set {_uuid} to {_p}'s uuid
+	loop 12 time:
 		if {homev3.name.%{_n}%.%{_uuid}%} is set:
 			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
 			add 1 to {_n2}
