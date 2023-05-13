@@ -1,4 +1,4 @@
-#Home v3.0.0
+#HomeV3
 #home.sk、homev2を改良したSkript
 #Created by ringo360xd
 
@@ -6,11 +6,12 @@
 #?Prefix
 Variables:
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
+	{hv3.version} = "&dv3&8.0.1"
 
 #?Skript読み込み時のメッセージ
 on skript load:
 	send "&b=================" to console
-	send "&bHome &dv3&7.0.0" to console
+	send "&bHome %{hv3.version}%" to console
 	send "Created by ringoXD" to console
 	send "Github: &bhttps://github.com/MCSV-Network/HomeV3" to console
 	send "&b=================" to console
@@ -37,6 +38,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 		if arg-1 is set:
 			if arg-1 is "help":
 				homev3help(player)
+				stop
 			
 
 			#*Home warp
@@ -172,7 +174,7 @@ function permcheck(p: player):
 #?help homev3
 function homev3help(p: player):
 	send "&7=================" to {_p}
-	send "&bHome &dv3&7.0.0 &8- &aCommands" to {_p}
+	send "&bHome %{hv3.version}% &8- &aCommands" to {_p}
 	send "&a/homev3 warp ホーム名 &7- 登録したホームにワープできます!" to {_p}
 	send "&a/homev3 set ホーム名 &7- ホームを登録します!" to {_p}
 	send "&a/homev3 delete ホーム名 &7- ホームを削除します!" to {_p}
