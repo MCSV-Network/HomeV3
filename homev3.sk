@@ -25,7 +25,13 @@ command /homev3 [<text>] [<text>] [<text>]:
 	executable by: players
 	trigger:
 		if arg-1 is not set:
-			homev3list(player)
+			if {temp.hv3_list.%player%} is not set:
+				debug(player, "hv3_list is none. Creating...", "warn")
+				homev3list(player)
+				wait a tick
+			send "&e登録済みのhome&7: &a%{temp.hv3_list.%player%}%"
+			send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!"
+			send "&7e例: &a/homev3 ringohouse"
 			stop
 		
 		if arg-1 is set:
@@ -130,6 +136,17 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "&a/homev3 help&7でコマンドを確認できます!"
 
 #?check
+
+#メモ
+#STONE: 1
+#BRONZE: 3
+#IRON: 4
+#GOLD: 5
+#DIAMOND: 6
+#PLATINA: 7
+#MITHRIL: 8
+#ORICHALCUM: 9
+#ADAMANTITE: 12
 function permcheck(p: player):
 	if {_p} has permission "homev3.homelimit.1":
 		set {homev3.limitcount.%{_p}%} to 1
@@ -161,8 +178,11 @@ function homev3help(p: player):
 	send "&c/homev3 reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
 	send "&b=================" to {_p}
 
+on leave:
+	if {temp.hv3_list.%player%} is set:
+		delete {temp.hv3_list.%player%}
 
-#?home表示
+#?home表示(create cache)
 function homev3list(p: player):
 	set {_n} to 1
 	set {_n2} to 1
@@ -181,7 +201,31 @@ function homev3list(p: player):
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
 	send "before: %{_hv3_list.%{_p}%::*}%" to {_p}
-	set {_hv3} to join {_hv3_list.%{_p}%::*} by " "
-	send "&e登録済みのhome&7: &a%{_hv3}%" to {_p}
-	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!" to {_p}
-	send "&7e例: &a/homev3 ringohouse" to {_p}
+	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
+	send "done" to {_p}
+	send "result: %{temp.hv3_list.%{_p}%}%" to {_p}
+
+function homev3list_lite(p: player):
+	send "creating list"
+	set {_n} to 1
+	set {_n2} to 1
+	set {_uuid} to {_p}'s uuid
+	send "Your uuid: %{_uuid}%" to {_p}
+	loop 12 time:
+		if {homev3.name.%{_n}%.%{_uuid}%} is set:
+			send "found (%{homev3.name.%{_n}%.%{_uuid}%}%)" to {_p}
+			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
+			add 1 to {_n2}
+		add 1 to {_n}
+		wait a tick
+	set {_x} to {_n2}
+	set {_n2} to 0
+	send "looping (%{_x}%)" to {_p}
+	loop {_x} time:
+		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
+		add 1 to {_n2}
+		wait a tick
+	send "before: %{_hv3_list.%{_p}%::*}%" to {_p}
+	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
+	send "done" to {_p}
+	send "result: %{temp.hv3_list.%{_p}%}%" to {_p}
