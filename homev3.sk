@@ -95,6 +95,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						set {homev3.loc.%{_n}%.%{_uuid}%} to {_l}
 						debug(player, "loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
 						send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!"
+						homev3list_lite(player)
 						delete {homev3.limitcount.%player%}
 						stop
 					debug(player, "home.number %{_n}% is set", "warn")
@@ -126,6 +127,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						#?===
 						delete {homev3.limitcount.%player%}
 						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
+						homev3list_lite(player)
 						stop
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
