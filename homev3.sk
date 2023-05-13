@@ -30,8 +30,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 		
 		if arg-1 is set:
 			if arg-1 is "help":
-				permcheck(player)
-				wait a tick
 				homev3help(player)
 			
 
@@ -169,8 +167,10 @@ function homev3list(p: player):
 	set {_n} to 1
 	set {_n2} to 1
 	set {_uuid} to {_p}'s uuid
+	send "Your uuid: %{_uuid}%"
 	loop 12 time:
 		if {homev3.name.%{_n}%.%{_uuid}%} is set:
+			send "found (%{homev3.name.%{_n}%.%{_uuid}%}%)"
 			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
 			add 1 to {_n2}
 		add 1 to {_n}
