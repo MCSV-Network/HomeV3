@@ -181,7 +181,7 @@ function homev3list(p: player):
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
 	send "before: %{_hv3_list.%{_p}%::*}%" to {_p}
-	replace all "and" with "," in {_hv3_list.%{_p}%::*}
-	send "&e登録済みのhome&7: &a%{_hv3_list.%{_p}%::*}%" to {_p}
+	set {_hv3} to join {_hv3_list.%{_p}%::*} by " "
+	send "&e登録済みのhome&7: &a%{_hv3}%" to {_p}
 	send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!" to {_p}
 	send "&7e例: &a/homev3 ringohouse" to {_p}
