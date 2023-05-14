@@ -171,6 +171,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						hv3sharetimer({_r})
 						delete {homev3.limitcount.%player%}
 						stop
+					add 1 to {_n}
 			#*Home Get(share)
 			if arg-1 is "get":
 				send "%{homev3.prefix}%&7検索中..."
