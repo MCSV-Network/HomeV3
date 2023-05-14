@@ -175,11 +175,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "get":
 				send "%{homev3.prefix}%&7検索中..."
 				set {_s} to arg-2
-				loop {homev3.share::*}:
-					if {homev3.share::%loop-value%} is {_s}
-					debug(player, "found(%{_s}%)", "info")
-					set {_r} to {_s}
-					stop loop
+				if {homev3.share::%{_s}%} is set
+				debug(player, "found(%{_s}%)", "info")
+				set {_r} to {_s}
 				if {_r} is not set:
 					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
 					stop
