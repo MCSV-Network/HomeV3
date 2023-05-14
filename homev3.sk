@@ -169,9 +169,60 @@ command /homev3 [<text>] [<text>] [<text>]:
 						send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
 						send "&c[!]このコードは10分後に失効します!!"
 						hv3sharetimer({_r})
-			
-						
-
+						delete {homev3.limitcount.%player%}
+						stop
+			#*Home Get(share)
+			if arg-1 is "get":
+				send "%{homev3.prefix}%&7検索中..."
+				set {_s} to arg-2
+				loop all {homev3.share::*}:
+					if loop-value is {_s}
+					debug(player, "found(%{_s}%)", "info")
+					set {_r} to {_s}
+					stop loop
+				if {_r} is not set:
+					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
+					stop
+				if {hv3_share.name.%{_r}%} is not set:
+					send "&cERROR! (share.name.%{_r}% is not found)"
+				if {hv3_share.loc.%{_r}%} is not set:
+					send "&cERROR! (share.loc.%{_r}% is not found)"
+				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
+				permcheck(player)
+				#!SET
+				set {_n} to 1
+				#?if reached max amount
+				if {homev3.amount.%{_uuid}%} >= {homev3.limitcount.%player%}:
+					debug(player, "amount is %{homev3.amount.%{_uuid}%}%. but max is %{homev3.limitcount.%player%}% (reached max amount)", "warn")
+					send "&cこれ以上Homeを追加できません!他のホームを消してからもう一度試してください!"
+					delete {homev3.limitcount.%player%}
+					stop
+				loop {homev3.limitcount.%player%} time:
+					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
+						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						delete {homev3.limitcount.%player%}
+						stop
+					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
+					add 1 to {_n}
+				debug(player, "checked(ok)", "info")
+				
+				set {_n} to 1
+				set {_l} to location of player
+				loop {homev3.limitcount.%player%} time:
+					debug(player, "count: %{_n}%", "info")
+					if {homev3.name.%{_n}%.%{_uuid}%} is not set:
+						add 1 to {homev3.amount.%{_uuid}%}
+						set {homev3.name.%{_n}%.%{_uuid}%} to {_x}
+						debug(player, "name: %{homev3.name.%{_n}%.%{_uuid}%}%", "info")
+						set {homev3.loc.%{_n}%.%{_uuid}%} to {_l}
+						debug(player, "loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
+						send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!"
+						homev3list_lite(player)
+						delete {homev3.limitcount.%player%}
+						stop
+					debug(player, "home.number %{_n}% is set", "warn")
+					add 1 to {_n}
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
