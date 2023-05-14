@@ -161,7 +161,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 							if {homev3.share::%{_r}%} is not set:
 								set {homev3.share::%{_r}%} to {_r}
 								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+								debug(player, "loc: %{hv3_share.loc.%{_r}%}%", "info")
 								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
+								debug(player, "name: %{hv3_share.name.%{_r}%}%", "info")
 								set {_done} to true
 								debug(player, "Done", "info")
 							debug(player, "Failed. Retrying", "warn")
