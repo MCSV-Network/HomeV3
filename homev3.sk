@@ -145,11 +145,32 @@ command /homev3 [<text>] [<text>] [<text>]:
 			#*Home Share
 			if arg-1 is "share":
 				permcheck(player)
-				hv3isfound(player)
-				if {temp.hv3.isfound.%player%} is true:
-					delete {temp.hv3.isfound.%player%}
-					send "%{homev3.prefix}%&7生成中..."
-					randomnum
+				set {_uuid} to player's uuid
+				set {_x} to arg-2
+				set {_n} to 1
+				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				loop {homev3.limitcount.%player%} time:
+					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "found.", "info")
+						#?Generate
+						send "%{homev3.prefix}%&7生成中..."
+						set {_done} to false
+						while {_done} is false:
+							debug(player, "Looping(Generating)", "info")
+							set {_r} to a random integer between 10000 and 99999
+							if {homev3.share::*} does not contain {_r}:
+								add {_r} to {homev3.share::*}
+								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
+								set {_done} to true
+								debug(player, "Done", "info")
+							debug(player, "Failed. Retrying", "warn")
+						send "%{homev3.prefix}%&e%{_x}%&aの共有コードを生成しました!"
+						send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
+						send "&c[!]このコードは10分後に失効します!!"
+						hv3sharetimer({_r})
+			
+						
 
 			else:
 				send "&carg-2 error(unknown command)"
@@ -240,4 +261,11 @@ function hv3isfound(p: player, x: text):
 			set {temp.hv3.isfound.%{_p}%} to true
 			stop
 	 set {temp.hv3.isfound.%{_p}%} to false
+
+function hv3sharetimer(r: text):
+	send "added sharetimer (%{_r}%)" to console
+	wait 10 minutes
+	delete {hv3_share.loc.%{_r}%}
+	delete {hv3_share.name.%{_r}%}
+	remove {_r} from {homev3.share::*}
 #!=======[FUNCTIONS]=======
