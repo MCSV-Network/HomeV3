@@ -86,7 +86,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
-						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						send "&cそのホーム名は既に存在しています! 別の名前にしてください!"
 						delete {homev3.limitcount.%player%}
 						stop
 					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
@@ -200,7 +200,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
-						send "&cそのホームは既に存在しています! 別の名前にしてください!"
+						send "&cそのホーム名は既に存在しています! 別の名前にしてください!"
 						delete {homev3.limitcount.%player%}
 						stop
 					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
@@ -208,14 +208,13 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "checked(ok)", "info")
 				
 				set {_n} to 1
-				set {_l} to location of player
 				loop {homev3.limitcount.%player%} time:
 					debug(player, "count: %{_n}%", "info")
 					if {homev3.name.%{_n}%.%{_uuid}%} is not set:
 						add 1 to {homev3.amount.%{_uuid}%}
-						set {homev3.name.%{_n}%.%{_uuid}%} to {_x}
+						set {homev3.name.%{_n}%.%{_uuid}%} to {hv3_share.name.%{_r}%}
 						debug(player, "name: %{homev3.name.%{_n}%.%{_uuid}%}%", "info")
-						set {homev3.loc.%{_n}%.%{_uuid}%} to {_l}
+						set {homev3.loc.%{_n}%.%{_uuid}%} to {hv3_share.loc.%{_r}%}
 						debug(player, "loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
 						send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!"
 						homev3list_lite(player)
@@ -223,6 +222,10 @@ command /homev3 [<text>] [<text>] [<text>]:
 						stop
 					debug(player, "home.number %{_n}% is set", "warn")
 					add 1 to {_n}
+				debug(player, "failed(home is full / loop ended)", "error")
+				send "&cError! 何らかの問題により処理が失敗しました。 デバッグログを確認してください!"
+				delete {homev3.limitcount.%player%}
+				stop
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
