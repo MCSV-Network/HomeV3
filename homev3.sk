@@ -304,7 +304,13 @@ function homev3list_lite(p: player):
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
 	send "&7done" to {_p}
 
-function hv3sharetimer(r: text):
+command /hv3sharenumdel [<number>]:
+	permission: admin
+	trigger:
+		set {_r} to arg-1
+		remove {_r} from {homev3.share::*}
+		send "%{homev3.share::*}%"
+function hv3sharetimer(r: number):
 	send "added sharetimer (%{_r}%)" to console
 	wait 10 minutes
 	delete {hv3_share.loc.%{_r}%}
