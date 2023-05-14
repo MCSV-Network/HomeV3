@@ -16,6 +16,12 @@ on skript load:
 	send "Created by ringoXD" to console
 	send "Github: &bhttps://github.com/MCSV-Network/HomeV3" to console
 	send "&b=================" to console
+
+#?Delete
+on leave:
+	if {temp.hv3_list.%player%} is set:
+		delete {temp.hv3_list.%player%}
+		delete {temp.hv3.isfound.%player%}
 #!=======[DO NOT EDIT]=======
 
 #*コマンド
@@ -140,6 +146,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "share":
 				permcheck(player)
 				hv3isfound(player)
+				if {temp.hv3.isfound.%player%} is true:
+					delete {temp.hv3.isfound.%player%}
+					send "%{homev3.prefix}%&7生成中..."
+					randomnum
+
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
@@ -179,9 +190,6 @@ function homev3help(p: player):
 	send "&c/homev3 reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
 	send "&b=================" to {_p}
 
-on leave:
-	if {temp.hv3_list.%player%} is set:
-		delete {temp.hv3_list.%player%}
 
 #?home表示(create cache)
 function homev3list(p: player):
@@ -222,7 +230,7 @@ function homev3list_lite(p: player):
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
 	send "&7done" to {_p}
 
-function hv3isfound(p: player x: text):
+function hv3isfound(p: player, x: text):
 	set {_uuid} to {_p}'s uuid
 	set {_x} to arg-2
 	set {_n} to arg-1
