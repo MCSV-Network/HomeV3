@@ -175,7 +175,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "get":
 				send "%{homev3.prefix}%&7検索中..."
 				set {_s} to arg-2
-				loop all {homev3.share::*}:
+				loop {homev3.share::*}:
 					if loop-value is {_s}
 					debug(player, "found(%{_s}%)", "info")
 					set {_r} to {_s}
