@@ -362,4 +362,51 @@ function hv3sharetimer(r: number):
 	delete {hv3_share.name.%{_r}%}
 	remove {_r} from {homev3.share::*}
 	send "deleted hv3 share key(%{_r}%)" to console
+
+
+function homev3set(p: player, l: location):
+	set {_uuid} to {_p}'s uuid
+	if {homev3.amount.%{_uuid}%} is not set:
+		set {homev3.amount.%{_uuid}%} to 0
+	permcheck({_p})
+	set {_x} to {_arg2}
+	set {_n} to 1
+	send "&7amount: %{homev3.amount.%{_uuid}%}%" to {_p}
+	send "&7limit: %{homev3.limitcount.%{_p}%}%" to {_p}
+	#?if reached max amount
+	if {homev3.amount.%{_uuid}%} >= {homev3.limitcount.%{_p}%}:
+		send "&eamount is %{homev3.amount.%{_uuid}%}%. but max is %{homev3.limitcount.%{_p}%}% (reached max amount)" to {_p}
+		send "&cこれ以上Homeを追加できません!他のホームを消してからもう一度試してください!"
+		delete {homev3.limitcount.%{_p}%}
+		stop
+	loop {homev3.limitcount.%{_p}%} time:
+		if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+			send "&earg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)" to {_p}
+			send "&cそのホーム名は既に存在しています! 別の名前にしてください!"
+			delete {homev3.limitcount.%{_p}%}
+			stop
+		send "&7arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%." to {_p}
+		add 1 to {_n}
+	send "&7checked(ok)" to {_p}
+	
+	set {_n} to 1
+	set {_l} to location of {_p}
+	loop {homev3.limitcount.%{_p}%} time:
+		send "&7count: %{_n}%" to {_p}
+		if {homev3.name.%{_n}%.%{_uuid}%} is not set:
+			add 1 to {homev3.amount.%{_uuid}%}
+			set {homev3.name.%{_n}%.%{_uuid}%} to {_x}
+			send "&7name: %{homev3.name.%{_n}%.%{_uuid}%}%" to {_p}
+			set {homev3.loc.%{_n}%.%{_uuid}%} to {_l}
+			send "&7loc: %{homev3.loc.%{_n}%.%{_uuid}%}%" to {_p}
+			send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!"
+			homev3list_lite({_p})
+			delete {homev3.limitcount.%{_p}%}
+			stop
+		send "&ehome.number %{_n}% is set" to {_p}
+		add 1 to {_n}
+	send "&cfailed(home is full / loop ended)"
+	send "&cError! 何らかの問題により処理が失敗しました。 デバッグログを確認してください!"
+	delete {homev3.limitcount.%{_p}%}
+	stop
 #!=======[FUNCTIONS]=======
