@@ -190,7 +190,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 					send "&cERROR! (share.loc.%{_r}% is not found)"
 				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
 				permcheck(player)
-				#!SET
 				set {_n} to 1
 				#?if reached max amount
 				if {homev3.amount.%{_uuid}%} >= {homev3.limitcount.%player%}:
@@ -303,6 +302,7 @@ function homev3list_lite(p: player):
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
 		wait a tick
+	send "&8List: %{_hv3_list.%{_p}%::*}%" to {_p}
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
 	send "&7done" to {_p}
 
@@ -318,4 +318,5 @@ function hv3sharetimer(r: number):
 	delete {hv3_share.loc.%{_r}%}
 	delete {hv3_share.name.%{_r}%}
 	remove {_r} from {homev3.share::*}
+	send "deleted hv3 share key(%{_r}%)" to console
 #!=======[FUNCTIONS]=======
