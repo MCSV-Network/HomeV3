@@ -146,9 +146,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 				if {homev3.reset.confirm.%player%} is not set:
 					send "&c&l&m======&r&4[&e&lWARNING!&4]&c&l&m======"
 					send "&cこの操作を行うと、あなたが登録した&n全てのホーム&r&cが消去されます。"
-					send "&c&l&nこの操作を取り消す事はできません!"
+					send "&c&lこの操作を取り消す事はできません!"
 					send "&c実行する場合は、もう一度、&e/homev3 reset&cを入力してください。"
-					send "&c&l&m=================================="
+					send "&c&l&m===================="
 					set {homev3.reset.confirm.%player%} to 1
 					stop
 				send "&c[!]HomeV3のデータをリセット中..."
@@ -234,11 +234,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 					stop
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
-						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
+						debug(player, "x is %{homev3.name.%{_n}%.%{_uuid}%}%. (already added name)", "warn")
 						send "&cそのホーム名は既に存在しています! 別の名前にしてください!"
 						delete {homev3.limitcount.%player%}
 						stop
-					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
+					debug(player, "(%{_n}%) x is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "info")
 					add 1 to {_n}
 				debug(player, "checked(ok)", "info")
 				
