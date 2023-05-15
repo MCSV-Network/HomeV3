@@ -132,7 +132,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						debug(player, "None = Successfully Deleted", "info")
 						debug(player, "deleting amount (%{homev3.amount.%{_uuid}%}%)", "info")
 						remove 1 from {homev3.amount.%{_uuid}%}
-						debug(player, "Success(%{homev3.amount.%{_uuid}%}%)", "info")
+						debug(player, "Success(%{homev3.amount.%{_uuid}%}%)", "info-green")
 						#?===
 						delete {homev3.limitcount.%player%}
 						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
@@ -141,7 +141,34 @@ command /homev3 [<text>] [<text>] [<text>]:
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
 				stop
-			
+			#*Home Reset
+			if arg-1 is "reset":
+				if {homev3.reset.confirm.%player%} is set:
+					send "&c&l&m======&r&4[&e&lWARNING!&4]&c&l&m======"
+					send "&cこの操作を行うと、あなたが登録した&n全てのホーム&r&cが消去されます。"
+					send "&c&l&nこの操作を取り消す事はできません!"
+					send "&c実行する場合は、もう一度、&e/homev3 reset&cを入力してください。"
+					send "&c&l&m=================================="
+					stop
+				send "&c[!]HomeV3のデータをリセット中..."
+				debug(player, "Deleting home data...", "info-red")
+				debug(player, "looping(12)", "info")
+				set {_n} to 1
+				set {_uuid} to player's uuid
+				send "UUID: %{_uuid}%"
+				loop 13 times:
+					debug(player, "[Home%{_n}%]: %{homev3.name.%{_n}%.%{_uuid}%}% (%{homev3.loc.%{_n}%.%{_uuid}%}%)", "info")
+					delete {homev3.name.%{_n}%.%{_uuid}%}
+					delete {homev3.loc.%{_n}%.%{_uuid}%}
+					debug(player, "[Home%{_n}%]: Deleted", "info-red")
+					add 1 to {_n}
+					wait a tick
+				debug(player, "Initializing HomeV3 Amount", "info")
+				set {homev3.amount.%{_uuid}%} to 0
+				debug(player, "Success!", "info")
+				homev3list_lite(player)
+				wait a second
+				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
 			#*Home Share
 			if arg-1 is "share":
 				permcheck(player)
