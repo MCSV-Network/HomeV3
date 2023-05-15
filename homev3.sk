@@ -290,8 +290,8 @@ function homev3help(p: player):
 	send "&a/homev3 set ホーム名 &7- ホームを登録します!" to {_p}
 	send "&a/homev3 delete ホーム名 &7- ホームを削除します!" to {_p}
 	send "&a/homev3 help &7- このヘルプを見れます!" to {_p}
-	send "&a/homev3 &dshare &aホーム名 &7- ホームをシェアできます!&e[NEW!]" to {_p}
-	send "&a/homev3 &dget &aホーム名 &7- シェアされたホームを入手します!&e[NEW!]" to {_p}
+	send "&a/homev3 &dshare &aホーム名 &7- ホームをシェアできます! &e[NEW!]" to {_p}
+	send "&a/homev3 &dget &aホーム名 &7- シェアされたホームを入手します! &e[NEW!]" to {_p}
 	send "&c/homev3 reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
 	send "&b=================" to {_p}
 
