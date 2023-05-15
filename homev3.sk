@@ -215,12 +215,17 @@ command /homev3 [<text>] [<text>] [<text>]:
 					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
 					stop
 				if {hv3_share.name.%{_r}%} is not set:
-					send "&cERROR! (share.name.%{_r}% is not found)"
+					debug(player, "oops! share.name.%{_r}% is not found", "error")
+					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
+					stop
 				if {hv3_share.loc.%{_r}%} is not set:
-					send "&cERROR! (share.loc.%{_r}% is not found)"
+					debug(player, "oops! share.loc.%{_r}% is not found", "error")
+					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
+					stop
 				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
 				permcheck(player)
 				set {_n} to 1
+				set {_x} to {hv3_share.name.%{_r}%}
 				#?if reached max amount
 				if {homev3.amount.%{_uuid}%} >= {homev3.limitcount.%player%}:
 					debug(player, "amount is %{homev3.amount.%{_uuid}%}%. but max is %{homev3.limitcount.%player%}% (reached max amount)", "warn")
