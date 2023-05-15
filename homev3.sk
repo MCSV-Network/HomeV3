@@ -47,12 +47,12 @@ command /homev3 [<text>] [<text>] [<text>]:
 				homev3help(player)
 				stop
 			
-
+			set {_arg2} to arg-2
 			#*Home warp
 			if arg-1 is "warp":
 				set {_uuid} to player's uuid
 				permcheck(player)
-				set {_x} to arg-2
+				set {_x} to {_arg2}
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
 				loop {homev3.limitcount.%player%} time:
@@ -73,7 +73,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				if {homev3.amount.%{_uuid}%} is not set:
 					set {homev3.amount.%{_uuid}%} to 0
 				permcheck(player)
-				set {_x} to arg-2
+				set {_x} to {_arg2}
 				set {_n} to 1
 				debug(player, "amount: %{homev3.amount.%{_uuid}%}%", "info")
 				debug(player, "limit: %{homev3.limitcount.%player%}%", "info")
@@ -117,7 +117,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 			#*Home delete
 			if arg-1 is "delete":
 				set {_uuid} to player's uuid
-				set {_x} to arg-2
+				set {_x} to {_arg2}
 				permcheck(player)
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
@@ -176,7 +176,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "share":
 				permcheck(player)
 				set {_uuid} to player's uuid
-				set {_x} to arg-2
+				set {_x} to {_arg2}
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
 				loop {homev3.limitcount.%player%} time:
