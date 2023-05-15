@@ -143,12 +143,13 @@ command /homev3 [<text>] [<text>] [<text>]:
 				stop
 			#*Home Reset
 			if arg-1 is "reset":
-				if {homev3.reset.confirm.%player%} is set:
+				if {homev3.reset.confirm.%player%} is not set:
 					send "&c&l&m======&r&4[&e&lWARNING!&4]&c&l&m======"
 					send "&cこの操作を行うと、あなたが登録した&n全てのホーム&r&cが消去されます。"
 					send "&c&l&nこの操作を取り消す事はできません!"
 					send "&c実行する場合は、もう一度、&e/homev3 reset&cを入力してください。"
 					send "&c&l&m=================================="
+					set {homev3.reset.confirm.%player%} to 1
 					stop
 				send "&c[!]HomeV3のデータをリセット中..."
 				debug(player, "Deleting home data...", "info-red")
