@@ -170,6 +170,8 @@ command /homev3 [<text>] [<text>] [<text>]:
 				homev3list_lite(player)
 				wait a second
 				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
+				delete {homev3.reset.confirm.%player%}
+				stop
 			#*Home Share
 			if arg-1 is "share":
 				permcheck(player)
@@ -313,7 +315,7 @@ function homev3list(p: player):
 		add {_h.%{_n2}%} to {_hv3_list.%{_p}%::*}
 		add 1 to {_n2}
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
-	if {temp.hv3_list.%{_p}%} is "<none>":
+	if {temp.hv3_list.%{_p}%} is not set:
 		set {temp.hv3_list.%{_p}%} to "無し"
 	send "&7done" to {_p}
 
@@ -336,7 +338,7 @@ function homev3list_lite(p: player):
 		wait a tick
 	send "&8List: %{_hv3_list.%{_p}%::*}%" to {_p}
 	set {temp.hv3_list.%{_p}%} to join {_hv3_list.%{_p}%::*} by " "
-	if {temp.hv3_list.%{_p}%} is "<none>":
+	if {temp.hv3_list.%{_p}%} is not set:
 		set {temp.hv3_list.%{_p}%} to "無し"
 	send "&7done" to {_p}
 
