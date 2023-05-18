@@ -366,5 +366,7 @@ buildhv3gui(p: player):
 		add 1 to {_s}
 		wait a tick
 	set slot 43 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
-	open 
+	close {_p}'s inventory
+	wait a tick
+	open {homev3_gui.%{_p}%} to {_p}
 #!=======[FUNCTIONS]=======
