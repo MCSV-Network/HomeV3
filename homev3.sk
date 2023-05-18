@@ -7,16 +7,26 @@ Variables:
 	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
 	#*Version
-	{hv3.version} = "&dV3&8.0.1"
+	{hv3.version} = "&dV3&8.0.2"
 
 #?Skript読み込み時のメッセージ
 on skript load:
+	send "[HomeV3] Successfully Enabled HomeV3" to console
 	send "&b=================" to console
 	send "&bHome %{hv3.version}%" to console
 	send "Created by ringoXD" to console
 	send "Github: &bhttps://github.com/MCSV-Network/HomeV3" to console
 	send "&b=================" to console
-
+	#*Make Generating Screen
+	if {hv3gui_generating} is not set:
+		wait a tick
+		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
+		set {_glass} to light gray glass pane named ""
+		set {_s} to 1
+		loop 5 times:
+			set slot {_s} of {hv3gui_generating} to {_glass.green}
+			add 1 to {_s}
+		send "[HomeV3] Created HomeV3 Generating Screen!" to console
 #?Delete
 on leave:
 	if {temp.hv3_list.%player%} is set:
@@ -188,6 +198,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 			#*HOME GUI
 			if arg-1 is "gui":
 				send "未完成"
+				if {homev3_gui.%player%} is not set:
+					buildhv3gui(player)
+					open {hv3gui_generating} to player
+					stop
+				open {homev3_gui.%player%} to player
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
@@ -332,4 +347,24 @@ function homev3set(p: player, x: text, l: location):
 	send "&cError! 何らかの問題により処理が失敗しました。 デバッグログを確認してください!" to {_p}
 	delete {homev3.limitcount.%{_p}%}
 	stop
+
+buildhv3gui(p: player):
+	set {homev3_gui.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &8| &aメニュー"
+	set {_glass} to light gray glass pane named ""
+	set {_glass.green} to lime glass pane named ""
+	set {_s} to 1
+	loop 8 times:
+		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
+		add 1 to {_s}
+		wait a tick
+	loop 37 times:
+		set slot {_s} of {homev3_gui.%{_p}%} to {_glass}
+		add 1 to {_s}
+		wait a tick
+	loop 8 times:
+		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
+		add 1 to {_s}
+		wait a tick
+	set slot 43 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
+	open 
 #!=======[FUNCTIONS]=======
