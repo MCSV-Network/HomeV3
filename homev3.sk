@@ -146,7 +146,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						set {_done} to false
 						while {_done} is false:
 							debug(player, "Looping(Generating)", "info")
-							set {_r} to a random integer between 10000 and 99999
+							set {_r} to random5num(player)
 							if {homev3.share::%{_r}%} is not set:
 								set {homev3.share::%{_r}%} to {_r}
 								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
@@ -185,6 +185,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_hv3n} to {hv3_share.name.%{_r}%}
 				set {_hv3l} to {hv3_share.loc.%{_r}%}
 				homev3set(player, {_hv3n}, {_hv3l})
+			#*HOME GUI
+			if arg-1 is "gui":
+				send "未完成"
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
