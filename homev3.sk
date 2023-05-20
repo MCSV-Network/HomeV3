@@ -404,7 +404,7 @@ function buildhv3gui(p: player):
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
 	#*Player info item
-	permcheck(player)
+	permcheck({_p})
 	set {_uuid} to {_p}'s uuid
 	set {_maxh} to {homev3.limitcount.%{_p}%}
 	set {_curh} to {homev3.amount.%{_uuid}%}
