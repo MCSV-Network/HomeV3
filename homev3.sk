@@ -403,7 +403,7 @@ function buildhv3gui(p: player):
 	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
-	set slot 44 of {homev3_gui.%{_p}%} to {_p}'s head named "&a%{_p}%の情報" and "text1" and "text2"
+	set slot 44 of {homev3_gui.%{_p}%} to {_p}'s skull named "&a%{_p}%の情報"
 
 	close {_p}'s inventory
 	wait a tick
