@@ -43,7 +43,7 @@ command /hv3manuallycreateGenScreen:
 
 #?Cancel Inventory Click
 on inventory click:
-	if clicked inventory is {hv3gui_generating} or {homev3_gui.%player%}:
+	if clicked inventory is {hv3gui_generating}:
 		cancel event
 #?Delete
 on leave:
@@ -229,8 +229,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 
 #!=======[HV3-GUI]=======
 on inventory click:
-	if name of event-item is ""
-
+	if clicked inventory is {homev3_gui.%player%}:
+		cancel event
+	if name of event-item is "&c閉じる":
+		send "close"
+		close player's inventory
 #!=======[HV3-GUI]=======
 
 
@@ -400,7 +403,7 @@ function buildhv3gui(p: player):
 	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 33 of {homev3_gui.%{_p}%} to comparator named "&eシェアされたホームを入手する!"
-	format slot 44 of {homev3_gui.%{_p}%} with skull of player named "&a%player%の情報" to be unstealable
+	format slot 44 of {homev3_gui.%{_p}%} with skull of {_p} named "&a%{_p}%の情報" to be unstealable
 
 	close {_p}'s inventory
 	wait a tick
