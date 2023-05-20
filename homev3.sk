@@ -127,8 +127,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 					send "&c&l&m======&r&4[&e&lWARNING!&4]&c&l&m======"
 					send "&cこの操作を行うと、あなたが登録した&n全てのホーム&r&cが消去されます。"
 					send "&c&lこの操作を取り消す事はできません!"
-					send "&c実行する場合は、もう一度、&e/homev3 reset&cを入力してください。"
+					send "&c実行する場合は、&n30秒以内に&r&cもう一度&e/homev3 reset&cを入力してください。"
 					send "&c&l&m===================="
+					hv3resetcountdown(player)
 					set {homev3.reset.confirm.%player%} to 1
 					stop
 				send "&c[!]HomeV3のデータをリセット中..."
@@ -383,4 +384,10 @@ function buildhv3gui(p: player):
 	close {_p}'s inventory
 	wait a tick
 	open {homev3_gui.%{_p}%} to {_p}
+
+function hv3resetcountdown(p: player):
+	wait 30 seconds
+	if {homev3.reset.confirm.%{_p}%} is set:
+		delete {homev3.reset.confirm.%{_p}%}
+	send "%{homev3.prefix}%&a30秒以内に&e/homev3 reset&aが入力されなかったため、キャンセルされました。"  to {_p}
 #!=======[FUNCTIONS]=======
