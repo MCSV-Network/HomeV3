@@ -27,6 +27,18 @@ on skript load:
 			set slot {_s} of {hv3gui_generating} to {_glass.green}
 			add 1 to {_s}
 		send "[HomeV3] Created HomeV3 Generating Screen!" to console
+
+command /hv3manuallycreateGenScreen:
+	permission: admin
+	trigger:
+		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
+		set {_glass} to light gray glass pane named ""
+		set {_s} to 1
+		loop 5 times:
+			set slot {_s} of {hv3gui_generating} to {_glass.green}
+			add 1 to {_s}
+		send "[HomeV3] Created HomeV3 Generating Screen!" to console
+		send "&a[HomeV3] Created HomeV3 Generating Screen!" to player
 #?Delete
 on leave:
 	if {temp.hv3_list.%player%} is set:
