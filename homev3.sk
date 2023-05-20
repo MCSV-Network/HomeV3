@@ -17,7 +17,8 @@ on skript load:
 	send "Created by ringoXD" to console
 	send "Github: &bhttps://github.com/MCSV-Network/HomeV3" to console
 	send "&b=================" to console
-	#*Make Generating Screen
+
+#?Make Generating Screen
 	if {hv3gui_generating} is not set:
 		wait a tick
 		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
@@ -39,6 +40,11 @@ command /hv3manuallycreateGenScreen:
 			add 1 to {_s}
 		send "[HomeV3] Created HomeV3 Generating Screen!" to console
 		send "&a[HomeV3] Created HomeV3 Generating Screen!" to player
+
+#?Cancel Inventory Click
+on inventory click:
+	if clicked inventory is {hv3gui_generating} or {homev3_gui.%player%}:
+		cancel event
 #?Delete
 on leave:
 	if {temp.hv3_list.%player%} is set:
@@ -212,7 +218,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 				homev3set(player, {_hv3n}, {_hv3l})
 			#*HOME GUI
 			if arg-1 is "gui":
-				send "未完成"
 				if {homev3_gui.%player%} is not set:
 					buildhv3gui(player)
 					open {hv3gui_generating} to player
@@ -221,6 +226,13 @@ command /homev3 [<text>] [<text>] [<text>]:
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
+
+#!=======[HV3-GUI]=======
+on inventory click:
+	if name of event-item is ""
+
+#!=======[HV3-GUI]=======
+
 
 
 #!=======[FUNCTIONS]=======
@@ -364,7 +376,7 @@ function homev3set(p: player, x: text, l: location):
 	stop
 
 function buildhv3gui(p: player):
-	set {homev3_gui.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &8| &aメニュー"
+	set {homev3_gui.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &8| &7メニュー"
 	set {_glass} to light gray glass pane named ""
 	set {_glass.green} to lime glass pane named ""
 	set {_s} to 0
@@ -381,6 +393,15 @@ function buildhv3gui(p: player):
 		add 1 to {_s}
 		wait a tick
 	set slot 43 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
+	set slot 19 of {homev3_gui.%{_p}%} to bookshelf named "&a登録したホームの一覧"
+	set slot 21 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
+	set slot 23 of {homev3_gui.%{_p}%} to book named "&bHome&dV3&aの使い方"
+	set slot 25 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
+	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
+	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
+	set slot 33 of {homev3_gui.%{_p}%} to comparator named "&eシェアされたホームを入手する!"
+	format slot 44 of {homev3_gui.%{_p}%} with skull of player named "&a%player%の情報" to be unstealable
+
 	close {_p}'s inventory
 	wait a tick
 	open {homev3_gui.%{_p}%} to {_p}
