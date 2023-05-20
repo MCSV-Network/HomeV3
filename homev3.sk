@@ -413,6 +413,7 @@ function buildhv3gui(p: player):
 	if {_curh} >= {_maxh}:
 		set line 1 of lore of {_pi} to "&cホーム所有数: &c%{_curh}%&7/%{_maxh}%"
 	set line 2 of lore of {_pi} to "&7text2"
+	#TODO: シェア数、Getされた数をログに残して表示させる
 	#*=======
 	set slot 44 of {homev3_gui.%{_p}%} to {_pi}
 
