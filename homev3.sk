@@ -364,16 +364,16 @@ function buildhv3gui(p: player):
 	set {homev3_gui.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &8| &aメニュー"
 	set {_glass} to light gray glass pane named ""
 	set {_glass.green} to lime glass pane named ""
-	set {_s} to 1
-	loop 8 times:
+	set {_s} to 0
+	loop 9 times:
 		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
 		add 1 to {_s}
 		wait a tick
-	loop 37 times:
+	loop 38 times:
 		set slot {_s} of {homev3_gui.%{_p}%} to {_glass}
 		add 1 to {_s}
 		wait a tick
-	loop 8 times:
+	loop 9 times:
 		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
 		add 1 to {_s}
 		wait a tick
