@@ -22,7 +22,7 @@ on skript load:
 		wait a tick
 		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
 		set {_glass} to light gray glass pane named ""
-		set {_s} to 1
+		set {_s} to 0
 		loop 5 times:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
@@ -33,7 +33,7 @@ command /hv3manuallycreateGenScreen:
 	trigger:
 		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
 		set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
-		set {_s} to 1
+		set {_s} to 0
 		loop 5 times:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
