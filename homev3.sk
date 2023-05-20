@@ -360,7 +360,7 @@ function homev3set(p: player, x: text, l: location):
 	delete {homev3.limitcount.%{_p}%}
 	stop
 
-buildhv3gui(p: player):
+function buildhv3gui(p: player):
 	set {homev3_gui.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &8| &aメニュー"
 	set {_glass} to light gray glass pane named ""
 	set {_glass.green} to lime glass pane named ""
