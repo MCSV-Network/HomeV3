@@ -404,8 +404,14 @@ function buildhv3gui(p: player):
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
 	#*Player info item
+	permcheck(player)
+	set {_uuid} to {_p}'s uuid
+	set {_maxh} to {homev3.limitcount.%{_p}%}
+	set {_curh} to {homev3.amount.%{_uuid}%}
 	set {_pi} to {_p}'s skull named "&a%{_p}%の情報"
-	set line 1 of lore of {_pi} to "text"
+	set line 1 of lore of {_pi} to "&7ホーム所有数: &a%{_curh}%&8/%{_maxh}%"
+	if {_curh} >= {_maxh}:
+		set line 1 of lore of {_pi} to "&cホーム所有数: &c%{_curh}%&7/%{_maxh}%"
 	set line 2 of lore of {_pi} to "&7text2"
 	#*=======
 	set slot 44 of {homev3_gui.%{_p}%} to {_pi}
