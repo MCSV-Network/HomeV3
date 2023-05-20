@@ -145,9 +145,12 @@ command /homev3 [<text>] [<text>] [<text>]:
 					debug(player, "[Home%{_n}%]: Deleted", "info-red")
 					add 1 to {_n}
 					wait a tick
+				debug(player, "Initializing HomeV3 GUI", "info")
+				delete {homev3_gui.%player%}
+				debug(player, "Success!", "info-green")
 				debug(player, "Initializing HomeV3 Amount", "info")
 				set {homev3.amount.%{_uuid}%} to 0
-				debug(player, "Success!", "info")
+				debug(player, "Success!", "info-green")
 				homev3list_lite(player)
 				wait a second
 				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
