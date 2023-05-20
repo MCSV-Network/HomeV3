@@ -402,7 +402,7 @@ function buildhv3gui(p: player):
 	set slot 25 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
-	set slot 33 of {homev3_gui.%{_p}%} to comparator named "&eシェアされたホームを入手する!"
+	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
 	format slot 44 of {homev3_gui.%{_p}%} with skull of {_p} named "&a%{_p}%の情報" to be unstealable
 
 	close {_p}'s inventory
