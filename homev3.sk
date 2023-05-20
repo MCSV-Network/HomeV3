@@ -371,7 +371,7 @@ function buildhv3gui(p: player):
 		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
 		add 1 to {_s}
 		wait a tick
-	loop 38 times:
+	loop 36 times:
 		set slot {_s} of {homev3_gui.%{_p}%} to {_glass}
 		add 1 to {_s}
 		wait a tick
