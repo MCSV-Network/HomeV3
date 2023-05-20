@@ -32,7 +32,7 @@ command /hv3manuallycreateGenScreen:
 	permission: admin
 	trigger:
 		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
-		set {_glass} to light gray glass pane named ""
+		set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
 		set {_s} to 1
 		loop 5 times:
 			set slot {_s} of {hv3gui_generating} to {_glass}
@@ -43,7 +43,6 @@ command /hv3manuallycreateGenScreen:
 on leave:
 	if {temp.hv3_list.%player%} is set:
 		delete {temp.hv3_list.%player%}
-		delete {temp.hv3.isfound.%player%}
 #!=======[DO NOT EDIT]=======
 
 #*コマンド
