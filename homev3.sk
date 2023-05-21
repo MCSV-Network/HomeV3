@@ -123,6 +123,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						delete {homev3.limitcount.%player%}
 						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
 						homev3list_lite(player)
+						hv3setpi(player)
 						stop
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
@@ -369,6 +370,7 @@ function homev3set(p: player, x: text, l: location):
 			send "&7loc: %{homev3.loc.%{_n}%.%{_uuid}%}%" to {_p}
 			send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!" to {_p}
 			homev3list_lite({_p})
+			hv3setpi({_p})
 			delete {homev3.limitcount.%{_p}%}
 			stop
 		send "&ehome.number %{_n}% is set" to {_p}
