@@ -403,27 +403,27 @@ function buildhv3gui(p: player):
 	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
-	#*Player info item
+	hv3setpi(p: player)
+	close {_p}'s inventory
+	wait a tick
+	open {homev3_gui.%{_p}%} to {_p}
+
+function hv3setpi(p: player): #*Player info item
 	permcheck({_p})
 	set {_uuid} to {_p}'s uuid
 	set {_maxh} to {homev3.limitcount.%{_p}%}
 	set {_curh} to {homev3.amount.%{_uuid}%}
 	set {_pi} to {_p}'s skull named "&a%{_p}%の情報"
 	set line 1 of lore of {_pi} to "&7ホーム所有数: &a%{_curh}%&8/%{_maxh}%"
-	if {_curh} >= {_maxh}:
+	if {_curh} >= {_maxh}: #*所持数がmaxの時に赤文字化
 		set line 1 of lore of {_pi} to "&cホーム所有数: &c%{_curh}%&7/%{_maxh}%"
 	set line 2 of lore of {_pi} to "&7text2"
 	#TODO: シェア数、Getされた数をログに残して表示させる
-	#*=======
 	set slot 44 of {homev3_gui.%{_p}%} to {_pi}
-
-	close {_p}'s inventory
-	wait a tick
-	open {homev3_gui.%{_p}%} to {_p}
 
 function hv3resetcountdown(p: player):
 	wait 30 seconds
 	if {homev3.reset.confirm.%{_p}%} is set:
 		delete {homev3.reset.confirm.%{_p}%}
-	send "%{homev3.prefix}%&a30秒以内に&e/homev3 reset&aが入力されなかったため、キャンセルされました。"  to {_p}
+		send "%{homev3.prefix}%&a30秒以内に&e/homev3 reset&aが入力されなかったため、キャンセルされました。"  to {_p}
 #!=======[FUNCTIONS]=======
