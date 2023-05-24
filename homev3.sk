@@ -35,7 +35,6 @@ command /hv3manuallycreateGenScreen:
 			add 1 to {_s}
 		send "[HomeV3] Created HomeV3 Generating Screen!" to console
 		send "&a[HomeV3] Created HomeV3 Generating Screen!" to player
-
 #?Cancel Inventory Click
 on inventory click:
 	if clicked inventory is {hv3gui_generating}:
@@ -46,8 +45,7 @@ on leave:
 		delete {temp.hv3_list.%player%}
 #!=======[DO NOT EDIT]=======
 
-#*コマンド
-
+#*コマンド============
 #!HOME
 command /homev3 [<text>] [<text>] [<text>]:
 	permission: admin
@@ -63,16 +61,16 @@ command /homev3 [<text>] [<text>] [<text>]:
 			send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!"
 			send "&7例: &a/homev3 ringohouse"
 			stop
-		
 		if arg-1 is set:
+
+			#*Help
 			if arg-1 is "help":
 				homev3help(player)
 				stop
-			
+			set {_uuid} to player's uuid
 			set {_arg2} to arg-2
 			#*Home warp
 			if arg-1 is "warp":
-				set {_uuid} to player's uuid
 				permcheck(player)
 				set {_x} to {_arg2}
 				set {_n} to 1
@@ -97,7 +95,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 			
 			#*Home delete
 			if arg-1 is "delete":
-				set {_uuid} to player's uuid
 				set {_x} to {_arg2}
 				permcheck(player)
 				set {_n} to 1
@@ -138,7 +135,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "Deleting home data...", "info-red")
 				debug(player, "looping(12)", "info")
 				set {_n} to 1
-				set {_uuid} to player's uuid
 				send "UUID: %{_uuid}%"
 				loop 13 times:
 					debug(player, "[Home%{_n}%]: %{homev3.name.%{_n}%.%{_uuid}%}% (%{homev3.loc.%{_n}%.%{_uuid}%}%)", "info")
@@ -161,7 +157,6 @@ command /homev3 [<text>] [<text>] [<text>]:
 			#*Home Share
 			if arg-1 is "share":
 				permcheck(player)
-				set {_uuid} to player's uuid
 				set {_x} to {_arg2}
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
@@ -277,7 +272,6 @@ function homev3help(p: player):
 	send "&a/homev3 &dget &aホーム名 &7- シェアされたホームを入手します! &e[NEW!]" to {_p}
 	send "&c/homev3 reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
 	send "&b=================" to {_p}
-
 
 #?home表示(create cache)
 function homev3list(p: player):
@@ -425,7 +419,6 @@ function hv3setpi(p: player): #*Player info item
 	set line 2 of lore of {_pi} to "&7あなたがホームをシェアした回数: %{_hv3_count.share.%{_uuid}%}%"
 	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{_hv3_count.get.%{_uuid}%}%"
 	set line 4 of lore of {_pi} to "&7text2"
-	#TODO: シェア数、Getされた数をログに残して表示させる
 	set slot 44 of {homev3_gui.%{_p}%} to {_pi}
 
 function hv3resetcountdown(p: player):
