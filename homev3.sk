@@ -1,14 +1,11 @@
-#HomeV3
-#home.sk、homev2を改良したSkript
+#HomeV3 - home.sk、homev2を改良したSkript
 #Created by ringo360xd
-
 #!=======[DO NOT EDIT]=======
 Variables:
 	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
 	#*Version
 	{hv3.version} = "&dV3&8.0.2"
-
 #?Skript読み込み時のメッセージ
 on skript load:
 	send "[HomeV3] Successfully Enabled HomeV3" to console
@@ -17,22 +14,20 @@ on skript load:
 	send "Created by ringoXD" to console
 	send "Github: &bhttps://github.com/MCSV-Network/HomeV3" to console
 	send "&b=================" to console
-
 #?Make Generating Screen
 	if {hv3gui_generating} is not set:
 		wait a tick
-		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
-		set {_glass} to light gray glass pane named ""
+		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &7| &8準備中..."
+		set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
 		set {_s} to 0
 		loop 5 times:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
 		send "[HomeV3] Created HomeV3 Generating Screen!" to console
-
 command /hv3manuallycreateGenScreen:
 	permission: admin
 	trigger:
-		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &8| &7準備中..."
+		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &7| &8準備中..."
 		set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
 		set {_s} to 0
 		loop 5 times:
