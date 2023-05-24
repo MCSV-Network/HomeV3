@@ -185,9 +185,14 @@ command /homev3 [<text>] [<text>] [<text>]:
 								debug(player, "loc: %{hv3_share.loc.%{_r}%}%", "info")
 								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
 								debug(player, "name: %{hv3_share.name.%{_r}%}%", "info")
+								set {hv3_share.logger.c1_uuid.%{_r}%} to {_uuid}
+								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%", "info")
 								set {_done} to true
 								debug(player, "Done", "info")
-							debug(player, "Failed. Retrying", "warn")
+								wait a tick
+							else:
+								debug(player, "Failed. Retrying", "error")
+								wait a tick
 						send "%{homev3.prefix}%&e%{_x}%&aの共有コードを生成しました!"
 						send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
 						send "&c[!]このコードは10分後に失効します!!"
