@@ -168,7 +168,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						set {_done} to false
 						while {_done} is false:
 							debug(player, "Looping(Generating)", "info")
-							set {_r} to random5num(player)
+							set {_r} to randomnumgen(5)
 							if {homev3.share::%{_r}%} is not set:
 								set {homev3.share::%{_r}%} to {_r}
 								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
