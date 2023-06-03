@@ -215,6 +215,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_uuid} to {hv3_share.logger.c1_uuid.%{_r}%}
 				add 1 to {_hv3_count.get.%{_uuid}%}
 				homev3set(player, {_hv3n}, {_hv3l})
+			#*Home Setspawn
+			if arg-1 is "setspawn":
+				send "未完成"
 			#*HOME GUI
 			if arg-1 is "gui":
 				if {homev3_gui.%player%} is not set:
