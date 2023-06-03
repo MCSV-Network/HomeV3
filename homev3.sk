@@ -152,6 +152,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "Initializing HomeV3 Amount", "info")
 				set {homev3.amount.%{_uuid}%} to 0
 				debug(player, "Success!", "info-green")
+				debug(player, "Deleting HomeV3 RespawnLoc", "info")
+				delete {homev3.spawnloc.%{_uuid}%}
+				debug(player, "Success!", "info-green")
 				homev3list_lite(player)
 				wait a second
 				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
