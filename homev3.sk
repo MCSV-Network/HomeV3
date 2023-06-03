@@ -71,6 +71,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 			set {_arg2} to arg-2
 			#*Home warp
 			if arg-1 is "warp":
+				if arg-2 is not set:
+					send "%{homev3.prefix}%&cホーム名を指定してください!"
+					stop
 				permcheck(player)
 				set {_x} to {_arg2}
 				set {_n} to 1
@@ -217,7 +220,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 				homev3set(player, {_hv3n}, {_hv3l})
 			#*Home Setspawn
 			if arg-1 is "setspawn":
-				send "未完成"
+				if arg-2 is not set:
+					send "%{homev3.prefix}%&cホーム名を指定してください!"
+					stop
 			#*HOME GUI
 			if arg-1 is "gui":
 				if {homev3_gui.%player%} is not set:
