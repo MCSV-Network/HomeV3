@@ -249,6 +249,13 @@ on respawn:
 	set {_uuid} to player's uuid
 	if {homev3.spawnloc.%{_uuid}%} is set:
 		teleport player to {homev3.spawnloc.%{_uuid}%}
+#?DEBUG
+command /removehv3respawn:
+	permission: admin
+	trigger:
+		set {_uuid} to player's uuid
+		delete {homev3.spawnloc.%{_uuid}%}
+		send "Success"
 #!=======[HV3-RESPAWN]=======
 
 #!=======[HV3-GUI]=======
