@@ -223,6 +223,15 @@ command /homev3 [<text>] [<text>] [<text>]:
 				if arg-2 is not set:
 					send "%{homev3.prefix}%&cホーム名を指定してください!"
 					stop
+				permcheck(player)
+				set {_n} to 1
+				loop {homev3.limitcount.%player%} time:
+					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
+						set {homev3.spawnloc.%{_uuid}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+						send "%{homev3.prefix}%&aリスポーン地点を%{homev3.name.%{_n}%.%{_uuid}%}%に設定しました!"
+						stop
+					add 1 to {_n}
+				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
 			#*HOME GUI
 			if arg-1 is "gui":
 				if {homev3_gui.%player%} is not set:
@@ -233,6 +242,14 @@ command /homev3 [<text>] [<text>] [<text>]:
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
+
+
+#!=======[HV3-RESPAWN]=======
+on respawn:
+	set {_uuid} to player's uuid
+	if {homev3.spawnloc.%{_uuid}%} is set:
+		teleport player to {homev3.spawnloc.%{_uuid}%}
+#!=======[HV3-RESPAWN]=======
 
 #!=======[HV3-GUI]=======
 on inventory click:
