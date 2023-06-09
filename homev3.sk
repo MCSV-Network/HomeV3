@@ -123,6 +123,27 @@ command /homev3 [<text>] [<text>] [<text>]:
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
 				stop
+			#*Home Debug
+			if arg-1 is "debug":
+				permcheck(player)
+				send ""
+				send "HomeV3-Debug"
+				send ""
+				send "homev3.amount -> &a%{homev3.amount.%{_uuid}%}%"
+				send "homev3.maxamount -> &a%{homev3.limitcount.%player%}%"
+				homev3list(player)
+				wait a tick
+				send ""
+				send "registered home -> &a%{temp.hv3_list.%player%}%"
+				set {_n} to 1
+				send "HomeList:"
+				loop {homev3.limitcount.%player%} time:
+					send "%{_n}%. -> &a%{homev3.name.%{_n}%.%{_uuid}%}%"
+					send "(Loc -> &a%{homev3.name.%{_n}%.%{_uuid}%}%&r)"
+					send ""
+					wait a tick
+				send "END"
+				send ""
 			#*Home Reset
 			if arg-1 is "reset":
 				if {homev3.reset.confirm.%player%} is not set:
