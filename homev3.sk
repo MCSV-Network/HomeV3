@@ -294,6 +294,9 @@ on inventory click:
 	if name of event-item is "&c閉じる":
 		send "close"
 		close player's inventory
+	if name of event-item is "&bHome&dV3&cを&lリセット&r&cする!":
+		send "reset"
+		hv3gui_menu(player, "reset")
 #!=======[HV3-GUI]=======
 
 
@@ -455,10 +458,10 @@ function buildhv3gui(p: player):
 		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
 		add 1 to {_s}
 		wait a tick
-	set slot 43 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
+	set slot 53 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
 	set slot 19 of {homev3_gui.%{_p}%} to bookshelf named "&a登録したホームの一覧"
 	set slot 21 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
-	set slot 23 of {homev3_gui.%{_p}%} to book named "&bHome&dV3&aの使い方"
+	set slot 23 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
 	set slot 25 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
@@ -480,8 +483,13 @@ function hv3setpi(p: player): #*Player info item
 	set line 2 of lore of {_pi} to "&7あなたがホームをシェアした回数: %{_hv3_count.share.%{_uuid}%}%"
 	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{_hv3_count.get.%{_uuid}%}%"
 	set line 4 of lore of {_pi} to "&7text2"
-	set slot 44 of {homev3_gui.%{_p}%} to {_pi}
+	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
 
+function hv3gui_menu(p: player, mode: reset = null):
+	if {_mode} is "reset":
+		set {_hv3.menu.%{_p}%} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
+		set slot 11 of {_hv3.menu.%{_p}%} to emerald block named "&aリセットする"
+		set slot 15 of {_hv3.menu.%{_p}%} to redstone block named "&cリセットしない"
 function hv3resetcountdown(p: player):
 	wait 30 seconds
 	if {homev3.reset.confirm.%{_p}%} is set:
