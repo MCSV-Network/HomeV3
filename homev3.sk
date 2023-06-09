@@ -252,6 +252,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				loop {homev3.limitcount.%player%} time:
 					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
 						set {homev3.spawnloc.%{_uuid}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+						set {homev3.spawnname.%{_uuid}%} to {homev3.name.%{_n}%.%{_uuid}%}
 						send "%{homev3.prefix}%&aリスポーン地点を%{homev3.name.%{_n}%.%{_uuid}%}%に設定しました!"
 						stop
 					add 1 to {_n}
@@ -273,12 +274,15 @@ on respawn:
 	set {_uuid} to player's uuid
 	if {homev3.spawnloc.%{_uuid}%} is set:
 		teleport player to {homev3.spawnloc.%{_uuid}%}
+		send "&7おかえりなさい!"
+		send "%{homev3.prefix}%&aリスポーン地点(%{homev3.spawnname.%{_uuid}%}%)にテレポートしました!"
 #?DEBUG
 command /removehv3respawn:
 	permission: admin
 	trigger:
 		set {_uuid} to player's uuid
 		delete {homev3.spawnloc.%{_uuid}%}
+		delete {homev3.spawnname.%{_uuid}%}
 		send "Success"
 #!=======[HV3-RESPAWN]=======
 
