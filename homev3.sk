@@ -302,11 +302,29 @@ on inventory click:
 		cancel event
 		send "Clicked %event-item%"
 	if clicked slot is 53:
-		send "close"
+		send "close(53)"
 		close player's inventory
 	if clicked slot is 25:
-		send "reset menu"
+		send "reset(25)"
 		hv3gui_menu(player, "reset")
+	if clicked slot is 19:
+		send "homelist(19)"
+		hv3gui_menu(player, "homelist")
+	if clicked slot is 21:
+		send "homedel(19)"
+		hv3gui_menu(player, "homedelete")
+	if clicked slot is 23:
+		send "homeset(23)"
+		hv3gui_menu(player, "homelist")
+	if clicked slot is 31:
+		send "homeshare(31)"
+		hv3gui_menu(player, "homeshare")
+	if clicked slot is 29:
+		send "homewarp(29)"
+		hv3gui_menu(player, "homewarp")
+	if clicked slot is 33:
+		send "homeget(33)"
+		hv3gui_menu(player, "homeget")
 #!=======[HV3-GUI]=======
 
 
