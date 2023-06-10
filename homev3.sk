@@ -153,6 +153,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				debug(player, "Success!", "info-green")
 				debug(player, "Deleting HomeV3 RespawnLoc", "info")
 				delete {homev3.spawnloc.%{_uuid}%}
+				delete {homev3.spawnname.%{_uuid}%}
 				debug(player, "Success!", "info-green")
 				homev3list_lite(player)
 				wait a second
