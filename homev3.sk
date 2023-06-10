@@ -301,10 +301,10 @@ on inventory click:
 	if clicked inventory is {homev3_gui.%player%}:
 		cancel event
 		send "Clicked %event-item%"
-	if name of event-item is "&c閉じる":
+	if clicked slot is 53:
 		send "close"
 		close player's inventory
-	if name of event-item is "&bHome&dV3&cを&lリセット&r&cする!":
+	if clicked slot is 25:
 		send "reset menu"
 		hv3gui_menu(player, "reset")
 #!=======[HV3-GUI]=======
