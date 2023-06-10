@@ -291,11 +291,10 @@ command /removehv3respawn:
 on inventory click:
 	if clicked inventory is {homev3_gui.%player%}:
 		cancel event
+		send "Clicked %event-item%"
 	if name of event-item is "&c閉じる":
-		send "close"
 		close player's inventory
 	if name of event-item is "&bHome&dV3&cを&lリセット&r&cする!":
-		send "reset"
 		hv3gui_menu(player, "reset")
 #!=======[HV3-GUI]=======
 
