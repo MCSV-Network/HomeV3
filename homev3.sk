@@ -275,6 +275,9 @@ on respawn:
 	set {_uuid} to player's uuid
 	if {homev3.spawnloc.%{_uuid}%} is set:
 		teleport player to {homev3.spawnloc.%{_uuid}%}
+		if {homev3.spawnname.%{_uuid}%} is not set:
+			send "&cエラーが発生しました。"
+			debug(player, "homev3.spawnname is null." "error")
 		send "&7おかえりなさい!"
 		send "%{homev3.prefix}%&aリスポーン地点(%{homev3.spawnname.%{_uuid}%}%)にテレポートしました!"
 #?DEBUG
