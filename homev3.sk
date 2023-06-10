@@ -22,7 +22,7 @@ on skript load:
 		loop 5 times:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
-		send "[HomeV3] Created HomeV3 Generating Screen!" to console
+		send "[HomeV3] Generated HomeV3 Generating Screen!" to console
 command /hv3manuallycreateGenScreen:
 	permission: admin
 	trigger:
@@ -32,8 +32,8 @@ command /hv3manuallycreateGenScreen:
 		loop 5 times:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
-		send "[HomeV3] Created HomeV3 Generating Screen!" to console
-		send "&a[HomeV3] Created HomeV3 Generating Screen!" to player
+		send "[HomeV3] Generated HomeV3 Generating Screen!" to console
+		send "&a[HomeV3] Generated HomeV3 Generating Screen!" to player
 #?Cancel Inventory Click
 on inventory click:
 	if clicked inventory is {hv3gui_generating}:
@@ -279,8 +279,32 @@ command /homev3admin [<text>]:
 			send "&7/homev3admion (deletegui/deletespawn/gengui)"
 			stop
 		if arg-1 is "deletegui":
-			send ""
-
+			delete {homev3_gui.%player%}
+			send "homev3_guiを削除しました。"
+			stop
+		if arg-1 is "deletespawn":
+			set {_uuid} to player's uuid
+			delete {homev3.spawnloc.%{_uuid}%}
+			delete {homev3.spawnname.%{_uuid}%}
+			send "homev3のスポーン設定を削除しました。"
+			stop
+		if arg-1 is "gengui":
+			send "GUIを生成中..."
+			debug(player, "Manual Generating hv3gui...")
+			set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &7| &8準備中..."
+			set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
+			set {_s} to 0
+			loop 5 times:
+				set slot {_s} of {hv3gui_generating} to {_glass}
+				add 1 to {_s}
+			send "&a[HomeV3] Generated HomeV3 Generating Screen!" to player
+			wait a tick
+			debug(player, "Manual Generating hv3gui_homereset...")
+			set {hv3gui_resetconfirm} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
+			set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
+			set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
+			debug(player, "Success!", "info-green")
+			send "完了"
 
 #!=======[HV3-RESPAWN]=======
 on respawn:
@@ -292,19 +316,6 @@ on respawn:
 			debug(player, "homev3.spawnname is null.", "error")
 		send "&7おかえりなさい!"
 		send "%{homev3.prefix}%&aリスポーン地点(%{homev3.spawnname.%{_uuid}%}%)にテレポートしました!"
-#?DEBUG
-command /removehv3respawn:
-	permission: admin
-	trigger:
-		set {_uuid} to player's uuid
-		delete {homev3.spawnloc.%{_uuid}%}
-		delete {homev3.spawnname.%{_uuid}%}
-		send "Success"
-
-command /removehv3gui:
-	permission: admin
-	trigger:
-		delete {homev3_gui.%player%}
 #!=======[HV3-RESPAWN]=======
 
 #!=======[HV3-GUI]=======
