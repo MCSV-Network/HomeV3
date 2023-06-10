@@ -276,8 +276,10 @@ command /homev3admin [<text>]:
 	trigger:
 		if arg-1 is not set:
 			send "&carg-1が指定されていません。"
+			send "&7/homev3admion (deletegui/deletespawn/gengui)"
 			stop
-		
+		if arg-1 is "deletegui":
+			send ""
 
 
 #!=======[HV3-RESPAWN]=======
