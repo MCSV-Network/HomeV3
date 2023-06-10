@@ -488,7 +488,7 @@ function hv3setpi(p: player): #*Player info item
 	set line 4 of lore of {_pi} to "&7text2"
 	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
 
-function hv3gui_menu(p: player, mode: reset = null):
+function hv3gui_menu(p: player, mode: text = null):
 	if {_mode} is "reset":
 		set {_hv3.menu.%{_p}%} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
 		set slot 11 of {_hv3.menu.%{_p}%} to emerald block named "&aリセットする"
