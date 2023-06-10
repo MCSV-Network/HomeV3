@@ -272,9 +272,12 @@ command /homev3 [<text>] [<text>] [<text>]:
 
 #!ADMIN COMMAND==========================================================================
 command /homev3admin [<text>]:
-	permission admin
+	permission: admin
 	trigger:
-		if arg-1 is not:
+		if arg-1 is not set:
+			send "&carg-1が指定されていません。"
+			stop
+		
 
 
 #!=======[HV3-RESPAWN]=======
