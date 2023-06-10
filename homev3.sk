@@ -516,11 +516,14 @@ function hv3setpi(p: player): #*Player info item
 function hv3gui_menu(p: player, mode: text = "null"):
 	if {_mode} is "null":
 		send "&cエラーが発生しました。" to {_p}
-		debug({_p}, "hv3gui_menu mode is null.", "error")
+		debug({_p}, "hv3gui_menu: null", "error")
 	if {_mode} is "reset":
 		set {_hv3.menu.%{_p}%} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
 		set slot 11 of {_hv3.menu.%{_p}%} to emerald block named "&aリセットする"
 		set slot 15 of {_hv3.menu.%{_p}%} to redstone block named "&cリセットしない"
+	else:
+		send "&cエラーが発生しました。" to {_p}
+		debug({_p}, "hv3gui_menu: mode not found", "error")
 function hv3resetcountdown(p: player):
 	wait 30 seconds
 	if {homev3.reset.confirm.%{_p}%} is set:
