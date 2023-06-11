@@ -76,10 +76,10 @@ command /homev3 [<text>] [<text>] [<text>]:
 				permcheck(player)
 				set {_x} to {_arg2}
 				set {_n} to 1
-				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				debug(player, "count: %{homev3.limitcount.%player%}%")
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
-						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)", "info")
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)")
 						teleport player to {homev3.loc.%{_n}%.%{_uuid}%}
 						send "%{homev3.prefix}% &a%{homev3.name.%{_n}%.%{_uuid}%}%にテレポートしました!"
 						delete {homev3.limitcount.%player%}
@@ -100,17 +100,17 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_x} to {_arg2}
 				permcheck(player)
 				set {_n} to 1
-				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				debug(player, "count: %{homev3.limitcount.%player%}%")
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
-						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)", "info")
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)")
 						#?DELETE HOME=
 						set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
 						delete {homev3.name.%{_n}%.%{_uuid}%}
 						delete {homev3.loc.%{_n}%.%{_uuid}%}
-						debug(player, "deleted. name: %{homev3.name.%{_n}%.%{_uuid}%}%, loc: %{homev3.loc.%{_n}%.%{_uuid}%}%", "info")
-						debug(player, "None = Successfully Deleted", "info")
-						debug(player, "deleting amount (%{homev3.amount.%{_uuid}%}%)", "info")
+						debug(player, "deleted. name: %{homev3.name.%{_n}%.%{_uuid}%}%, loc: %{homev3.loc.%{_n}%.%{_uuid}%}%")
+						debug(player, "None = Successfully Deleted")
+						debug(player, "deleting amount (%{homev3.amount.%{_uuid}%}%)")
 						remove 1 from {homev3.amount.%{_uuid}%}
 						debug(player, "Success(%{homev3.amount.%{_uuid}%}%)", "info-green")
 						#?===
@@ -135,7 +135,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					stop
 				send "&c[!]HomeV3のデータをリセット中..."
 				debug(player, "Deleting home data...", "info-red")
-				debug(player, "looping(12)", "info")
+				debug(player, "looping(12)")
 				set {_n} to 1
 				send "UUID: %{_uuid}%"
 				loop 13 times:
@@ -146,13 +146,13 @@ command /homev3 [<text>] [<text>] [<text>]:
 					debug(player, "[Home%{_n}%]: Deleted %{_tmp.hv3n}% (%{_tmp.hv3l}%).", "info-red")
 					add 1 to {_n}
 					wait a tick
-				debug(player, "Initializing HomeV3 GUI", "info")
+				debug(player, "Initializing HomeV3 GUI")
 				delete {homev3_gui.%player%}
 				debug(player, "Success!", "info-green")
-				debug(player, "Initializing HomeV3 Amount", "info")
+				debug(player, "Initializing HomeV3 Amount")
 				set {homev3.amount.%{_uuid}%} to 0
 				debug(player, "Success!", "info-green")
-				debug(player, "Deleting HomeV3 RespawnLoc", "info")
+				debug(player, "Deleting HomeV3 RespawnLoc")
 				delete {homev3.spawnloc.%{_uuid}%}
 				delete {homev3.spawnname.%{_uuid}%}
 				debug(player, "Success!", "info-green")
@@ -166,27 +166,27 @@ command /homev3 [<text>] [<text>] [<text>]:
 				permcheck(player)
 				set {_x} to {_arg2}
 				set {_n} to 1
-				debug(player, "count: %{homev3.limitcount.%player%}%", "info")
+				debug(player, "count: %{homev3.limitcount.%player%}%")
 				loop {homev3.limitcount.%player%} time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
-						debug(player, "found.", "info")
+						debug(player, "found.")
 						#?Generate
 						send "%{homev3.prefix}%&7生成中..."
 						set {_done} to false
 						while {_done} is false:
-							debug(player, "Looping(Generating)", "info")
+							debug(player, "Looping(Generating)")
 							set {_r} to randomnumgen(5)
 							if {homev3.share::%{_r}%} is not set:
 								set {homev3.share::%{_r}%} to {_r}
 								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
-								debug(player, "loc: %{hv3_share.loc.%{_r}%}%", "info")
+								debug(player, "loc: %{hv3_share.loc.%{_r}%}%")
 								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
-								debug(player, "name: %{hv3_share.name.%{_r}%}%", "info")
+								debug(player, "name: %{hv3_share.name.%{_r}%}%")
 								set {hv3_share.logger.c1_uuid.%{_r}%} to {_uuid}
 								add 1 to {_hv3_count.share.%{_uuid}%}
-								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%", "info")
+								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%")
 								set {_done} to true
-								debug(player, "Done", "info")
+								debug(player, "Done")
 								wait a tick
 							else:
 								debug(player, "Failed. Retrying", "error")
@@ -203,7 +203,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "%{homev3.prefix}%&7検索中..."
 				set {_s} to arg-2
 				if {homev3.share::%{_s}%} is set:
-					debug(player, "found(%{_s}%)", "info")
+					debug(player, "found(%{_s}%)")
 					set {_r} to {_s}
 				if {_r} is not set:
 					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
