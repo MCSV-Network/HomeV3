@@ -139,10 +139,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_n} to 1
 				send "UUID: %{_uuid}%"
 				loop 13 times:
-					debug(player, "[Home%{_n}%]: %{homev3.name.%{_n}%.%{_uuid}%}% (%{homev3.loc.%{_n}%.%{_uuid}%}%)", "info")
+					set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
+					set {_tmp.hv3l} to {homev3.loc.%{_n}%.%{_uuid}%}
 					delete {homev3.name.%{_n}%.%{_uuid}%}
 					delete {homev3.loc.%{_n}%.%{_uuid}%}
-					debug(player, "[Home%{_n}%]: Deleted", "info-red")
+					debug(player, "[Home%{_n}%]: Deleted %{_tmp.hv3n}% (%{_tmp.hv3l}%).", "info-red")
 					add 1 to {_n}
 					wait a tick
 				debug(player, "Initializing HomeV3 GUI", "info")
