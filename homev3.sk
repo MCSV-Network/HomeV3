@@ -543,7 +543,12 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 	if {_mode} is "reset":
 		send "menu_reset" to {_p}
 		close {_p}'s inventory
-		open {_hv3.menu.%{_p}%} to {_p}
+		open {hv3gui_resetconfirm} to {_p}
+	if {_mode} is "idk":
+		send "menu_idk" to {_p}
+		close {_p}'s inventory
+		open {hv3gui_resetconfirm} to {_p}
+
 	else:
 		send "&cエラーが発生しました。" to {_p}
 		debug({_p}, "hv3gui_menu: mode not found", "error")
