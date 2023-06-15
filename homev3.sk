@@ -183,7 +183,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
 								debug(player, "name: %{hv3_share.name.%{_r}%}%")
 								set {hv3_share.logger.c1_uuid.%{_r}%} to {_uuid}
-								add 1 to {_hv3_count.share.%{_uuid}%}
+								add 1 to {hv3_count.share.%{_uuid}%}
 								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%")
 								set {_done} to true
 								debug(player, "Done")
@@ -220,7 +220,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				set {_hv3n} to {hv3_share.name.%{_r}%}
 				set {_hv3l} to {hv3_share.loc.%{_r}%}
 				set {_uuid} to {hv3_share.logger.c1_uuid.%{_r}%}
-				add 1 to {_hv3_count.get.%{_uuid}%}
+				add 1 to {hv3_count.get.%{_uuid}%}
 				homev3set(player, {_hv3n}, {_hv3l})
 			#*Home Setspawn
 			if arg-1 is "setspawn":
@@ -531,8 +531,8 @@ function hv3setpi(p: player): #*Player info item
 	set line 1 of lore of {_pi} to "&7ホーム所有数: &a%{_curh}%&8/%{_maxh}%"
 	if {_curh} >= {_maxh}: #*所持数がmaxの時に赤文字化
 		set line 1 of lore of {_pi} to "&cホーム所有数: &c%{_curh}%&7/%{_maxh}%"
-	set line 2 of lore of {_pi} to "&7あなたがホームをシェアした回数: %{_hv3_count.share.%{_uuid}%}%"
-	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{_hv3_count.get.%{_uuid}%}%"
+	set line 2 of lore of {_pi} to "&7あなたがホームをシェアした回数: %{hv3_count.share.%{_uuid}%}%"
+	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{hv3_count.get.%{_uuid}%}%"
 	set line 4 of lore of {_pi} to "&7text2"
 	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
 
