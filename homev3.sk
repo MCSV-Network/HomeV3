@@ -23,6 +23,17 @@ on skript load:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
 		send "[HomeV3] Generated HomeV3 Generating Screen!" to console
+	if {hv3gui_resetconfirm} is not set:
+		set {hv3gui_resetconfirm} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
+		set {_glass} to light gray glass pane named "&7"
+		set {_s} to 0
+		loop 26 times:
+			set slot {_s} of {hv3gui_resetconfirm} to {_glass}
+			add 1 to {_s}
+			wait a tick
+		set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
+		set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
+		send "[HomeV3] Generated HomeV3 Resetconfirm Screen!" to console
 #?Cancel Inventory Click
 on inventory click:
 	if clicked inventory is {hv3gui_generating}:
@@ -289,7 +300,7 @@ command /homev3admin [<text>]:
 				add 1 to {_s}
 			send "&a[HomeV3] Generated HomeV3 Generating Screen!" to player
 			wait a tick
-			debug(player, "Manual Generating hv3gui_homereset...")
+			debug(player, "Manual Generating hv3gui homereset...")
 			set {hv3gui_resetconfirm} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
 			loop 26 times:
 				set {_glass} to light gray glass pane named "&7"
@@ -540,6 +551,10 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		close {_p}'s inventory
 		open {hv3gui_generating} to {_p}
 		debug({_p}, "hv3gui: generating homelist GUI")
+		set {hv3gui.player_homelist.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &7| &8ホーム一覧"
+		set {_glass} to light gray glass pane named "&7"
+		set {_s} to 0
+#		loop 53 times:
 		
 
 	else:
