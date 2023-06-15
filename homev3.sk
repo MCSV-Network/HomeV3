@@ -23,17 +23,6 @@ on skript load:
 			set slot {_s} of {hv3gui_generating} to {_glass}
 			add 1 to {_s}
 		send "[HomeV3] Generated HomeV3 Generating Screen!" to console
-command /hv3manuallycreateGenScreen:
-	permission: admin
-	trigger:
-		set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &7| &8準備中..."
-		set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
-		set {_s} to 0
-		loop 5 times:
-			set slot {_s} of {hv3gui_generating} to {_glass}
-			add 1 to {_s}
-		send "[HomeV3] Generated HomeV3 Generating Screen!" to console
-		send "&a[HomeV3] Generated HomeV3 Generating Screen!" to player
 #?Cancel Inventory Click
 on inventory click:
 	if clicked inventory is {hv3gui_generating}:
@@ -302,6 +291,8 @@ command /homev3admin [<text>]:
 			wait a tick
 			debug(player, "Manual Generating hv3gui_homereset...")
 			set {hv3gui_resetconfirm} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
+			loop 26 times:
+				set {_glass} to light gray glass pane named "&7"
 			set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
 			set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
 			debug(player, "Success!", "info-green")
@@ -544,10 +535,12 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		send "menu_reset" to {_p}
 		close {_p}'s inventory
 		open {hv3gui_resetconfirm} to {_p}
-	if {_mode} is "idk":
-		send "menu_idk" to {_p}
+	if {_mode} is "homelist":
+		send "menu_homelist" to {_p}
 		close {_p}'s inventory
-		open {hv3gui_resetconfirm} to {_p}
+		open {hv3gui_generating} to {_p}
+		debug({_p}, "hv3gui: generating homelist GUI")
+		
 
 	else:
 		send "&cエラーが発生しました。" to {_p}
