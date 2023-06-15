@@ -119,7 +119,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 						delete {homev3.limitcount.%player%}
 						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
 						homev3list_lite(player)
-						hv3setpi(player)
+						hv3event(player, "homeamountchange")
 						stop
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
@@ -486,7 +486,7 @@ function homev3set(p: player, x: text, l: location):
 			send "&7loc: %{homev3.loc.%{_n}%.%{_uuid}%}%" to {_p}
 			send "%{homev3.prefix}% &a新しいHome(&e%{homev3.name.%{_n}%.%{_uuid}%}%&a)を登録しました!" to {_p}
 			homev3list_lite({_p})
-			hv3setpi({_p})
+			hv3event({_p}, "homeamountchange")
 			delete {homev3.limitcount.%{_p}%}
 			stop
 		send "&ehome.number %{_n}% is set" to {_p}
@@ -539,6 +539,12 @@ function hv3setpi(p: player): #*Player info item
 	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{hv3_count.get.%{_uuid}%}%"
 	set line 4 of lore of {_pi} to "&7text2"
 	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
+
+hv3event(player, "homeamountchange")
+function hv3event(p: player, event: text):
+	if {_event} is "homeamountchange":
+		hv3setpi({_p})
+		delete {hv3gui.p_homelist.%{_p}%}
 
 function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 	if {_mode} is "null":
