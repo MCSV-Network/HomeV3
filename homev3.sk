@@ -12,7 +12,7 @@ on tab complete of "/homev3":
 	set tab completions for position 1 to "help", "warp", "set", "delete", "share", "get" and "reset"
 	if tab arg-1 is "warp" or "delete" or "share":
 		set {_n} to 1
-		set {_uuid} to {_p}'s uuid
+		set {_uuid} to player's uuid
 		debug(player, "processing")
 		loop 12 time:
 			if {homev3.name.%{_n}%.%{_uuid}%} is set:
@@ -124,13 +124,11 @@ command /homev3 [<text>] [<text>] [<text>]:
 				permcheck(player)
 				set {_x} to {_arg2}
 				set {_n} to 1
-				debug(player, "count: %{homev3.limitcount.%player%}%")
-				loop {homev3.limitcount.%player%} time:
+				loop 12 time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)")
 						teleport player to {homev3.loc.%{_n}%.%{_uuid}%}
 						send "%{homev3.prefix}% &a%{homev3.name.%{_n}%.%{_uuid}%}%にテレポートしました!"
-						delete {homev3.limitcount.%player%}
 						stop
 					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "warn")
 					add 1 to {_n}
