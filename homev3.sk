@@ -186,9 +186,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 								debug(player, "loc: %{hv3_share.loc.%{_r}%}%")
 								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
 								debug(player, "name: %{hv3_share.name.%{_r}%}%")
-								set {hv3_share.logger.c1_uuid.%{_r}%} to {_uuid}
+								set {hv3_share.uuid.%{_r}%} to {_uuid}
 								add 1 to {hv3_count.share.%{_uuid}%}
-								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%")
+								debug(player, "sharecountLogger-uuid: %{hv3_share.uuid.%{_uuid}%}%")
 								set {_done} to true
 								debug(player, "Done")
 								wait a tick
@@ -224,7 +224,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
 				set {_hv3n} to {hv3_share.name.%{_r}%}
 				set {_hv3l} to {hv3_share.loc.%{_r}%}
-				set {_uuid} to {hv3_share.logger.c1_uuid.%{_r}%}
+				set {_uuid} to {hv3_share.uuid.%{_r}%}
 				add 1 to {hv3_count.get.%{_uuid}%}
 				homev3set(player, {_hv3n}, {_hv3l})
 
