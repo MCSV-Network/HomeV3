@@ -3,16 +3,45 @@
 Variables:
 	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
-	#*Version
-	{hv3.version} = "&dV3&8.0.3"
+options:
+	version: 3.0.4
+	hv3api: https://github.com/MCSV-Network/HomeV3/raw/main/hv3version
+
+#*NOTIFY UPDATE
+on join:
+	if {hv3.update} is "true":
+		if player has permission "admin":
+			send "%{homev3.prefix}%&aNew version aviliable!"
+			send "&c{@version} &e-> &a%{hv3.latest}%"
+			send "&eDownload: &bhttps://github.com/MCSV-Network/HomeV3/"
+
 #?Skript読み込み時のメッセージ
 on skript load:
 	send "[HomeV3] Successfully Enabled HomeV3" to console
 	send "&b=================" to console
-	send "&bHome %{hv3.version}%" to console
+	send "&bHome&dV3 ({@version})" to console
 	send "Created by ringoXD" to console
 	send "Github: &bhttps://github.com/MCSV-Network/HomeV3" to console
 	send "&b=================" to console
+
+	#*CHECK UPDATE===
+	send "[HomeV3] Checking Updates..." to console
+	set {_v} to text from url "{@hv3api}"
+	if {_v} is not set:
+		send "[HomeV3] Failed to check new version! Check internet connection." to console
+		stop
+	if {_v} = "{@version}":
+		send "[HomeV3] No updates aviliable." to console
+		delete {hv3.update}
+		delete {hv3.latest}
+	else:
+		send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
+		set {hv3.update} to true
+		set {hv3.latest} to {_v}
+		send "Download: https://github.com/MCSV-Network/HomeV3/" to console	
+
+
+
 #?Make Generating Screen
 	if {hv3gui_generating} is not set:
 		wait a tick
@@ -34,6 +63,11 @@ on skript load:
 		set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
 		set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
 		send "[HomeV3] Generated HomeV3 Resetconfirm Screen!" to console
+
+
+
+
+
 #?Cancel Inventory Click
 on inventory click:
 	if clicked inventory is {hv3gui_generating}:
