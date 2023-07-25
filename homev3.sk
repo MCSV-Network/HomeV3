@@ -293,10 +293,13 @@ command /homev3 [<text>] [<text>] [<text>]:
 					open {hv3gui_generating} to player
 					stop
 				open {homev3_gui.%player%} to player
+
+
+
+
 			else:
 				send "&carg-2 error(unknown command)"
 				send "&a/homev3 help&7でコマンドを確認できます!"
-			
 #!Home Debug=============================================================================
 			if arg-1 is "debug":
 				permcheck(player)
@@ -311,10 +314,10 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "registered home -> &a%{temp.hv3_list.%player%}%"
 				set {_n} to 1
 				send "HomeList:"
-				loop {homev3.limitcount.%player%} time:
+				loop 12 time:
 					send "%{_n}%. -> &a%{homev3.name.%{_n}%.%{_uuid}%}%"
 					send "(Loc -> &a%{homev3.name.%{_n}%.%{_uuid}%}%&r)"
-					send ""
+					add 1 to {_n}
 					wait a tick
 				send "END"
 				send ""
