@@ -584,7 +584,7 @@ function hv3setpi(p: player): #*Player info item
 	set line 4 of lore of {_pi} to "&7text2"
 	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
 
-hv3event(player, "homeamountchange")
+#hv3event(player, "homeamountchange")
 
 function hv3event(p: player, event: text):
 	if {_event} is "homeamountchange":
