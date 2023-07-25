@@ -17,7 +17,6 @@ on tab complete of "/homev3":
 			if {homev3.name.%{_n}%.%{_uuid}%} is set:
 				add {homev3.name.%{_n}%.%{_uuid}%} to tab completions for position 2
 			add 1 to {_n}
-			wait a tick
 #!TAB COMPLETE
 
 
