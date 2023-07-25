@@ -40,8 +40,6 @@ on skript load:
 		set {hv3.latest} to {_v}
 		send "Download: https://github.com/MCSV-Network/HomeV3/" to console	
 
-
-
 #?Make Generating Screen
 	if {hv3gui_generating} is not set:
 		wait a tick
