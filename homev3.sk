@@ -112,14 +112,17 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "help":
 				homev3help(player)
 				stop
+			
+			#?Please ignore this
 			set {_uuid} to player's uuid
 			set {_arg2} to arg-2
+			#?==========================
+
 			#*Home warp
 			if arg-1 is "warp":
 				if arg-2 is not set:
 					send "%{homev3.prefix}%&cホーム名を指定してください!"
 					stop
-				permcheck(player)
 				set {_x} to {_arg2}
 				set {_n} to 1
 				loop 12 time:
@@ -135,18 +138,16 @@ command /homev3 [<text>] [<text>] [<text>]:
 
 			#*Home set
 			if arg-1 is "set":
-				set {_hv3l} to location of player
-				homev3set(player, {_arg2}, {_hv3l})
+				set {_l} to location of player
+				homev3set(player, {_arg2}, {_l})
 				stop
 			
 			#*Home delete
 			if arg-1 is "delete":
-				set {_x} to {_arg2}
-				permcheck(player)
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%")
-				loop {homev3.limitcount.%player%} time:
-					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+				loop 12 time:
+					if {_arg2} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)")
 						#?DELETE HOME=
 						set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
@@ -166,7 +167,84 @@ command /homev3 [<text>] [<text>] [<text>]:
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
 				stop
-			#*Home Reset
+			
+			#*Home Share
+			if arg-1 is "share":
+				set {_n} to 1
+				loop 12 time:
+					if {_arg2} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "found.")
+						#?Generate
+						send "%{homev3.prefix}%&7生成中..."
+						set {_done} to false
+						while {_done} is false:
+							debug(player, "Looping(Generating)")
+							set {_r} to randomnumgen(5)
+							if {homev3.share::%{_r}%} is not set:
+								set {homev3.share::%{_r}%} to {_r}
+								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+								debug(player, "loc: %{hv3_share.loc.%{_r}%}%")
+								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
+								debug(player, "name: %{hv3_share.name.%{_r}%}%")
+								set {hv3_share.logger.c1_uuid.%{_r}%} to {_uuid}
+								add 1 to {hv3_count.share.%{_uuid}%}
+								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%")
+								set {_done} to true
+								debug(player, "Done")
+								wait a tick
+							else:
+								debug(player, "Failed. Retrying", "error")
+								wait a tick
+						send "%{homev3.prefix}%&e%{_arg2}%&aの共有コードを生成しました!"
+						send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
+						send "&c[!]このコードは10分後に失効します!!"
+						hv3sharetimer({_r})
+						delete {homev3.limitcount.%player%}
+						stop
+					add 1 to {_n}
+
+			#*Home Get(share)
+			if arg-1 is "get":
+				send "%{homev3.prefix}%&7検索中..."
+				set {_s} to arg-2
+				if {homev3.share::%{_s}%} is set:
+					debug(player, "found(%{_s}%)")
+					set {_r} to {_s}
+				if {_r} is not set:
+					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
+					stop
+				if {hv3_share.name.%{_r}%} is not set:
+					debug(player, "oops! share.name.%{_r}% is not found", "error")
+					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
+					stop
+				if {hv3_share.loc.%{_r}%} is not set:
+					debug(player, "oops! share.loc.%{_r}% is not found", "error")
+					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
+					stop
+				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
+				set {_hv3n} to {hv3_share.name.%{_r}%}
+				set {_hv3l} to {hv3_share.loc.%{_r}%}
+				set {_uuid} to {hv3_share.logger.c1_uuid.%{_r}%}
+				add 1 to {hv3_count.get.%{_uuid}%}
+				homev3set(player, {_hv3n}, {_hv3l})
+
+			#*Home Setspawn
+			if arg-1 is "setspawn":
+				if arg-2 is not set:
+					send "%{homev3.prefix}%&cホーム名を指定してください!"
+					stop
+				set {_n} to 1
+				loop 12 time:
+					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
+						set {homev3.spawnloc.%{_uuid}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+						set {homev3.spawnname.%{_uuid}%} to {homev3.name.%{_n}%.%{_uuid}%}
+						send "%{homev3.prefix}%&aリスポーン地点を%{homev3.name.%{_n}%.%{_uuid}%}%に設定しました!"
+						stop
+					add 1 to {_n}
+				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
+			
+
+			#!Home Reset=======================
 			if arg-1 is "reset":
 				if {homev3.reset.confirm.%player%} is not set:
 					send "&c&l&m======&r&4[&e&lWARNING!&4]&c&l&m======"
@@ -205,82 +283,9 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
 				delete {homev3.reset.confirm.%player%}
 				stop
-			#*Home Share
-			if arg-1 is "share":
-				permcheck(player)
-				set {_x} to {_arg2}
-				set {_n} to 1
-				debug(player, "count: %{homev3.limitcount.%player%}%")
-				loop {homev3.limitcount.%player%} time:
-					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
-						debug(player, "found.")
-						#?Generate
-						send "%{homev3.prefix}%&7生成中..."
-						set {_done} to false
-						while {_done} is false:
-							debug(player, "Looping(Generating)")
-							set {_r} to randomnumgen(5)
-							if {homev3.share::%{_r}%} is not set:
-								set {homev3.share::%{_r}%} to {_r}
-								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
-								debug(player, "loc: %{hv3_share.loc.%{_r}%}%")
-								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
-								debug(player, "name: %{hv3_share.name.%{_r}%}%")
-								set {hv3_share.logger.c1_uuid.%{_r}%} to {_uuid}
-								add 1 to {hv3_count.share.%{_uuid}%}
-								debug(player, "sharecountLogger-uuid: %{hv3_share.logger.c1_uuid.%{_uuid}%}%")
-								set {_done} to true
-								debug(player, "Done")
-								wait a tick
-							else:
-								debug(player, "Failed. Retrying", "error")
-								wait a tick
-						send "%{homev3.prefix}%&e%{_x}%&aの共有コードを生成しました!"
-						send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
-						send "&c[!]このコードは10分後に失効します!!"
-						hv3sharetimer({_r})
-						delete {homev3.limitcount.%player%}
-						stop
-					add 1 to {_n}
-			#*Home Get(share)
-			if arg-1 is "get":
-				send "%{homev3.prefix}%&7検索中..."
-				set {_s} to arg-2
-				if {homev3.share::%{_s}%} is set:
-					debug(player, "found(%{_s}%)")
-					set {_r} to {_s}
-				if {_r} is not set:
-					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
-					stop
-				if {hv3_share.name.%{_r}%} is not set:
-					debug(player, "oops! share.name.%{_r}% is not found", "error")
-					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
-					stop
-				if {hv3_share.loc.%{_r}%} is not set:
-					debug(player, "oops! share.loc.%{_r}% is not found", "error")
-					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
-					stop
-				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
-				set {_hv3n} to {hv3_share.name.%{_r}%}
-				set {_hv3l} to {hv3_share.loc.%{_r}%}
-				set {_uuid} to {hv3_share.logger.c1_uuid.%{_r}%}
-				add 1 to {hv3_count.get.%{_uuid}%}
-				homev3set(player, {_hv3n}, {_hv3l})
-			#*Home Setspawn
-			if arg-1 is "setspawn":
-				if arg-2 is not set:
-					send "%{homev3.prefix}%&cホーム名を指定してください!"
-					stop
-				permcheck(player)
-				set {_n} to 1
-				loop {homev3.limitcount.%player%} time:
-					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
-						set {homev3.spawnloc.%{_uuid}%} to {homev3.loc.%{_n}%.%{_uuid}%}
-						set {homev3.spawnname.%{_uuid}%} to {homev3.name.%{_n}%.%{_uuid}%}
-						send "%{homev3.prefix}%&aリスポーン地点を%{homev3.name.%{_n}%.%{_uuid}%}%に設定しました!"
-						stop
-					add 1 to {_n}
-				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
+			#!Home Reset=======================
+
+
 			#*HOME GUI
 			if arg-1 is "gui":
 				if {homev3_gui.%player%} is not set:
