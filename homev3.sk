@@ -11,11 +11,12 @@ options:
 on tab complete of "/homev3":
 	set tab completions for position 1 to "help", "warp", "set", "delete", "share", "get" and "reset"
 	if tab arg-1 is "warp" or "delete" or "share":
-		debug(player, "tab")
 		set {_n} to 1
 		set {_uuid} to {_p}'s uuid
+		debug(player, "processing")
 		loop 12 time:
 			if {homev3.name.%{_n}%.%{_uuid}%} is set:
+				debug(player, "found")
 				add {homev3.name.%{_n}%.%{_uuid}%} to tab completions for position 2
 			add 1 to {_n}
 #!TAB COMPLETE
