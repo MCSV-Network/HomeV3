@@ -577,7 +577,7 @@ function hv3resetcountdown(p: player):
 
 #?Cancel Inventory Click
 on inventory click:
-	if clicked inventory is {hv3gui_generating} or {hv3gui.p_homelist.%player%}or {hv3gui.p_homedel.%player%}:
+	if clicked inventory is {hv3gui_generating} or {hv3gui.p_homelist.%player%} or {hv3gui.p_homedel.%player%}:
 		cancel event
 #!=======[HV3-GUI]=======
 on inventory click:
