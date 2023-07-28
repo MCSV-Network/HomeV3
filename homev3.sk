@@ -627,11 +627,11 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		if {_mode} is "homelist":
 			set {_name.gtmp} to "&bHome&dV3 &7| &8ホーム一覧"
 		if {_mode} is "homedelete":
-			set {_name.gtmp} to "&bHome&dV3 &7| &8削除するホームを選択してください!"
+			set {_name.gtmp} to "&c削除するホームを選択してください!"
 		if {_mode} is "homewarp":
-			set {_name.gtmp} to "&bHome&dV3 &7| &8ワープしたいホームを選択してください!"
+			set {_name.gtmp} to "&2ワープしたいホームを選択してください!"
 		if {_mode} is "homeshare":
-			set {_name.gtmp} to "&bHome&dV3 &7| &8共有したいホームを選択してください!"
+			set {_name.gtmp} to "&9共有したいホームを選択してください!"
 
 		set {_guitemplate.tmp} to chest inventory with 6 row named {_name.gtmp}
 		loop 53 times:
