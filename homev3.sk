@@ -581,7 +581,9 @@ on inventory click:
 		send "Clicked %event-item%"
 		set {_glass} to light gray glass pane named "&7"
 		if clicked slot is {_glass}:
+			debug(player, "Touch Glass")
 			stop
+
 		if clicked inventory is {homev3_gui.%player%}:
 			if clicked slot is 53:
 				send "close(53)"
