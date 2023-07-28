@@ -613,7 +613,7 @@ on inventory click:
 
 		if clicked inventory is {hv3gui.p_homedel.%player%}:
 			debug(player, "Checking HV3-HOMENAME")
-			set {_x} to "&a%clicked slot%"
+			set {_x} to "&a%event-item%"
 			send "CLICKED - %{_x}%"
 			set {_n} to 0
 			set {_uuid} to player's uuid
