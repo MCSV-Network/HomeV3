@@ -638,7 +638,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 			debug({_p}, "check homev3.name")
 			loop 12 times:
 				if {homev3.name.%{_n}%.%{_uuid}%} is set:
-					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to oak door named {homoev3.name.%{_n}%.%{_uuid}%}
+					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to oak door named "%{homev3.name.%{_n}%.%{_uuid}%}%"
 					add 1 to {_s}
 					if {_s} is 17 or 26 or 35 or 44:
 						debug({_p}, "reached %{_s}%", "warn")
