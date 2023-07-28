@@ -654,6 +654,8 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 				add 1 to {_n}
 				wait a tick
 
+			set slot 53 of {hv3gui.p_homelist.%{_p}%} to barrier named "&c閉じる"
+
 		close {_p}'s inventory
 		open {hv3gui.p_homelist.%{_p}%} to {_p}
 
