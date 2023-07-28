@@ -13,7 +13,7 @@ on tab complete of "/homev3":
 	if tab arg-1 is "warp" or "delete" or "share":
 		set {_n} to 1
 		set {_uuid} to player's uuid
-		loop 12 time:
+		loop 12 times:
 			if {homev3.name.%{_n}%.%{_uuid}%} is set:
 				add {homev3.name.%{_n}%.%{_uuid}%} to tab completions for position 2
 			add 1 to {_n}
@@ -609,16 +609,19 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 	if {_mode} is "null":
 		send "&cエラーが発生しました。" to {_p}
 		debug({_p}, "hv3gui_menu: null", "error")
+
+
 	if {_mode} is "reset":
 		send "menu_reset" to {_p}
 		close {_p}'s inventory
 		open {hv3gui_resetconfirm} to {_p}
+
 	if {_mode} is "homelist":
 		send "menu_homelist" to {_p}
 		close {_p}'s inventory
 		open {hv3gui_generating} to {_p}
-		debug({_p}, "hv3gui: generating homelist GUI")
 		if {hv3gui.p_homelist.%{_p}%} is not set:
+			debug({_p}, "hv3gui: generating homelist GUI")
 			set {hv3gui.p_homelist.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &7| &8ホーム一覧"
 			set {_glass} to light gray glass pane named "&7"
 			set {_s} to 0
@@ -626,8 +629,20 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 				set slot {_s} of {hv3gui.p_homelist.%{_p}%} to {_glass}
 				add 1 to {_s}
 				wait a tick
-
-
+			
+			set {_n} to 0
+			set {_s} to 10
+			set {_uuid} to {_p}'s uuid
+			debug({_p}, "check homev3.name")
+			loop 12 times:
+				if {homoev3.name.%{_n}%.%{_uuid}%} is set:
+					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to oak door named {homoev3.name.%{_n}%.%{_uuid}%}
+					add 1 to {_s}
+					if {_s} is 17 or 26 or 35 or 44:
+						debug({_p}, "reached %{_s}%", "warn")
+						add 2 to {_s}
+				add 1 to {_n}
+				wait a tick
 
 		close {_p}'s inventory
 		open {hv3gui.p_homelist.%{_p}%} to {_p}
