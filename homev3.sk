@@ -333,7 +333,9 @@ command /homev3admin [<text>]:
 			stop
 		if arg-1 is "deletegui":
 			delete {homev3_gui.%player%}
-			send "homev3_guiを削除しました。"
+			send "deleted homev3_gui"
+			delete {hv3gui.p_homelist.%player%}
+			send "deleted p_homelist"
 			stop
 		if arg-1 is "deletespawn":
 			set {_uuid} to player's uuid
