@@ -125,7 +125,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					stop
 				set {_x} to {_arg2}
 				set {_n} to 1
-				loop 12 time:
+				loop 13 time:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)")
 						teleport player to {homev3.loc.%{_n}%.%{_uuid}%}
@@ -146,7 +146,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 			if arg-1 is "delete":
 				set {_n} to 1
 				debug(player, "count: %{homev3.limitcount.%player%}%")
-				loop 12 time:
+				loop 13 time:
 					if {_arg2} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)")
 						#?DELETE HOME=
@@ -171,7 +171,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 			#*Home Share
 			if arg-1 is "share":
 				set {_n} to 1
-				loop 12 time:
+				loop 13 time:
 					if {_arg2} is {homev3.name.%{_n}%.%{_uuid}%}:
 						debug(player, "found.")
 						#?Generate
@@ -234,7 +234,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					send "%{homev3.prefix}%&cホーム名を指定してください!"
 					stop
 				set {_n} to 1
-				loop 12 time:
+				loop 13 time:
 					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
 						set {homev3.spawnloc.%{_uuid}%} to {homev3.loc.%{_n}%.%{_uuid}%}
 						set {homev3.spawnname.%{_uuid}%} to {homev3.name.%{_n}%.%{_uuid}%}
@@ -257,7 +257,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					stop
 				send "&c[!]HomeV3のデータをリセット中..."
 				debug(player, "Deleting home data...", "info-red")
-				debug(player, "looping(12)")
+				debug(player, "looping(13)")
 				set {_n} to 1
 				send "UUID: %{_uuid}%"
 				loop 13 times:
@@ -314,7 +314,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "registered home -> &a%{temp.hv3_list.%player%}%"
 				set {_n} to 1
 				send "HomeList:"
-				loop 12 time:
+				loop 13 time:
 					send "%{_n}%. -> &a%{homev3.name.%{_n}%.%{_uuid}%}%"
 					send "(Loc -> &a%{homev3.name.%{_n}%.%{_uuid}%}%&r)"
 					add 1 to {_n}
@@ -382,23 +382,23 @@ on respawn:
 #STONE: 1, BRONZE: 3, IRON: 4, GOLD: 5, DIAMOND: 6, PLATINA: 7, MITHRIL: 8, ORICHALCUM: 9, ADAMANTITE: 12
 function permcheck(p: player):
 	if {_p} has permission "homev3.homelimit.1":
-		set {homev3.limitcount.%{_p}%} to 1
+		set {homev3.limitcount.%{_p}%} to 2
 	if {_p} has permission "homev3.homelimit.3":
-		set {homev3.limitcount.%{_p}%} to 3
-	if {_p} has permission "homev3.homelimit.4":
 		set {homev3.limitcount.%{_p}%} to 4
-	if {_p} has permission "homev3.homelimit.5":
+	if {_p} has permission "homev3.homelimit.4":
 		set {homev3.limitcount.%{_p}%} to 5
-	if {_p} has permission "homev3.homelimit.6":
+	if {_p} has permission "homev3.homelimit.5":
 		set {homev3.limitcount.%{_p}%} to 6
-	if {_p} has permission "homev3.homelimit.7":
+	if {_p} has permission "homev3.homelimit.6":
 		set {homev3.limitcount.%{_p}%} to 7
-	if {_p} has permission "homev3.homelimit.8":
+	if {_p} has permission "homev3.homelimit.7":
 		set {homev3.limitcount.%{_p}%} to 8
-	if {_p} has permission "homev3.homelimit.9":
+	if {_p} has permission "homev3.homelimit.8":
 		set {homev3.limitcount.%{_p}%} to 9
+	if {_p} has permission "homev3.homelimit.9":
+		set {homev3.limitcount.%{_p}%} to 10
 	if {_p} has permission "homev3.homelimit.12" or "op":
-		set {homev3.limitcount.%{_p}%} to 12
+		set {homev3.limitcount.%{_p}%} to 13
 
 #?help homev3
 function homev3help(p: player):
@@ -419,7 +419,7 @@ function homev3list(p: player):
 	set {_n2} to 1
 	set {_uuid} to {_p}'s uuid
 	send "&7Creating list" to {_p}
-	loop 12 time:
+	loop 13 time:
 		if {homev3.name.%{_n}%.%{_uuid}%} is set:
 			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
 			add 1 to {_n2}
@@ -439,7 +439,7 @@ function homev3list_lite(p: player):
 	set {_n} to 1
 	set {_n2} to 1
 	set {_uuid} to {_p}'s uuid
-	loop 12 time:
+	loop 13 time:
 		if {homev3.name.%{_n}%.%{_uuid}%} is set:
 			set {_h.%{_n2}%} to {homev3.name.%{_n}%.%{_uuid}%}
 			add 1 to {_n2}
