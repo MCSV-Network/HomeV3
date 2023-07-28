@@ -624,7 +624,16 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		open {hv3gui_generating} to {_p}
 		set {_glass} to light gray glass pane named "&7"
 		set {_s} to 0
-		set {_guitemplate.tmp} to chest inventory with 6 row named "Error"
+		if {_mode} is "homelist":
+			set {_name.gtmp} to "&bHome&dV3 &7| &8ホーム一覧"
+		if {_mode} is "homedelete"
+			set {_name.gtmp} to "&bHome&dV3 &7| &8削除するホームを選択してください!"
+		if {_mode} is "homewarp"
+			set {_name.gtmp} to "&bHome&dV3 &7| &8ワープしたいホームを選択してください!"
+		if {_mode} is "homeshare"
+			set {_name.gtmp} to "&bHome&dV3 &7| &8共有したいホームを選択してください!"
+
+		set {_guitemplate.tmp} to chest inventory with 6 row named {_name.gtmp}
 		loop 53 times:
 			set slot {_s} of {_guitemplate.tmp} to {_glass}
 			add 1 to {_s}
@@ -637,7 +646,6 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		if {hv3gui.p_homelist.%{_p}%} is not set:
 			debug({_p}, "hv3gui: generating homelist GUI")
 			set {hv3gui.p_homelist.%{_p}%} to {_guitemplate.tmp}
-			set inventory name of {hv3gui.p_homelist.%{_p}%} to "&bHome&dV3 &7| &8ホーム一覧"
 			set {_n} to 0
 			set {_s} to 10
 			set {_uuid} to {_p}'s uuid
