@@ -331,6 +331,8 @@ command /homev3admin [<text>]:
 			send "deleted homev3_gui"
 			delete {hv3gui.p_homelist.%player%}
 			send "deleted p_homelist"
+			delete {hv3gui.p_homedel.%player%}
+			send "deleted p_homedel"
 			stop
 		if arg-1 is "deletespawn":
 			set {_uuid} to player's uuid
@@ -562,6 +564,7 @@ function hv3event(p: player, event: text):
 	if {_event} is "homeamountchange":
 		hv3setpi({_p})
 		delete {hv3gui.p_homelist.%{_p}%}
+		delete {hv3gui.p_homedel.%{_p}%}
 
 function hv3resetcountdown(p: player):
 	wait 30 seconds
@@ -574,7 +577,7 @@ function hv3resetcountdown(p: player):
 
 #?Cancel Inventory Click
 on inventory click:
-	if clicked inventory is {hv3gui_generating} or {hv3gui.p_homelist.%player%}:
+	if clicked inventory is {hv3gui_generating} or {hv3gui.p_homelist.%player%}or {hv3gui.p_homedel.%player%}:
 		cancel event
 #!=======[HV3-GUI]=======
 on inventory click:
