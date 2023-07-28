@@ -13,7 +13,7 @@ on tab complete of "/homev3":
 	if tab arg-1 is "warp" or "delete" or "share":
 		set {_n} to 1
 		set {_uuid} to player's uuid
-		loop 12 times:
+		loop 13 times:
 			if {homev3.name.%{_n}%.%{_uuid}%} is set:
 				add {homev3.name.%{_n}%.%{_uuid}%} to tab completions for position 2
 			add 1 to {_n}
@@ -636,7 +636,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 			set {_s} to 10
 			set {_uuid} to {_p}'s uuid
 			debug({_p}, "check homev3.name")
-			loop 12 times:
+			loop 13 times:
 				if {homev3.name.%{_n}%.%{_uuid}%} is set:
 					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to oak door named "%{homev3.name.%{_n}%.%{_uuid}%}%"
 					add 1 to {_s}
