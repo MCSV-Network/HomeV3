@@ -645,6 +645,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 					set {_z} to {homev3.loc.%{_n}%.%{_uuid}%}'s z-pos
 					set {_w} to {homev3.loc.%{_n}%.%{_uuid}%}'s world
 					set line 1 of lore of {_h} to "&e%{_w}% &7- &cX: %{_x}% &aY: %{_y}% &bZ: %{_z}%"
+
 					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to {_h}
 					add 1 to {_s}
 					if {_s} is 17 or 26 or 35 or 44:
