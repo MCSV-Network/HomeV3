@@ -74,11 +74,6 @@ on skript load:
 		set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
 		set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
 		send "[HomeV3] Generated HomeV3 Resetconfirm Screen!" to console
-
-#?Cancel Inventory Click
-on inventory click:
-	if clicked inventory is {hv3gui_generating}:
-		cancel event
 #?Delete
 on leave:
 	if {temp.hv3_list.%player%} is set:
@@ -573,9 +568,14 @@ function hv3resetcountdown(p: player):
 	if {homev3.reset.confirm.%{_p}%} is set:
 		delete {homev3.reset.confirm.%{_p}%}
 		send "%{homev3.prefix}%&a30秒以内に&e/homev3 reset&aが入力されなかったため、キャンセルされました。"  to {_p}
+
 #!=======[FUNCTIONS]=======
 
 
+#?Cancel Inventory Click
+on inventory click:
+	if clicked inventory is {hv3gui_generating} or {hv3gui.p_homelist.%player%}:
+		cancel event
 #!=======[HV3-GUI]=======
 on inventory click:
 	if clicked inventory is {homev3_gui.%player%}:
@@ -638,7 +638,14 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 			debug({_p}, "check homev3.name")
 			loop 13 times:
 				if {homev3.name.%{_n}%.%{_uuid}%} is set:
-					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to oak door named "%{homev3.name.%{_n}%.%{_uuid}%}%"
+
+					set {_h} to oak door named "&a%{homev3.name.%{_n}%.%{_uuid}%}%"
+					set {_x} to {homev3.loc.%{_n}%.%{_uuid}%}'s x-pos
+					set {_y} to {homev3.loc.%{_n}%.%{_uuid}%}'s y-pos
+					set {_z} to {homev3.loc.%{_n}%.%{_uuid}%}'s z-pos
+					set {_w} to {homev3.loc.%{_n}%.%{_uuid}%}'s world
+					set line 1 of lore of {_h} to "&e%{_w}% &7- &cX: %{_x}% &aY: %{_y}% &bZ: %{_z}%"
+					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to {_h}
 					add 1 to {_s}
 					if {_s} is 17 or 26 or 35 or 44:
 						debug({_p}, "reached %{_s}%", "warn")
@@ -652,5 +659,6 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 	else:
 		send "&cエラーが発生しました。" to {_p}
 		debug({_p}, "hv3gui_menu: mode not found", "error")
+
 
 #!=======[HV3-GUI]=======
