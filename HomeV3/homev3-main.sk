@@ -1,0 +1,276 @@
+#HomeV3 Main Skript - Created by ringo360xd
+
+#*コマンド============
+command /homev3 [<text>] [<text>] [<text>]:
+	permission: admin
+	permission message: HomeV3は製作中です!
+	executable by: players
+	trigger:
+		if arg-1 is not set:
+			if {temp.hv3_list.%player%} is not set:
+				debug(player, "hv3_list is none. Creating...", "warn")
+				homev3list(player)
+				wait a tick
+			send "&e登録済みのhome&7: &a%{temp.hv3_list.%player%}%"
+			send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!"
+			send "&7例: &a/homev3 ringohouse"
+			stop
+
+		if arg-1 is set:
+
+			#*Help
+			if arg-1 is "help":
+				homev3help(player)
+				stop
+			
+			#?Please ignore this
+			set {_uuid} to player's uuid
+			set {_arg2} to arg-2
+			#?==========================
+
+			#*Home warp
+			if arg-1 is "warp":
+				if arg-2 is not set:
+					send "%{homev3.prefix}%&cホーム名を指定してください!"
+					stop
+				set {_x} to {_arg2}
+				set {_n} to 1
+				loop 13 time:
+					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found)")
+						teleport player to {homev3.loc.%{_n}%.%{_uuid}%}
+						send "%{homev3.prefix}% &a%{homev3.name.%{_n}%.%{_uuid}%}%にテレポートしました!"
+						stop
+					debug(player, "arg-2 is not %{homev3.name.%{_n}%.%{_uuid}%}%.", "warn")
+					add 1 to {_n}
+				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
+				stop
+
+			#*Home set
+			if arg-1 is "set":
+				set {_l} to location of player
+				homev3set(player, {_arg2}, {_l})
+				stop
+			
+			#*Home delete
+			if arg-1 is "delete":
+				set {_n} to 1
+				debug(player, "count: %{homev3.limitcount.%player%}%")
+				loop 13 time:
+					if {_arg2} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "arg-2 is %{homev3.name.%{_n}%.%{_uuid}%}%. (found!)")
+						#?DELETE HOME=
+						set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
+						delete {homev3.name.%{_n}%.%{_uuid}%}
+						delete {homev3.loc.%{_n}%.%{_uuid}%}
+						debug(player, "deleted. name: %{homev3.name.%{_n}%.%{_uuid}%}%, loc: %{homev3.loc.%{_n}%.%{_uuid}%}%")
+						debug(player, "None = Successfully Deleted")
+						debug(player, "deleting amount (%{homev3.amount.%{_uuid}%}%)")
+						remove 1 from {homev3.amount.%{_uuid}%}
+						debug(player, "Success(%{homev3.amount.%{_uuid}%}%)", "info-green")
+						#?===
+						delete {homev3.limitcount.%player%}
+						send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
+						homev3list_lite(player)
+						hv3event(player, "homeamountchange")
+						stop
+					add 1 to {_n}
+				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
+				stop
+			
+			#*Home Share
+			if arg-1 is "share":
+				set {_n} to 1
+				loop 13 time:
+					if {_arg2} is {homev3.name.%{_n}%.%{_uuid}%}:
+						debug(player, "found.")
+						#?Generate
+						send "%{homev3.prefix}%&7生成中..."
+						set {_done} to false
+						while {_done} is false:
+							debug(player, "Looping(Generating)")
+							set {_r} to randomnumgen(5)
+							if {homev3.share::%{_r}%} is not set:
+								set {homev3.share::%{_r}%} to {_r}
+								set {hv3_share.loc.%{_r}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+								debug(player, "loc: %{hv3_share.loc.%{_r}%}%")
+								set {hv3_share.name.%{_r}%} to {homev3.name.%{_n}%.%{_uuid}%}
+								debug(player, "name: %{hv3_share.name.%{_r}%}%")
+								set {hv3_share.uuid.%{_r}%} to {_uuid}
+								add 1 to {hv3_count.share.%{_uuid}%}
+								debug(player, "sharecountLogger-uuid: %{hv3_share.uuid.%{_uuid}%}%")
+								set {_done} to true
+								debug(player, "Done")
+								wait a tick
+							else:
+								debug(player, "Failed. Retrying", "error")
+								wait a tick
+						send "%{homev3.prefix}%&e%{_arg2}%&aの共有コードを生成しました!"
+						send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
+						send "&c[!]このコードは10分後に失効します!!"
+						hv3sharetimer({_r})
+						delete {homev3.limitcount.%player%}
+						stop
+					add 1 to {_n}
+
+			#*Home Get(share)
+			if arg-1 is "get":
+				send "%{homev3.prefix}%&7検索中..."
+				set {_s} to arg-2
+				if {homev3.share::%{_s}%} is set:
+					debug(player, "found(%{_s}%)")
+					set {_r} to {_s}
+				if {_r} is not set:
+					send "%{homev3.prefix}%&cコードが見つかりませんでした...(コードが失効しているか、間違っています!)"
+					stop
+				if {hv3_share.name.%{_r}%} is not set:
+					debug(player, "oops! share.name.%{_r}% is not found", "error")
+					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
+					stop
+				if {hv3_share.loc.%{_r}%} is not set:
+					debug(player, "oops! share.loc.%{_r}% is not found", "error")
+					send "%{homev3.prefix}%&cエラーが発生しました! デバッグログを確認してください。"
+					stop
+				send "%{homev3.prefix}%&aコードが見つかりました! &e%{hv3_share.name.%{_r}%}%&aを登録中です..."
+				set {_hv3n} to {hv3_share.name.%{_r}%}
+				set {_hv3l} to {hv3_share.loc.%{_r}%}
+				set {_uuid} to {hv3_share.uuid.%{_r}%}
+				add 1 to {hv3_count.get.%{_uuid}%}
+				homev3set(player, {_hv3n}, {_hv3l})
+
+			#*Home Setspawn
+			if arg-1 is "setspawn":
+				if arg-2 is not set:
+					send "%{homev3.prefix}%&cホーム名を指定してください!"
+					stop
+				set {_n} to 1
+				loop 13 time:
+					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
+						set {homev3.spawnloc.%{_uuid}%} to {homev3.loc.%{_n}%.%{_uuid}%}
+						set {homev3.spawnname.%{_uuid}%} to {homev3.name.%{_n}%.%{_uuid}%}
+						send "%{homev3.prefix}%&aリスポーン地点を%{homev3.name.%{_n}%.%{_uuid}%}%に設定しました!"
+						stop
+					add 1 to {_n}
+				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
+			
+
+			#!Home Reset=======================
+			if arg-1 is "reset":
+				if {homev3.reset.confirm.%player%} is not set:
+					send "&c&l&m======&r&4[&e&lWARNING!&4]&c&l&m======"
+					send "&cこの操作を行うと、あなたが登録した&n全てのホーム&r&cが消去されます。"
+					send "&c&lこの操作を取り消す事はできません!"
+					send "&c実行する場合は、&n30秒以内に&r&cもう一度&e/homev3 reset&cを入力してください。"
+					send "&c&l&m===================="
+					hv3resetcountdown(player)
+					set {homev3.reset.confirm.%player%} to 1
+					stop
+				send "&c[!]HomeV3のデータをリセット中..."
+				debug(player, "Deleting home data...", "info-red")
+				debug(player, "looping(13)")
+				set {_n} to 1
+				send "UUID: %{_uuid}%"
+				loop 13 times:
+					set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
+					set {_tmp.hv3l} to {homev3.loc.%{_n}%.%{_uuid}%}
+					delete {homev3.name.%{_n}%.%{_uuid}%}
+					delete {homev3.loc.%{_n}%.%{_uuid}%}
+					debug(player, "[Home%{_n}%]: Deleted %{_tmp.hv3n}% (%{_tmp.hv3l}%).", "info-red")
+					add 1 to {_n}
+					wait a tick
+				debug(player, "Initializing HomeV3 GUI")
+				delete {homev3_gui.%player%}
+				debug(player, "Success!", "info-green")
+				debug(player, "Initializing HomeV3 Amount")
+				set {homev3.amount.%{_uuid}%} to 0
+				debug(player, "Success!", "info-green")
+				debug(player, "Deleting HomeV3 RespawnLoc")
+				delete {homev3.spawnloc.%{_uuid}%}
+				delete {homev3.spawnname.%{_uuid}%}
+				debug(player, "Success!", "info-green")
+				homev3list_lite(player)
+				wait a second
+				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
+				delete {homev3.reset.confirm.%player%}
+				stop
+			#!Home Reset=======================
+
+
+			#*HOME GUI
+			if arg-1 is "gui":
+				if {homev3_gui.%player%} is not set:
+					buildhv3gui(player)
+					open {hv3gui_generating} to player
+					stop
+				open {homev3_gui.%player%} to player
+
+
+
+
+			else:
+				send "&carg-2 error(unknown command)"
+				send "&a/homev3 help&7でコマンドを確認できます!"
+#!Home Debug=============================================================================
+			if arg-1 is "debug":
+				permcheck(player)
+				send ""
+				send "HomeV3-Debug"
+				send ""
+				send "homev3.amount -> &a%{homev3.amount.%{_uuid}%}%"
+				send "homev3.maxamount -> &a%{homev3.limitcount.%player%}%"
+				homev3list(player)
+				wait a tick
+				send ""
+				send "registered home -> &a%{temp.hv3_list.%player%}%"
+				set {_n} to 1
+				send "HomeList:"
+				loop 13 time:
+					send "%{_n}%. -> &a%{homev3.name.%{_n}%.%{_uuid}%}%"
+					send "(Loc -> &a%{homev3.name.%{_n}%.%{_uuid}%}%&r)"
+					add 1 to {_n}
+					wait a tick
+				send "END"
+				send ""
+#!Home Debug=============================================================================
+
+#!ADMIN COMMAND==========================================================================
+command /homev3admin [<text>]:
+	permission: admin
+	trigger:
+		if arg-1 is not set:
+			send "&carg-1が指定されていません。"
+			send "&7/homev3admion (deletegui/deletespawn/gengui)"
+			stop
+		if arg-1 is "deletegui":
+			delete {homev3_gui.%player%}
+			send "deleted homev3_gui"
+			delete {hv3gui.p_homelist.%player%}
+			send "deleted p_homelist"
+			delete {hv3gui.p_homedel.%player%}
+			send "deleted p_homedel"
+			stop
+		if arg-1 is "deletespawn":
+			set {_uuid} to player's uuid
+			delete {homev3.spawnloc.%{_uuid}%}
+			delete {homev3.spawnname.%{_uuid}%}
+			send "homev3のスポーン設定を削除しました。"
+			stop
+		if arg-1 is "gengui":
+			send "GUIを生成中..."
+			debug(player, "Manual Generating hv3gui...")
+			set {hv3gui_generating} to hopper inventory named "&bHome&dV3 &7| &8準備中..."
+			set {_glass} to light gray glass pane named "&7GUIを生成中です。しばらくお待ちください..."
+			set {_s} to 0
+			loop 5 times:
+				set slot {_s} of {hv3gui_generating} to {_glass}
+				add 1 to {_s}
+			send "&a[HomeV3] Generated HomeV3 Generating Screen!" to player
+			wait a tick
+			debug(player, "Manual Generating hv3gui homereset...")
+			set {hv3gui_resetconfirm} to chest inventory with 3 row named "&bHome&dV3&8を&4&lリセットしますか?"
+			loop 26 times:
+				set {_glass} to light gray glass pane named "&7"
+			set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
+			set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
+			debug(player, "Success!", "info-green")
+			send "完了"
