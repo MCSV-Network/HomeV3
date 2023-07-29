@@ -1,5 +1,38 @@
 #HomeV3 Main Skript - Created by ringo360xd
 
+#!=======[HV3-RESPAWN]=======
+on respawn:
+	set {_uuid} to player's uuid
+	if {homev3.spawnloc.%{_uuid}%} is set:
+		teleport player to {homev3.spawnloc.%{_uuid}%}
+		if {homev3.spawnname.%{_uuid}%} is not set:
+			send "&cエラーが発生しました。"
+			debug(player, "homev3.spawnname is null.", "error")
+		send "&7おかえりなさい!"
+		send "%{homev3.prefix}%&aリスポーン地点(%{homev3.spawnname.%{_uuid}%}%)にテレポートしました!"
+#!=======[HV3-RESPAWN]=======
+
+#?Delete
+on leave:
+	if {temp.hv3_list.%player%} is set:
+		delete {temp.hv3_list.%player%}
+	if {homev3.limitcount.%player%} is set:
+		delete {homev3.limitcount.%player%}
+
+
+
+#!TAB COMPLETE
+on tab complete of "/homev3":
+	set tab completions for position 1 to "help", "warp", "set", "delete", "share", "get" and "reset"
+	if tab arg-1 is "warp" or "delete" or "share":
+		set {_n} to 1
+		set {_uuid} to player's uuid
+		loop 13 times:
+			if {homev3.name.%{_n}%.%{_uuid}%} is set:
+				add {homev3.name.%{_n}%.%{_uuid}%} to tab completions for position 2
+			add 1 to {_n}
+#!TAB COMPLETE
+
 #*コマンド============
 command /homev3 [<text>] [<text>] [<text>]:
 	permission: admin
