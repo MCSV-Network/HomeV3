@@ -63,7 +63,7 @@ on skript load:
 command /hv3man [<text>] [<text>]:
 	permission: admin
 	trigger:
-		if command sender is console:
+		if command sender is not console:
 			send "&cコンソールからのみ実行できます!" to sender
 			stop
 		if arg-1 is not set:
