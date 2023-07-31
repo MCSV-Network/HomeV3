@@ -7,9 +7,6 @@ options:
 	version: 3.0.5-dev
 	hv3api: https://github.com/MCSV-Network/HomeV3/raw/main/hv3version
 
-
-
-
 #*NOTIFY UPDATE
 on join:
 	if {hv3.update} is "true":
@@ -17,14 +14,29 @@ on join:
 			send "%{homev3.prefix}%&aNew version aviliable!"
 			send "&c{@version} &e-> &a%{hv3.latest}%"
 			send "&eDownload: &bhttps://github.com/MCSV-Network/HomeV3/"
-
 #?Skript読み込み時のメッセージ
 on skript load:
 	send "[HomeV3] Enabling HomeV3" to console
-#	if directory "plugins/Skript/scripts/HomeV3" doesn't exist:
-#		send "[HomeV3] oops! HomeV3 files doesn't exist."
-#		send "[Homev3] Downloading HomeV3 files..."
-#		download file from "aa" to file "plugins/Skript/scripts/HomeV3/"
+	if file "plugins/Skript/scripts/core.sk" doesn't exist:
+		send "[HomeV3] oops! Core.sk doesn't exist."
+		send "[HomeV3] Downloading Core.sk..."
+		download file from "https://github.com/MCSV-Network/Core/raw/main/core.sk" to file "plugins/Skript/scripts/"
+		send "[HomeV3] Enabling Core.sk..."
+		enable script file "core.sk"
+		send "[HomeV3] Done!"
+	if directory "plugins/Skript/scripts/HomeV3" doesn't exist:
+		send "[HomeV3] oops! HomeV3 files doesn't exist."
+		send "[HomeV3] Downloading HomeV3 files..."
+		create directory "plugins/Skript/scripts/HomeV3"
+		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/"
+		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/"
+		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/"
+		send "[HomeV3] Enabling HomeV3 files..."
+		enable script file "/HomeV3/homev3-functions.sk"
+		enable script file "/HomeV3/homev3-gui.sk"
+		enable script file "/HomeV3/homev3-main.sk"
+		send "[HomeV3] Done!"
+
 	send "[HomeV3] Successfully Enabled HomeV3" to console
 	send "&b=================" to console
 	send "&bHome&dV3 ({@version})" to console
@@ -47,8 +59,6 @@ on skript load:
 		set {hv3.update} to true
 		set {hv3.latest} to {_v}
 		send "Download: https://github.com/MCSV-Network/HomeV3/" to console	
-
-
 
 
 
