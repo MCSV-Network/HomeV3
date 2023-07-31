@@ -60,8 +60,31 @@ on skript load:
 		set {hv3.latest} to {_v}
 		send "Download: https://github.com/MCSV-Network/HomeV3/" to console	
 
-
-
+command /hv3man [<text>] [<text>]:
+	permission: admin
+	trigger:
+		if command sender is console:
+			send "&cコンソールからのみ実行できます!" to sender
+			stop
+		if arg-1 is not set:
+			send "Usage: /hv3man reload (main/function/gui)"
+			stop
+		if arg-1 is "reload":
+			if arg-2 is not set:
+				send "Incorrect arguments."
+				stop
+			if arg-2 is "main":
+				reload script file "/HomeV3/homev3-main.sk"
+				send "Success!"
+				stop
+			if arg-2 is "function":
+				reload script file "/HomeV3/homev3-functions.sk"
+				send "Success!"
+				stop
+			if arg-2 is "gui":
+				reload script file "/HomeV3/homev3-gui.sk"
+				send "Success!"
+				stop
 #!=======[DO NOT EDIT]=======
 
 
