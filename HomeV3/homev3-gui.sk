@@ -141,14 +141,17 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		set {_shouldgen} to false
 		if {_mode} is "homelist":
 			if {hv3gui.p_homelist.%{_p}%} is not set:
+				debug({_p}, "homelist is not created!", "warn")
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&bHome&dV3 &7| &8ホーム一覧"
 		if {_mode} is "homedelete":
 			if {hv3gui.p_homedel.%{_p}%} is not set:
+				debug({_p}, "homedel is not created!", "warn")
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&c削除するホームを選択してください!"
 		if {_mode} is "homewarp":
 			if {hv3gui.p_homewarp.%{_p}%} is not set:
+				debug({_p}, "homewarp is not created!", "warn")
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&2ワープしたいホームを選択してください!"
 		if {_mode} is "homeshare":
@@ -196,6 +199,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 
 		close {_p}'s inventory
 		open {hv3gui.p_homelist.%{_p}%} to {_p}
+		debug({_p}, "open inv", "info")
 		stop
 
 	#!HOMEDELETE
@@ -247,7 +251,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 					set {_z} to {homev3.loc.%{_n}%.%{_uuid}%}'s z-pos
 					set {_w} to {homev3.loc.%{_n}%.%{_uuid}%}'s world
 					set line 1 of lore of {_h} to "&e%{_w}% &7- &cX: %{_x}% &aY: %{_y}% &bZ: %{_z}%"
-					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to {_h}
+					set slot {_s} of {hv3gui.p_homewarp.%{_p}%} to {_h}
 					add 1 to {_s}
 					if {_s} is 17 or 26 or 35 or 44:
 						debug({_p}, "reached %{_s}%", "warn")
@@ -257,7 +261,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 
 
 		close {_p}'s inventory
-		open {hv3gui.p_homelist.%{_p}%} to {_p}
+		open {hv3gui.p_homewarp.%{_p}%} to {_p}
 		stop
 
 	else:
