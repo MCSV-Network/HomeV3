@@ -155,7 +155,10 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&2ワープしたいホームを選択してください!"
 		if {_mode} is "homeshare":
-			set {_name.gtmp} to "&9共有したいホームを選択してください!"
+			if {hv3gui.p_homeshare.%{_p}%} is not set:
+				debug({_p}, "homeshare is not created!", "warn")
+				set {_shouldgen} to true
+				set {_name.gtmp} to "&9共有したいホームを選択してください!"
 		
 		if {_shouldgen} is true:
 			debug({_p}, "Shouldgen is true", "info")
