@@ -6,7 +6,7 @@ Variables:
 options:
 	version: 3.0.5-dev
 	hv3api: https://github.com/MCSV-Network/HomeV3/raw/main/hv3version
-
+#!=======[DO NOT EDIT]=======
 #*NOTIFY UPDATE
 on join:
 	if {hv3.update} is "true":
@@ -85,10 +85,3 @@ command /hv3man [<text>] [<text>]:
 				reload script file "/HomeV3/homev3-gui.sk"
 				send "Success!"
 				stop
-#!=======[DO NOT EDIT]=======
-
-
-
-
-
-

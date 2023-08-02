@@ -20,3 +20,164 @@ on skript load:
 		set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
 		set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
 		send "[HomeV3] Generated HomeV3 Resetconfirm Screen!" to console
+
+
+
+#!=======[HV3-GUI]=======
+on inventory click:
+	if clicked inventory is {homev3_gui.%player%} or {hv3gui_generating} or {hv3gui.p_homelist.%player%} or {hv3gui.p_homedel.%player%}:
+		cancel event
+		send "Clicked %event-item%"
+		set {_glass} to light gray glass pane named "&7"
+		if clicked slot is {_glass}:
+			debug(player, "Touch Glass")
+			stop
+
+		if clicked inventory is {homev3_gui.%player%}:
+			if clicked slot is 53:
+				send "close(53)"
+				close player's inventory
+			if clicked slot is 25:
+				send "reset(25)"
+				hv3gui_menu(player, "reset")
+			if clicked slot is 19:
+				send "homelist(19)"
+				hv3gui_menu(player, "homelist")
+			if clicked slot is 21:
+				send "homedel(19)"
+				hv3gui_menu(player, "homedelete")
+			if clicked slot is 23:
+				send "homeset(23)"
+				hv3gui_menu(player, "homelist")
+			if clicked slot is 31:
+				send "homeshare(31)"
+				hv3gui_menu(player, "homeshare")
+			if clicked slot is 29:
+				send "homewarp(29)"
+				hv3gui_menu(player, "homewarp")
+			if clicked slot is 33:
+				send "homeget(33)"
+				hv3gui_menu(player, "homeget")
+			stop
+
+		if clicked inventory is {hv3gui.p_homedel.%player%}:
+			debug(player, "Checking HV3-HOMENAME")
+			set {_x} to name of event-item
+			send "CLICKED - %{_x}%"
+			set {_n} to 0
+			set {_uuid} to player's uuid
+			loop 13 times:
+				if {_x} is "&a%{homev3.name.%{_n}%.%{_uuid}%}%":
+					send "Hit"
+					set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
+					delete {homev3.name.%{_n}%.%{_uuid}%}
+					delete {homev3.loc.%{_n}%.%{_uuid}%}
+					remove 1 from {homev3.amount.%{_uuid}%}
+					close player's inventory
+					send "%{homev3.prefix}% &cHome(&a%{_tmp.name}%&c)を削除しました!"
+					homev3list_lite(player)
+					hv3event(player, "homeamountchange")
+					stop
+				add 1 to {_n}
+			send "OOPSIE!"
+
+#*HV3GUI function 
+function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
+	if {_mode} is "null":
+		send "&cエラーが発生しました。" to {_p}
+		debug({_p}, "hv3gui_menu: null", "error")
+
+
+	if {_mode} is "reset":
+		send "menu_reset" to {_p}
+		close {_p}'s inventory
+		open {hv3gui_resetconfirm} to {_p}
+
+	#*GEN
+	if {_mode} is "homelist" or "homedelete" or "homewarp" or "homeshare":
+		close {_p}'s inventory
+		open {hv3gui_generating} to {_p}
+		set {_glass} to light gray glass pane named "&7"
+		set {_s} to 0
+		if {_mode} is "homelist":
+			set {_name.gtmp} to "&bHome&dV3 &7| &8ホーム一覧"
+		if {_mode} is "homedelete":
+			set {_name.gtmp} to "&c削除するホームを選択してください!"
+		if {_mode} is "homewarp":
+			set {_name.gtmp} to "&2ワープしたいホームを選択してください!"
+		if {_mode} is "homeshare":
+			set {_name.gtmp} to "&9共有したいホームを選択してください!"
+
+		set {_guitemplate.tmp} to chest inventory with 6 row named {_name.gtmp}
+		loop 53 times:
+			set slot {_s} of {_guitemplate.tmp} to {_glass}
+			add 1 to {_s}
+			wait a tick
+		set slot 53 of {_guitemplate.tmp} to barrier named "&c閉じる"
+
+
+	if {_mode} is "homelist":
+		send "menu_homelist" to {_p}
+		if {hv3gui.p_homelist.%{_p}%} is not set:
+			debug({_p}, "hv3gui: generating homelist GUI")
+			set {hv3gui.p_homelist.%{_p}%} to {_guitemplate.tmp}
+			set {_n} to 0
+			set {_s} to 10
+			set {_uuid} to {_p}'s uuid
+			debug({_p}, "check homev3.name")
+			loop 13 times:
+				if {homev3.name.%{_n}%.%{_uuid}%} is set:
+					set {_h} to oak door named "&a%{homev3.name.%{_n}%.%{_uuid}%}%"
+					set {_x} to {homev3.loc.%{_n}%.%{_uuid}%}'s x-pos
+					set {_y} to {homev3.loc.%{_n}%.%{_uuid}%}'s y-pos
+					set {_z} to {homev3.loc.%{_n}%.%{_uuid}%}'s z-pos
+					set {_w} to {homev3.loc.%{_n}%.%{_uuid}%}'s world
+					set line 1 of lore of {_h} to "&e%{_w}% &7- &cX: %{_x}% &aY: %{_y}% &bZ: %{_z}%"
+					set slot {_s} of {hv3gui.p_homelist.%{_p}%} to {_h}
+					add 1 to {_s}
+					if {_s} is 17 or 26 or 35 or 44:
+						debug({_p}, "reached %{_s}%", "warn")
+						add 2 to {_s}
+				add 1 to {_n}
+				wait a tick
+
+
+		close {_p}'s inventory
+		open {hv3gui.p_homelist.%{_p}%} to {_p}
+
+	if {_mode} is "homedelete":
+		send "menu_homedelete" to {_p}
+		if {hv3gui.p_homedel.%{_p}%} is not set:
+			debug({_p}, "hv3gui: generating homedelete GUI")
+			set {hv3gui.p_homedel.%{_p}%} to {_guitemplate.tmp}
+			set {_n} to 0
+			set {_s} to 10
+			set {_uuid} to {_p}'s uuid
+			debug({_p}, "check homev3.name")
+			loop 13 times:
+				if {homev3.name.%{_n}%.%{_uuid}%} is set:
+					set {_h} to oak door named "&a%{homev3.name.%{_n}%.%{_uuid}%}%"
+					set {_x} to {homev3.loc.%{_n}%.%{_uuid}%}'s x-pos
+					set {_y} to {homev3.loc.%{_n}%.%{_uuid}%}'s y-pos
+					set {_z} to {homev3.loc.%{_n}%.%{_uuid}%}'s z-pos
+					set {_w} to {homev3.loc.%{_n}%.%{_uuid}%}'s world
+					set line 1 of lore of {_h} to "&cクリックでこのホームを削除!"
+					set slot {_s} of {hv3gui.p_homedel.%{_p}%} to {_h}
+					add 1 to {_s}
+					if {_s} is 17 or 26 or 35 or 44:
+						debug({_p}, "reached %{_s}%", "warn")
+						add 2 to {_s}
+				add 1 to {_n}
+				wait a tick
+
+
+		close {_p}'s inventory
+		open {hv3gui.p_homedel.%{_p}%} to {_p}
+
+
+	else:
+		send "&cエラーが発生しました。" to {_p}
+		debug({_p}, "hv3gui_menu: mode not found", "error")
+
+
+#!=======[HV3-GUI]=======
