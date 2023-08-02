@@ -22,6 +22,49 @@ on skript load:
 		send "[HomeV3] Generated HomeV3 Resetconfirm Screen!" to console
 
 
+function buildhv3gui(p: player):
+	set {homev3_gui.%{_p}%} to chest inventory with 6 row named "&bHome&dV3 &8| &8メニュー"
+	set {_glass} to light gray glass pane named "&7"
+	set {_glass.green} to lime glass pane named "&7"
+	set {_s} to 0
+	loop 9 times:
+		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
+		add 1 to {_s}
+		wait a tick
+	loop 36 times:
+		set slot {_s} of {homev3_gui.%{_p}%} to {_glass}
+		add 1 to {_s}
+		wait a tick
+	loop 9 times:
+		set slot {_s} of {homev3_gui.%{_p}%} to {_glass.green}
+		add 1 to {_s}
+		wait a tick
+	set slot 53 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
+	set slot 19 of {homev3_gui.%{_p}%} to bookshelf named "&a登録したホームの一覧"
+	set slot 21 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
+	set slot 23 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
+	set slot 25 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
+	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
+	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
+	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
+	hv3setpi({_p})
+	close {_p}'s inventory
+	wait a tick
+	open {homev3_gui.%{_p}%} to {_p}
+
+function hv3setpi(p: player): #*Player info item
+	permcheck({_p})
+	set {_uuid} to {_p}'s uuid
+	set {_maxh} to {homev3.limitcount.%{_p}%}
+	set {_curh} to {homev3.amount.%{_uuid}%}
+	set {_pi} to {_p}'s skull named "&a%{_p}%の情報"
+	set line 1 of lore of {_pi} to "&7ホーム所有数: &a%{_curh}%&8/%{_maxh}%"
+	if {_curh} >= {_maxh}: #*所持数がmaxの時に赤文字化
+		set line 1 of lore of {_pi} to "&cホーム所有数: &c%{_curh}%&7/%{_maxh}%"
+	set line 2 of lore of {_pi} to "&7あなたがホームをシェアした回数: %{hv3_count.share.%{_uuid}%}%"
+	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{hv3_count.get.%{_uuid}%}%"
+	set line 4 of lore of {_pi} to "&7text2"
+	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
 
 #!=======[HV3-GUI]=======
 on inventory click:
@@ -37,12 +80,12 @@ on inventory click:
 			if clicked slot is 53:
 				send "close(53)"
 				close player's inventory
-			if clicked slot is 25:
-				send "reset(25)"
-				hv3gui_menu(player, "reset")
 			if clicked slot is 19:
 				send "homelist(19)"
 				hv3gui_menu(player, "homelist")
+			if clicked slot is 25:
+				send "reset(25)"
+				hv3gui_menu(player, "reset")
 			if clicked slot is 21:
 				send "homedel(19)"
 				hv3gui_menu(player, "homedelete")
@@ -153,6 +196,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 
 		close {_p}'s inventory
 		open {hv3gui.p_homelist.%{_p}%} to {_p}
+		stop
 
 	#!HOMEDELETE
 	if {_mode} is "homedelete":
@@ -183,6 +227,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 
 		close {_p}'s inventory
 		open {hv3gui.p_homedel.%{_p}%} to {_p}
+		stop
 
 	#!HOMEWARP
 	if {_mode} is "homewarp":
@@ -213,6 +258,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 
 		close {_p}'s inventory
 		open {hv3gui.p_homelist.%{_p}%} to {_p}
+		stop
 
 	else:
 		send "&cエラーが発生しました。" to {_p}
