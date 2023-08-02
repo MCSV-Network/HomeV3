@@ -115,7 +115,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 			wait a tick
 		set slot 53 of {_guitemplate.tmp} to barrier named "&c閉じる"
 
-
+	#!HOMELIST
 	if {_mode} is "homelist":
 		send "menu_homelist" to {_p}
 		if {hv3gui.p_homelist.%{_p}%} is not set:
@@ -145,6 +145,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		close {_p}'s inventory
 		open {hv3gui.p_homelist.%{_p}%} to {_p}
 
+	#!HOMEDELETE
 	if {_mode} is "homedelete":
 		send "menu_homedelete" to {_p}
 		if {hv3gui.p_homedel.%{_p}%} is not set:

@@ -259,7 +259,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				send "HomeList:"
 				loop 13 time:
 					send "%{_n}%. -> &a%{homev3.name.%{_n}%.%{_uuid}%}%"
-					send "(Loc -> &a%{homev3.name.%{_n}%.%{_uuid}%}%&r)"
+					send "(Loc -> &a%{homev3.loc.%{_n}%.%{_uuid}%}%&r)"
 					add 1 to {_n}
 					wait a tick
 				send "END"
