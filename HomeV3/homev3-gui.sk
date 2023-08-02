@@ -264,9 +264,5 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		open {hv3gui.p_homewarp.%{_p}%} to {_p}
 		stop
 
-	else:
-		send "&cエラーが発生しました。" to {_p}
-		debug({_p}, "hv3gui_menu: mode not found", "error")
-
 
 #!=======[HV3-GUI]=======
