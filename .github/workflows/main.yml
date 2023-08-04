@@ -23,6 +23,6 @@ jobs:
             git checkout .
             git pull origin main
             cp homev3.sk ${{ secrets.SERVER_DEPLOY_DIR }}
-            cp homev3-main.sk ${{ secrets.SERVER_DEPLOY_DIR }}/homeV3
-            cp homev3-functions.sk ${{ secrets.SERVER_DEPLOY_DIR }}/homeV3
-            cp homev3-main.sk ${{ secrets.SERVER_DEPLOY_DIR }}/homeV3
+            cp HomeV3/homev3-main.sk ${{ secrets.SERVER_DEPLOY_DIR }}/homeV3
+            cp HomeV3/homev3-functions.sk ${{ secrets.SERVER_DEPLOY_DIR }}/homeV3
+            cp HomeV3/homev3-main.sk ${{ secrets.SERVER_DEPLOY_DIR }}/homeV3
