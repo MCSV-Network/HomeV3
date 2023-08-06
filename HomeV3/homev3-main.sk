@@ -243,6 +243,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					buildhv3gui(player)
 					open {hv3gui_generating} to player
 					stop
+				open {homev3_gui.%player%} to player
 
 
 
