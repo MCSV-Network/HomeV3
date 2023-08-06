@@ -43,8 +43,6 @@ on tab complete of "/homev3":
 
 #*コマンド============
 command /homev3 [<text>] [<text>] [<text>]:
-	permission: admin
-	permission message: HomeV3は製作中です!
 	executable by: players
 	trigger:
 		if arg-1 is not set:
