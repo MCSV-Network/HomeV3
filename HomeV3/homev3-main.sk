@@ -18,10 +18,10 @@ on leave:
 		delete {temp.hv3_list.%player%}
 	if {homev3.limitcount.%player%} is set:
 		delete {homev3.limitcount.%player%}
-	if {hv3gui.p_homelist.%player%} is set:
-		delete {hv3gui.p_homelist.%player%}
 	if {hv3gui.p_homedel.%player%} is set:
 		delete {hv3gui.p_homedel.%player%}
+	if {hv3gui.p_homeset.%player%} is set:
+		delete {hv3gui.p_homeset.%player%}
 	if {hv3gui.p_homeshare.%player%} is set:
 		delete {hv3gui.p_homeshare.%player%}
 	if {hv3gui.p_homewarp.%player%} is set:
