@@ -46,6 +46,13 @@ function buildhv3gui(p: player):
 	set slot 30 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
 	set slot 32 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	hv3setpi({_p})
+	set {_a} to emerald block
+	set line 1 of lore of {_a} to "&bHomeV3&7(%{hv3.version}%)"
+	set line 2 of lore of {_a} to "&bCreated by ringoXD&7(https://xyl.lol/ringoxd)"
+	set line 3 of lore of {_a} to "&7Github Repo: &bhttps://github.com/MCSV-Network/HomeV3"
+	set line 4 of lore of {_a} to "&a最新版のHomeV3を使用しています!"
+	if {hv3.update} is true:
+		set line 4 of lore of {_a} to "&e新しいバージョンがあります!(%{hv3.latest}%)"
 	close {_p}'s inventory
 	wait a tick
 	open {homev3_gui.%{_p}%} to {_p}
@@ -61,7 +68,6 @@ function hv3setpi(p: player): #*Player info item
 		set line 1 of lore of {_pi} to "&cホーム所有数: &c%{_curh}%&7/%{_maxh}%"
 	set line 2 of lore of {_pi} to "&7あなたがホームをシェアした回数: %{hv3_count.share.%{_uuid}%}%"
 	set line 3 of lore of {_pi} to "&7あなたのシェアしたホームがGetされた回数: %{hv3_count.get.%{_uuid}%}%"
-	set line 4 of lore of {_pi} to "&7text2"
 	set slot 49 of {homev3_gui.%{_p}%} to {_pi}
 
 #!=======[HV3-GUI]=======

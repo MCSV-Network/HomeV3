@@ -53,8 +53,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 				homev3list(player)
 				wait a tick
 			send "&e登録済みのhome&7: &a%{temp.hv3_list.%player%}%"
-			send "&a/homev3 [ホーム名] &7で登録したホームへテレポートできます!"
-			send "&7例: &a/homev3 ringohouse"
+			send "&a/homev3 help &7でHomeV3のヘルプを閲覧できます!"
 			stop
 
 		if arg-1 is set:
