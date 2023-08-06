@@ -40,11 +40,11 @@ function buildhv3gui(p: player):
 		add 1 to {_s}
 		wait a tick
 	set slot 53 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
-	set slot 30 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
-	set slot 22 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
-	set slot 32 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	set slot 20 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
+	set slot 22 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
+	set slot 30 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
+	set slot 32 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	hv3setpi({_p})
 	close {_p}'s inventory
 	wait a tick
