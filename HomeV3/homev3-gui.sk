@@ -66,7 +66,7 @@ function hv3setpi(p: player): #*Player info item
 
 #!=======[HV3-GUI]=======
 on inventory click:
-	if clicked inventory is {homev3_gui.%player%} or {hv3gui_generating} or {hv3gui.p_homedel.%player%} or {hv3gui.p_homewarp.%player%} or {hv3gui.p_homeshare.%player%} or {hv3gui.p_homeset.%player%}:
+	if clicked inventory is {homev3_gui.%player%} or {hv3gui_resetconfirm} or {hv3gui_generating} or {hv3gui.p_homedel.%player%} or {hv3gui.p_homewarp.%player%} or {hv3gui.p_homeshare.%player%} or {hv3gui.p_homeset.%player%}:
 		cancel event
 		send "Clicked %event-item%"
 		set {_glass} to light gray glass pane named "&7"
@@ -103,6 +103,42 @@ on inventory click:
 #				send "homeget(33)"
 #				hv3gui_menu(player, "homeget")
 			stop
+
+		if clicked inventory is {hv3gui_resetconfirm}:
+			if clicked slot is 11:
+				send "yes"
+				close player's inventory
+				send "&c[!]HomeV3のデータをリセット中..."
+				debug(player, "Deleting home data...", "info-red")
+				debug(player, "looping(13)")
+				set {_n} to 1
+				send "UUID: %{_uuid}%"
+				loop 13 times:
+					set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
+					set {_tmp.hv3l} to {homev3.loc.%{_n}%.%{_uuid}%}
+					delete {homev3.name.%{_n}%.%{_uuid}%}
+					delete {homev3.loc.%{_n}%.%{_uuid}%}
+					debug(player, "[Home%{_n}%]: Deleted %{_tmp.hv3n}% (%{_tmp.hv3l}%).", "info-red")
+					add 1 to {_n}
+					wait a tick
+				debug(player, "Initializing HomeV3 GUI")
+				delete {homev3_gui.%player%}
+				debug(player, "Success!", "info-green")
+				debug(player, "Initializing HomeV3 Amount")
+				set {homev3.amount.%{_uuid}%} to 0
+				debug(player, "Success!", "info-green")
+				debug(player, "Deleting HomeV3 RespawnLoc")
+				delete {homev3.spawnloc.%{_uuid}%}
+				delete {homev3.spawnname.%{_uuid}%}
+				debug(player, "Success!", "info-green")
+				homev3list_lite(player)
+				wait a second
+				send "%{homev3.prefix}% &aHomeV3のデータをリセットしました。"
+				stop
+
+			if clicked slot is 15:
+				send "no"
+				close player's inventory
 
 		if clicked inventory is {hv3gui.p_homedel.%player%}:
 			debug(player, "Checking HV3-HOMENAME(MODE -> HV3-DEL)")
