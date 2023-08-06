@@ -42,8 +42,8 @@ function buildhv3gui(p: player):
 	set slot 53 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
 	set slot 20 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 22 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
+	set slot 24 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 30 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
-	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
 	set slot 32 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	hv3setpi({_p})
 	close {_p}'s inventory
@@ -89,12 +89,12 @@ on inventory click:
 			if clicked slot is 22:
 				send "homeset"
 				hv3gui_menu(player, "homeset")
+			if clicked slot is 24:
+				send "homeshare"
+				hv3gui_menu(player, "homeshare")
 			if clicked slot is 30:
 				send "homedel"
 				hv3gui_menu(player, "homedelete")
-			if clicked slot is 31:
-				send "homeshare"
-				hv3gui_menu(player, "homeshare")
 			if clicked slot is 32:
 				send "reset"
 				hv3gui_menu(player, "reset")
