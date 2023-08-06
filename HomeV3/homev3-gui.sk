@@ -112,6 +112,7 @@ on inventory click:
 				debug(player, "Deleting home data...", "info-red")
 				debug(player, "looping(13)")
 				set {_n} to 1
+				set {_uuid} to player's uuid
 				send "UUID: %{_uuid}%"
 				loop 13 times:
 					set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
