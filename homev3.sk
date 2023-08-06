@@ -36,7 +36,6 @@ on skript load:
 		enable script file "/HomeV3/homev3-gui.sk"
 		enable script file "/HomeV3/homev3-main.sk"
 		send "[HomeV3] Done!"
-
 	send "[HomeV3] Successfully Enabled HomeV3" to console
 	send "&b=================" to console
 	send "&bHome&dV3 ({@version})" to console
