@@ -139,7 +139,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 								debug(player, "name: %{hv3_share.name.%{_r}%}%")
 								set {hv3_share.uuid.%{_r}%} to {_uuid}
 								add 1 to {hv3_count.share.%{_uuid}%}
-								debug(player, "sharecountLogger-uuid: %{hv3_share.uuid.%{_uuid}%}%")
+								debug(player, "sharecountLogger-uuid: %{hv3_share.uuid.%{_r}%}%")
 								set {_done} to true
 								debug(player, "Done")
 								wait a tick
