@@ -36,7 +36,7 @@ on skript load:
 		reload script "/HomeV3/homev3-gui.sk"
 		reload script "/HomeV3/homev3-main.sk"
 		send "[HomeV3] Done!"
-	set {hv3.version} to {@version}
+	set {hv3.version} to "{@version}"
 	send "[HomeV3] Successfully Enabled HomeV3" to console
 	send "&b=================" to console
 	send "&bHome&dV3 ({@version})" to console
