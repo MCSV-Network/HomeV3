@@ -53,6 +53,7 @@ function buildhv3gui(p: player):
 	set line 4 of lore of {_a} to "&a最新版のHomeV3を使用しています!"
 	if {hv3.update} is true:
 		set line 4 of lore of {_a} to "&e新しいバージョンがあります!(%{hv3.latest}%)"
+	set slot 0 of {homev3_gui.%{_p}%} to {_a}
 	close {_p}'s inventory
 	wait a tick
 	open {homev3_gui.%{_p}%} to {_p}
