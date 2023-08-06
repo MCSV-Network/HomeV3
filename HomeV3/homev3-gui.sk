@@ -250,7 +250,6 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 			set slot 53 of {_guitemplate.tmp} to barrier named "&c閉じる"
 
 
-		stop
 
 	#!HOMEDELETE
 	if {_mode} is "homedelete":
