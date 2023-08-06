@@ -142,23 +142,6 @@ on inventory click:
 				add 1 to {_n}
 			send "OOPS! error occured!"
 		
-
-		if clicked inventory is {hv3gui.p_homeshare.%player%}:
-			debug(player, "Checking HV3-HOMENAME(MODE -> HV3-SHARE)")
-			set {_x} to name of event-item
-			send "CLICKED - %{_x}%"
-			set {_n} to 0
-			set {_uuid} to player's uuid
-			loop 13 times:
-				if {_x} is "&a%{homev3.name.%{_n}%.%{_uuid}%}%":
-					send "Hit"
-					set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
-					close player's inventory
-					send "%{homev3.prefix}% &a%{_tmp.name}%&c)を削除しました!"
-					stop
-				add 1 to {_n}
-			send "OOPS! error occured!"
-		
 		if clicked inventory is {hv3gui.p_homeshare.%player%}:
 			debug(player, "Checking HV3-HOMENAME(MODE -> HV3-SHARE)")
 			set {_x} to name of event-item
@@ -190,14 +173,29 @@ on inventory click:
 						else:
 							debug(player, "Failed. Retrying", "error")
 							wait a tick
-					send "%{homev3.prefix}%&e%{_arg2}%&aの共有コードを生成しました!"
+					send "%{homev3.prefix}%&e%{_tmp.name}%&aの共有コードを生成しました!"
 					send "&7共有したい人にこのコマンドを教えてください: &a/homev3 get &d%{_r}%"
 					send "&c[!]このコードは10分後に失効します!!"
 					hv3sharetimer({_r})
 					stop
 				add 1 to {_n}
 			send "OOPS! error occured!"
-
+		
+		if clicked inventory is {hv3gui.p_homeshare.%player%}:
+			debug(player, "Checking HV3-HOMENAME(MODE -> HV3-SHARE)")
+			set {_x} to name of event-item
+			send "CLICKED - %{_x}%"
+			set {_n} to 0
+			set {_uuid} to player's uuid
+			loop 13 times:
+				if {_x} is "&a%{homev3.name.%{_n}%.%{_uuid}%}%":
+					send "Hit"
+					set {_tmp.name} to {homev3.name.%{_n}%.%{_uuid}%}
+					close player's inventory
+					send "%{homev3.prefix}% &a%{_tmp.name}%&c)を削除しました!"
+					stop
+				add 1 to {_n}
+			send "OOPS! error occured!"
 
 #*HV3GUI function 
 function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
@@ -231,7 +229,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&9共有したいホームを選択してください!"
 		if {_mode} is "homeset":
-			if {hv3gui.p_homeshare.%{_p}%} is not set:
+			if {hv3gui.p_homeset.%{_p}%} is not set:
 				debug({_p}, "homeset is not created!", "warn")
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&9リスポーン地点にするホームを選択!"	
