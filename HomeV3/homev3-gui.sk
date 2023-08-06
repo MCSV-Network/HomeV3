@@ -40,13 +40,11 @@ function buildhv3gui(p: player):
 		add 1 to {_s}
 		wait a tick
 	set slot 53 of {homev3_gui.%{_p}%} to barrier named "&c閉じる"
-	set slot 19 of {homev3_gui.%{_p}%} to bookshelf named "&a登録したホームの一覧"
-	set slot 21 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
-	set slot 23 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
-	set slot 25 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
-	set slot 29 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
+	set slot 30 of {homev3_gui.%{_p}%} to redstone block named "&cホームを削除する!"
+	set slot 22 of {homev3_gui.%{_p}%} to book named "&aリスポーン地点を設定する!"
+	set slot 32 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
+	set slot 20 of {homev3_gui.%{_p}%} to ender pearl named "&b登録したホームにワープする!"
 	set slot 31 of {homev3_gui.%{_p}%} to comparator named "&eホームをシェアする!"
-	set slot 33 of {homev3_gui.%{_p}%} to compass named "&eシェアされたホームを入手する!"
 	hv3setpi({_p})
 	close {_p}'s inventory
 	wait a tick
@@ -81,8 +79,9 @@ on inventory click:
 				send "close(53)"
 				close player's inventory
 			if clicked slot is 19:
-				send "homelist(19)"
-				hv3gui_menu(player, "homelist")
+				send "Why are you clicking this slot?"
+#				send "homelist(19)"
+#				hv3gui_menu(player, "homelist")
 			if clicked slot is 25:
 				send "reset(25)"
 				hv3gui_menu(player, "reset")
@@ -99,8 +98,9 @@ on inventory click:
 				send "homewarp(29)"
 				hv3gui_menu(player, "homewarp")
 			if clicked slot is 33:
-				send "homeget(33)"
-				hv3gui_menu(player, "homeget")
+				send "Why are you clicking this slot?"
+#				send "homeget(33)"
+#				hv3gui_menu(player, "homeget")
 			stop
 
 		if clicked inventory is {hv3gui.p_homedel.%player%}:
@@ -159,7 +159,13 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 				debug({_p}, "homeshare is not created!", "warn")
 				set {_shouldgen} to true
 				set {_name.gtmp} to "&9共有したいホームを選択してください!"
-		
+		if {_mode} is "homeset":
+			if {hv3gui.p_homeshare.%{_p}%} is not set:
+				debug({_p}, "homeset is not created!", "warn")
+				set {_shouldgen} to true
+				set {_name.gtmp} to "&9リスポーン地点にするホームを選択!"	
+
+
 		if {_shouldgen} is true:
 			debug({_p}, "Shouldgen is true", "info")
 			close {_p}'s inventory
