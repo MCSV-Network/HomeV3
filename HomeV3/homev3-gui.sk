@@ -91,7 +91,7 @@ on inventory click:
 				hv3gui_menu(player, "homedelete")
 			if clicked slot is 23:
 				send "homeset(23)"
-				hv3gui_menu(player, "homelist")
+				hv3gui_menu(player, "homeset")
 			if clicked slot is 31:
 				send "homeshare(31)"
 				hv3gui_menu(player, "homeshare")
@@ -266,6 +266,8 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		close {_p}'s inventory
 		open {hv3gui.p_homewarp.%{_p}%} to {_p}
 		stop
-
+	
+	else:
+		debug({_p}, "HV3-MODE NOT FOUND!!", "error")
 
 #!=======[HV3-GUI]=======
