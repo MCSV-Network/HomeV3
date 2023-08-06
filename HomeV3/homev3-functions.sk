@@ -3,7 +3,7 @@
 #STONE: 1, BRONZE: 3, IRON: 4, GOLD: 5, DIAMOND: 6, PLATINA: 7, MITHRIL: 8, ORICHALCUM: 9, ADAMANTITE: 12
 function permcheck(p: player):
 	if {_p} has permission "homev3.homelimit.1":
-		set {homev3.limitcount.%{_p}%} to 2
+		set {homev3.limitcount.%{_p}%} to 3
 	if {_p} has permission "homev3.homelimit.3":
 		set {homev3.limitcount.%{_p}%} to 4
 	if {_p} has permission "homev3.homelimit.4":
@@ -20,6 +20,8 @@ function permcheck(p: player):
 		set {homev3.limitcount.%{_p}%} to 10
 	if {_p} has permission "homev3.homelimit.12" or "op":
 		set {homev3.limitcount.%{_p}%} to 13
+	else:
+		set {homev3.limitcount.%{_p}%} to 3
 
 #?help homev3
 function homev3help(p: player):
