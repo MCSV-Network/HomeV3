@@ -76,27 +76,28 @@ on inventory click:
 
 		if clicked inventory is {homev3_gui.%player%}:
 			if clicked slot is 53:
-				send "close(53)"
+				send "close"
 				close player's inventory
 			if clicked slot is 19:
 				send "Why are you clicking this slot?"
 #				send "homelist(19)"
 #				hv3gui_menu(player, "homelist")
-			if clicked slot is 25:
-				send "reset(25)"
-				hv3gui_menu(player, "reset")
-			if clicked slot is 21:
-				send "homedel(19)"
-				hv3gui_menu(player, "homedelete")
-			if clicked slot is 23:
-				send "homeset(23)"
-				hv3gui_menu(player, "homeset")
-			if clicked slot is 31:
-				send "homeshare(31)"
-				hv3gui_menu(player, "homeshare")
-			if clicked slot is 29:
-				send "homewarp(29)"
+
+			if clicked slot is 20:
+				send "homewarp"
 				hv3gui_menu(player, "homewarp")
+			if clicked slot is 22:
+				send "homeset"
+				hv3gui_menu(player, "homeset")
+			if clicked slot is 30:
+				send "homedel"
+				hv3gui_menu(player, "homedelete")
+			if clicked slot is 31:
+				send "homeshare"
+				hv3gui_menu(player, "homeshare")
+			if clicked slot is 32:
+				send "reset"
+				hv3gui_menu(player, "reset")
 			if clicked slot is 33:
 				send "Why are you clicking this slot?"
 #				send "homeget(33)"
