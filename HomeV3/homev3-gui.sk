@@ -212,7 +212,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		stop
 
 	#*GEN
-	if {_mode} is "homelist" or "homedelete" or "homewarp" or "homeshare":
+	if {_mode} is "homewarp" or "homeset" or "homeshare" or "homedelete":
 		set {_shouldgen} to false
 		if {_mode} is "homedelete":
 			if {hv3gui.p_homedel.%{_p}%} is not set:
@@ -250,9 +250,6 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 			set slot 53 of {_guitemplate.tmp} to barrier named "&c閉じる"
 
 
-		close {_p}'s inventory
-		open {hv3gui.p_homelist.%{_p}%} to {_p}
-		debug({_p}, "open inv", "info")
 		stop
 
 	#!HOMEDELETE
