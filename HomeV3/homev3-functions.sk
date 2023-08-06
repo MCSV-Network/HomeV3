@@ -35,6 +35,7 @@ function homev3help(p: player):
 	send "&a/homev3 setspawn ホーム名 &7- リスポーン地点を設定します! &e[NEW!]" to {_p}
 	send "&a/homev3 &dshare &aホーム名 &7- ホームをシェアできます! &e[NEW!]" to {_p}
 	send "&a/homev3 &dget &aホーム名 &7- シェアされたホームを入手します! &e[NEW!]" to {_p}
+	send "&a/homev3 &dGUI &7- HomeV3のGUIを表示します! &e[NEW!]" to {_p}
 	send "&a/homev3 debug &7- HomeV3のデバッグに使うメッセージを表示します。" to {_p}
 	send "&b=================" to {_p}
 
