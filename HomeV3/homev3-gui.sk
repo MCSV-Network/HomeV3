@@ -136,6 +136,7 @@ function hv3gui_menu(p: player, mode: text = "null"): #*HV3-GUI用
 		send "menu_reset" to {_p}
 		close {_p}'s inventory
 		open {hv3gui_resetconfirm} to {_p}
+		stop
 
 	#*GEN
 	if {_mode} is "homelist" or "homedelete" or "homewarp" or "homeshare":
