@@ -47,7 +47,7 @@ function buildhv3gui(p: player):
 	set slot 32 of {homev3_gui.%{_p}%} to tnt named "&bHome&dV3&cを&lリセット&r&cする!"
 	hv3setpi({_p})
 	set {_a} to emerald block
-	set line 1 of lore of {_a} to "&bHomeV3&7(%{hv3.version}%)"
+	set line 1 of lore of {_a} to "&bHomeV3&7(%{hv3.version}%&7)"
 	set line 2 of lore of {_a} to "&bCreated by ringoXD&7(https://xyl.lol/ringoxd)"
 	set line 3 of lore of {_a} to "&7Github Repo: &bhttps://github.com/MCSV-Network/HomeV3"
 	set line 4 of lore of {_a} to "&a最新版のHomeV3を使用しています!"
