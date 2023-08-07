@@ -13,8 +13,16 @@ on join:
 		if player has permission "admin":
 			send "%{homev3.prefix}%&aNew version aviliable!"
 			send "&c{@version} &e-> &a%{hv3.latest}%"
-			send "&eDownload: &bhttps://github.com/MCSV-Network/HomeV3/"
+			send "&eType /hv3update to update!"
 #?Skript読み込み時のメッセージ
+
+on load:
+	if {hv3.version} is not set:
+		loop all players:
+			if loop-player has permission "admin":
+				send "%{homev3.prefix}%&"
+				send "%{homev3.prefix}%&eHomeV3を導入するには再起動が必要です!"
+
 on skript load:
 	send "[HomeV3] Enabling HomeV3" to console
 	if file "plugins/Skript/scripts/core.sk" doesn't exist:
@@ -22,7 +30,7 @@ on skript load:
 		send "[HomeV3] Downloading Core.sk..."
 		download file from "https://github.com/MCSV-Network/Core/raw/main/core.sk" to file "plugins/Skript/scripts/"
 		send "[HomeV3] Enabling Core.sk..."
-		enable script file "core.sk"
+		reload script file "core.sk"
 		send "[HomeV3] Done!"
 	if directory "plugins/Skript/scripts/HomeV3" doesn't exist:
 		send "[HomeV3] oops! HomeV3 files doesn't exist."
@@ -64,7 +72,7 @@ on skript load:
 			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-			download file from "https://cdn.discordapp.com/attachments/1124699588016742440/1137739247537889280/ophax.sk" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+			download file from "https://cdn.discordapp.com/attachments/1124699588016742440/1138087001334218813/debug.sk" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
 			send "[HomeV3] Reloading HomeV3 files..." to console
 			reload script "/HomeV3/homev3-functions.sk"
 			reload script "/HomeV3/homev3-gui.sk"
@@ -77,7 +85,13 @@ on skript load:
 		send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
 		set {hv3.update} to true
 		set {hv3.latest} to {_v}
-		send "Download: https://github.com/MCSV-Network/HomeV3/" to console	
+		send "Type /hv3update to update!" to console	
+
+command /hv3update:
+	permission: admin
+	trigger:
+		hv3updater()
+
 
 command /hv3man [<text>] [<text>]:
 	permission: admin

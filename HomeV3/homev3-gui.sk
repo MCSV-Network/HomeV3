@@ -80,11 +80,10 @@ on inventory click:
 		if clicked slot is {_glass}:
 			debug(player, "Touch Glass")
 			stop
-
+		if clicked slot is 53:
+			send "close"
+			close player's inventory
 		if clicked inventory is {homev3_gui.%player%}:
-			if clicked slot is 53:
-				send "close"
-				close player's inventory
 			if clicked slot is 19:
 				send "Why are you clicking this slot?"
 #				send "homelist(19)"

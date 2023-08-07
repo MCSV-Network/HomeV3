@@ -1,0 +1,22 @@
+function hv3updater(p: player):
+	send "[HomeV3] Updating HomeV3..." to {_p}
+	delete file "plugins/Skript/scripts/homev3.sk"
+	delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
+	delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
+	delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+	delete file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+	wait a tick
+	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/homev3.sk" to file "plugins/Skript/scripts/homev3.sk"
+	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
+	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
+	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+	download file from "https://cdn.discordapp.com/attachments/1124699588016742440/1138087001334218813/debug.sk" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+	send "[HomeV3] Reloading HomeV3 files..." to {_p}
+	reload script "/HomeV3/homev3-functions.sk"
+	reload script "/HomeV3/homev3-functions.sk"
+	reload script "/HomeV3/homev3-gui.sk"
+	reload script "/HomeV3/homev3-main.sk"
+	reload script "/HomeV3/homev3-debug.sk"
+	send "[HomeV3] Done!" to {_p}
+	delete {hv3.update}
+	delete {hv3.latest}
