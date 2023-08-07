@@ -18,5 +18,6 @@ function hv3updater(p: player):
 	reload script "/HomeV3/homev3-main.sk"
 	reload script "/HomeV3/homev3-debug.sk"
 	send "[HomeV3] Done!" to {_p}
+	set {hv3.version} to {hv3.latest}
 	delete {hv3.update}
 	delete {hv3.latest}
