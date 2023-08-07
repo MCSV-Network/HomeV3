@@ -36,6 +36,7 @@ on skript load:
 		send "[HomeV3] oops! HomeV3 files doesn't exist."
 		send "[HomeV3] Downloading HomeV3 files..."
 		create directory "plugins/Skript/scripts/HomeV3"
+		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
 		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
