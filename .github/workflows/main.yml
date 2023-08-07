@@ -25,4 +25,5 @@ jobs:
             cp homev3.sk ${{ secrets.SERVER_DEPLOY_DIR }}
             cp HomeV3/homev3-main.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
             cp HomeV3/homev3-functions.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
+            cp HomeV3/homev3-updater.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
             cp HomeV3/homev3-gui.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
