@@ -2,31 +2,31 @@
 #メモ
 #STONE: 1, BRONZE: 3, IRON: 4, GOLD: 5, DIAMOND: 6, PLATINA: 7, MITHRIL: 8, ORICHALCUM: 9, ADAMANTITE: 12
 function permcheck(p: player):
-	if {_p} has permission "homev3.homelimit.1":
+	if {_p} has permission "homev3.homelimit1":
 		set {homev3.limitcount.%{_p}%} to 1
-	if {_p} has permission "homev3.homelimit.2":
+	if {_p} has permission "homev3.homelimit2":
 		set {homev3.limitcount.%{_p}%} to 2
-	if {_p} has permission "homev3.homelimit.3":
+	if {_p} has permission "homev3.homelimit3":
 		set {homev3.limitcount.%{_p}%} to 3
-	if {_p} has permission "homev3.homelimit.4":
+	if {_p} has permission "homev3.homelimit4":
 		set {homev3.limitcount.%{_p}%} to 4
-	if {_p} has permission "homev3.homelimit.5":
+	if {_p} has permission "homev3.homelimit5":
 		set {homev3.limitcount.%{_p}%} to 5
-	if {_p} has permission "homev3.homelimit.6":
+	if {_p} has permission "homev3.homelimit6":
 		set {homev3.limitcount.%{_p}%} to 6
-	if {_p} has permission "homev3.homelimit.7":
+	if {_p} has permission "homev3.homelimit7":
 		set {homev3.limitcount.%{_p}%} to 7
-	if {_p} has permission "homev3.homelimit.8":
+	if {_p} has permission "homev3.homelimit8":
 		set {homev3.limitcount.%{_p}%} to 8
-	if {_p} has permission "homev3.homelimit.9":
+	if {_p} has permission "homev3.homelimit9":
 		set {homev3.limitcount.%{_p}%} to 9
-	if {_p} has permission "homev3.homelimit.10":
+	if {_p} has permission "homev3.homelimit10":
 		set {homev3.limitcount.%{_p}%} to 10
-	if {_p} has permission "homev3.homelimit.11":
+	if {_p} has permission "homev3.homelimit11":
 		set {homev3.limitcount.%{_p}%} to 11
-	if {_p} has permission "homev3.homelimit.12":
+	if {_p} has permission "homev3.homelimit12":
 		set {homev3.limitcount.%{_p}%} to 12
-	if {_p} has permission "homev3.homelimit.13" or "op":
+	if {_p} has permission "homev3.homelimit13" or "op":
 		set {homev3.limitcount.%{_p}%} to 13
 	else:
 		set {homev3.limitcount.%{_p}%} to 3
