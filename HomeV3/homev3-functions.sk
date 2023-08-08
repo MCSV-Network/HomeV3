@@ -2,34 +2,46 @@
 #メモ
 #STONE: 1, BRONZE: 3, IRON: 4, GOLD: 5, DIAMOND: 6, PLATINA: 7, MITHRIL: 8, ORICHALCUM: 9, ADAMANTITE: 12
 function permcheck(p: player):
+	set {homev3.limitcount.%{_p}%} to 3
 	if {_p} has permission "homev3.homelimit1":
 		set {homev3.limitcount.%{_p}%} to 1
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit2":
 		set {homev3.limitcount.%{_p}%} to 2
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit3":
 		set {homev3.limitcount.%{_p}%} to 3
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit4":
 		set {homev3.limitcount.%{_p}%} to 4
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit5":
 		set {homev3.limitcount.%{_p}%} to 5
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit6":
 		set {homev3.limitcount.%{_p}%} to 6
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit7":
 		set {homev3.limitcount.%{_p}%} to 7
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit8":
 		set {homev3.limitcount.%{_p}%} to 8
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit9":
 		set {homev3.limitcount.%{_p}%} to 9
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit10":
 		set {homev3.limitcount.%{_p}%} to 10
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit11":
 		set {homev3.limitcount.%{_p}%} to 11
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit12":
 		set {homev3.limitcount.%{_p}%} to 12
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 	if {_p} has permission "homev3.homelimit13" or "op":
 		set {homev3.limitcount.%{_p}%} to 13
-	else:
-		set {homev3.limitcount.%{_p}%} to 3
+		debug({_p}, "changed perm %{homev3.limitcount.%{_p}%}%", "info")
 
 #?help homev3
 function homev3help(p: player):
