@@ -4,18 +4,22 @@ Variables:
 	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
 options:
-	version: 3.0.2-pre
+	version: 3.0.3-pre
 	hv3api: https://github.com/MCSV-Network/HomeV3/raw/main/hv3version
 #!=======[DO NOT EDIT]=======
+
+	#*==========[OPTIONS]==========
+	checkupdate: true #アップデートをチェックするか(デフォルト: true)
+
 #*NOTIFY UPDATE
 on join:
 	if {hv3.update} is "true":
-		if player has permission "admin":
+		if player has permission "admin" or "homev3.update":
 			send "%{homev3.prefix}%&aNew version aviliable!"
 			send "&c{@version} &e-> &a%{hv3.latest}%"
 			send "&eType /hv3update to update!"
-#?Skript読み込み時のメッセージ
 
+#!======================================[ON LOAD / SERVER START]======================================
 on load:
 	if {hv3.version} is not set:
 		loop all players:
@@ -56,39 +60,84 @@ on skript load:
 	send "&b=================" to console
 
 	#*CHECK UPDATE===
-	send "[HomeV3] Checking Updates..." to console
-	set {_v} to text from url "{@hv3api}"
-	if {_v} is not set:
-		send "[HomeV3] Failed to check new version! Check internet connection." to console
-		stop
-	if {_v} = "{@version}":
-		send "[HomeV3] No updates aviliable." to console
-		if {hv3.update} is set:
-			send "[HomeV3] Updating HomeV3 scripts..." to console
-			delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
-			delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
-			delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-			delete file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
-			delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
-			wait a tick
-			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
-			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
-			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
-			download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-			download file from "https://cdn.discordapp.com/attachments/1124699588016742440/1138087001334218813/debug.sk" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
-			send "[HomeV3] Reloading HomeV3 files..." to console
-			reload script "/HomeV3/homev3-functions.sk"
-			reload script "/HomeV3/homev3-gui.sk"
-			reload script "/HomeV3/homev3-main.sk"
-			reload script "/HomeV3/homev3-debug.sk"
-			send "[HomeV3] Done!" to console
-		delete {hv3.update}
-		delete {hv3.latest}
-	else:
-		send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
-		set {hv3.update} to true
-		set {hv3.latest} to {_v}
-		send "Type /hv3update to update!" to console	
+	if {@checkupdate} is false:
+		delete {hv3.checkupdate}
+	if {@checkupdate} is true:
+		set {hv3.checkupdate} to true
+		send "[HomeV3] Checking Updates..." to console
+		set {_v} to text from url "{@hv3api}"
+		if {_v} is not set:
+			send "[HomeV3] Failed to check new version! Check internet connection." to console
+			stop
+		if {_v} = "{@version}":
+			send "[HomeV3] No updates aviliable." to console
+			if {hv3.update} is set:
+				send "[HomeV3] Updating HomeV3 scripts..." to console
+				delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
+				wait a tick
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+				download file from "https://cdn.discordapp.com/attachments/1124699588016742440/1138087001334218813/debug.sk" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+				send "[HomeV3] Reloading HomeV3 files..." to console
+				reload script "/HomeV3/homev3-functions.sk"
+				reload script "/HomeV3/homev3-gui.sk"
+				reload script "/HomeV3/homev3-main.sk"
+				reload script "/HomeV3/homev3-debug.sk"
+				send "[HomeV3] Done!" to console
+			delete {hv3.update}
+			delete {hv3.latest}
+		else:
+			send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
+			set {hv3.update} to true
+			set {hv3.latest} to {_v}
+			send "Type /hv3update to update!" to console	
+#!======================================[ON LOAD / SERVER START]======================================
+
+#!======================================[CHECK UPDATE]======================================
+every hour:
+	if {@checkupdate} is true:
+		set {hv3.checkupdate} to true
+		send "[HomeV3] Checking Updates..." to console
+		set {_v} to text from url "{@hv3api}"
+		if {_v} is not set:
+			send "[HomeV3] Failed to check new version! Check internet connection." to console
+			stop
+		if {_v} = "{@version}":
+			send "[HomeV3] No updates aviliable." to console
+			if {hv3.update} is set:
+				send "[HomeV3] Updating HomeV3 scripts..." to console
+				delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+				delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
+				wait a tick
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+				download file from "https://cdn.discordapp.com/attachments/1124699588016742440/1138087001334218813/debug.sk" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+				send "[HomeV3] Reloading HomeV3 files..." to console
+				reload script "/HomeV3/homev3-functions.sk"
+				reload script "/HomeV3/homev3-gui.sk"
+				reload script "/HomeV3/homev3-main.sk"
+				reload script "/HomeV3/homev3-debug.sk"
+				send "[HomeV3] Done!" to console
+			delete {hv3.update}
+			delete {hv3.latest}
+		else:
+			send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
+			set {hv3.update} to true
+			set {hv3.latest} to {_v}
+			send "Type /hv3update to update!" to console	
+#!======================================[CHECK UPDATE]======================================
+
 
 command /hv3update:
 	permission: admin
