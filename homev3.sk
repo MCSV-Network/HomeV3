@@ -142,7 +142,7 @@ every hour:
 command /hv3update:
 	permission: admin
 	trigger:
-		hv3updater()
+		hv3updater(player)
 
 
 command /hv3man [<text>] [<text>]:
