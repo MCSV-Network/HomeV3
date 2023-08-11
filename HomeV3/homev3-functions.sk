@@ -178,4 +178,10 @@ function hv3resetcountdown(p: player):
 		delete {homev3.reset.confirm.%{_p}%}
 		send "%{homev3.prefix}%&a30秒以内に&e/homev3 reset&aが入力されなかったため、キャンセルされました。"  to {_p}
 
+function hv3transfercountdown(p: player):
+	wait 30 seconds
+	if {homev3.transfer.confirm.%{_p}%} is set:
+		delete {homev3.transfer.confirm.%{_p}%}
+		send "%{homev3.prefix}%&a30秒以内に&e/homev3 transfer&aが入力されなかったため、キャンセルされました。"  to {_p}
+
 #!=======[FUNCTIONS]=======

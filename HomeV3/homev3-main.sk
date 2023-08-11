@@ -269,6 +269,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					wait a tick
 				send "END"
 				send ""
+				stop
 #!Home Debug=============================================================================
 
 #!ADMIN COMMAND==========================================================================
@@ -312,3 +313,81 @@ command /homev3admin [<text>]:
 			set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
 			debug(player, "Success!", "info-green")
 			send "完了"
+
+
+
+#!HV3TRANSFER
+
+command /homev3transfer:
+	trigger:
+		if command sender is console:
+			send "&cコンソールからは実行できません!" to sender
+			stop
+		
+		if {homev3transfer.%player's uuid%} is not set:
+			set {homev3transfer.%player's uuid%} to 0
+		if {homev3transfer.%player's uuid%} is 0:
+			set {homev3transfer.%player's uuid%} to 1
+			send "&e&m===&r[&4&l警告! - Warning!&r&e]==="
+			send "&eHomeV3からHomeV3への移行を行います。"
+			send "&e・HomeV3にあるデータがリセットされ、&cHomeV2によって置き換えられます!"
+			send "&e・移行が完了した後、HomeV2にあったデータは&c削除&eされます!"
+			send "&e・移行が完了するまでは退出/離席しないでください!正常に移行出来なくなる可能性があります!"
+			send "&4この操作は取り消す事ができません!"
+			send "&4本当に行う場合は、&n30秒以内に&r&4もう一度&e/hometransfer&4を入力してください。"
+			wait 30 seconds
+			if {homev3transfer.%player's uuid%} is 1:
+				send "&e[&4HomeV2&e] 30秒以内にコマンドが入力されなかったため、Homeのリセットはキャンセルされました。"
+				set {homev3transfer.%player's uuid%} to 0
+				stop
+		if {homev3transfer.%player's uuid%} is 1:
+			send "%{homev3.prefix}% &aHomeV2のデータをHomeV3に移動します。" to player
+			add 1 to {homev3.transferused}
+
+			loop 13 times:
+				set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
+				set {_tmp.hv3l} to {homev3.loc.%{_n}%.%{_uuid}%}
+				delete {homev3.name.%{_n}%.%{_uuid}%}
+				delete {homev3.loc.%{_n}%.%{_uuid}%}
+				debug(player, "[Home%{_n}%]: Deleted %{_tmp.hv3n}% (%{_tmp.hv3l}%).", "info-red")
+				add 1 to {_n}
+				wait a tick
+			debug(player, "Initializing HomeV3 GUI")
+			delete {homev3_gui.%player%}
+			debug(player, "Success!", "info-green")
+			debug(player, "Initializing HomeV3 Amount")
+			set {homev3.amount.%{_uuid}%} to 0
+			debug(player, "Success!", "info-green")
+			debug(player, "Deleting HomeV3 RespawnLoc")
+			delete {homev3.spawnloc.%{_uuid}%}
+			delete {homev3.spawnname.%{_uuid}%}
+			debug(player, "Success!", "info-green")
+			homev3list_lite(player)
+
+
+			set {_uuid} to player's uuid
+			set {_x} to 1
+			loop 4 times:
+				if {homev2name%{_x}%.%{_uuid}%} is set:
+					set {homev3chat.%player%} to 1
+					send "%{homev3.prefix}%&7チャット欄に&a%{homev2name%{_x}%.%{_uuid}%}%&7と入力してください。"
+					while {homev3chat} is set:
+						wait 2 ticks
+				add 1 to {_x}
+
+on chat:
+	if {homev3chat.%player%} is 1:
+		send "[HomeTransfer] %player% - trans msg: %message%" to console
+		cancel event
+		set {_uuid} to player's uuid
+		set {_x} to 1
+		loop 4 times:
+			if message is "%{homev2name%{_x}%.%{_uuid}%}%":
+				debug(player, "LOCATION --> %{homev2.%message%.%{_uuid}%}%", "info-green")
+				homev3set(player, {homev2name%{_x}%.%{_uuid}%}, {homev2.%message%.%{_uuid}%})
+				send "Success."
+				delete {homev3chat.%player%}
+				stop
+			add 1 to {_x}
+		else:
+			send "&cError! - 入力した内容が一致しませんでした。もう一度入力してください。"
