@@ -83,7 +83,7 @@ on skript load:
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-				download file from "https://mcsv.life/hv3dev/" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
+				download file from "https://mcsv.life/hv3dev/" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk" #*for debug
 				send "[HomeV3] Reloading HomeV3 files..." to console
 				reload script "/HomeV3/homev3-functions.sk"
 				reload script "/HomeV3/homev3-gui.sk"
