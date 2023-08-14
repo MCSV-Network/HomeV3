@@ -4,7 +4,7 @@ Variables:
 	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
 options:
-	version: 3.0.3-pre
+	version: 3.1.1-pre
 	hv3api: https://github.com/MCSV-Network/HomeV3/raw/main/hv3version
 #!=======[DO NOT EDIT]=======
 
@@ -44,12 +44,11 @@ on skript load:
 		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 		download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-		download file from "https://mcsv.life/hv3dev/" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
 		send "[HomeV3] Enabling HomeV3 files..."
 		reload script "/HomeV3/homev3-functions.sk"
 		reload script "/HomeV3/homev3-gui.sk"
 		reload script "/HomeV3/homev3-main.sk"
-		reload script "/HomeV3/homev3-debug.sk"
+		reload script "/HomeV3/homev3-updater.sk"
 		send "[HomeV3] Done!"
 	set {hv3.version} to "{@version}"
 	send "[HomeV3] Successfully Enabled HomeV3" to console
@@ -76,19 +75,17 @@ on skript load:
 				delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 				delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 				delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-				delete file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
 				delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
 				wait a tick
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-				download file from "https://mcsv.life/hv3dev/" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk" #*for debug
 				send "[HomeV3] Reloading HomeV3 files..." to console
 				reload script "/HomeV3/homev3-functions.sk"
 				reload script "/HomeV3/homev3-gui.sk"
 				reload script "/HomeV3/homev3-main.sk"
-				reload script "/HomeV3/homev3-debug.sk"
+				reload script "/HomeV3/homev3-updater.sk"
 				send "[HomeV3] Done!" to console
 			delete {hv3.update}
 			delete {hv3.latest}
@@ -110,27 +107,6 @@ every hour:
 			stop
 		if {_v} = "{@version}":
 			send "[HomeV3] No updates aviliable." to console
-			if {hv3.update} is set:
-				send "[HomeV3] Updating HomeV3 scripts..." to console
-				delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
-				delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
-				delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-				delete file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
-				delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
-				wait a tick
-				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
-				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
-				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
-				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-				download file from "https://mcsv.life/hv3dev/" to file "plugins/Skript/scripts/HomeV3/homev3-debug.sk"
-				send "[HomeV3] Reloading HomeV3 files..." to console
-				reload script "/HomeV3/homev3-functions.sk"
-				reload script "/HomeV3/homev3-gui.sk"
-				reload script "/HomeV3/homev3-main.sk"
-				reload script "/HomeV3/homev3-debug.sk"
-				send "[HomeV3] Done!" to console
-			delete {hv3.update}
-			delete {hv3.latest}
 		else:
 			send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
 			set {hv3.update} to true
