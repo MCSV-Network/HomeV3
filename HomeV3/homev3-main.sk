@@ -345,6 +345,7 @@ command /homev3transfer:
 			add 1 to {homev3.transferused}
 
 			set {_n} to 1
+			set {_uuid} to player's uuid
 			loop 13 times:
 				set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
 				set {_tmp.hv3l} to {homev3.loc.%{_n}%.%{_uuid}%}
@@ -366,7 +367,6 @@ command /homev3transfer:
 			homev3list_lite(player)
 
 
-			set {_uuid} to player's uuid
 			set {_x} to 1
 			loop 5 times:
 				if {homev2name%{_x}%.%{_uuid}%} is set:
