@@ -328,8 +328,7 @@ command /homev3transfer:
 			set {homev3transfer.%player's uuid%} to 1
 			send "&e&m===&r[&4&l警告! - Warning!&r&e]==="
 			send "&eHomeV3からHomeV3への移行を行います。"
-			send "&e・HomeV3にあるデータがリセットされ、&cHomeV2によって置き換えられます!"
-			send "&e・移行が完了した後、HomeV2にあったデータは&c削除&eされます!"
+			send "&e・HomeV3にあるデータは&nリセットされます!!"
 			send "&e・移行が完了するまでは退出/離席しないでください!正常に移行出来なくなる可能性があります!"
 			send "&4この操作は取り消す事ができません!"
 			send "&4本当に行う場合は、&n30秒以内に&r&4もう一度&e/hometransfer&4を入力してください。"
