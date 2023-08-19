@@ -389,5 +389,5 @@ on chat:
 				delete {homev3chat.%player%}
 				stop
 			add 1 to {_x}
-		else:
-			send "&cError! - 入力した内容が一致しませんでした。もう一度入力してください。"
+			else:
+				send "&cError! - 入力した内容が一致しませんでした。もう一度入力してください。"
