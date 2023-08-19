@@ -344,6 +344,7 @@ command /homev3transfer:
 			send "%{homev3.prefix}% &aHomeV2のデータをHomeV3に移動します。" to player
 			add 1 to {homev3.transferused}
 
+			set {_n} to 1
 			loop 13 times:
 				set {_tmp.hv3n} to {homev3.name.%{_n}%.%{_uuid}%}
 				set {_tmp.hv3l} to {homev3.loc.%{_n}%.%{_uuid}%}
@@ -371,7 +372,7 @@ command /homev3transfer:
 				if {homev2name%{_x}%.%{_uuid}%} is set:
 					set {homev3chat.%player%} to 1
 					send "%{homev3.prefix}%&7チャット欄に&a%{homev2name%{_x}%.%{_uuid}%}%&7と入力してください。"
-					while {homev3chat} is set:
+					while {homev3chat.%player%} is set:
 						wait 2 ticks
 				add 1 to {_x}
 
