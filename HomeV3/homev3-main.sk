@@ -368,7 +368,7 @@ command /homev3transfer:
 
 			set {_uuid} to player's uuid
 			set {_x} to 1
-			loop 4 times:
+			loop 5 times:
 				if {homev2name%{_x}%.%{_uuid}%} is set:
 					set {homev3chat.%player%} to 1
 					send "%{homev3.prefix}%&7チャット欄に&a%{homev2name%{_x}%.%{_uuid}%}%&7と入力してください。"
@@ -382,7 +382,7 @@ on chat:
 		cancel event
 		set {_uuid} to player's uuid
 		set {_x} to 1
-		loop 4 times:
+		loop 5 times:
 			if message is "%{homev2name%{_x}%.%{_uuid}%}%":
 				debug(player, "LOCATION --> %{homev2.%message%.%{_uuid}%}%", "info-green")
 				homev3set(player, {homev2name%{_x}%.%{_uuid}%}, {homev2.%message%.%{_uuid}%})
