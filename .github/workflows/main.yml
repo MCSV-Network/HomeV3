@@ -27,3 +27,4 @@ jobs:
             cp HomeV3/homev3-functions.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
             cp HomeV3/homev3-updater.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
             cp HomeV3/homev3-gui.sk ${{ secrets.SERVER_DEPLOY_DIR }}/HomeV3/
+            screen -p 0 -S minecraft -X eval 'stuff "githubactionsnotify HomeV3\015"'
