@@ -325,8 +325,6 @@ command /homev3transfer:
 			stop
 		
 		if {homev3transfer.%player's uuid%} is not set:
-			set {homev3transfer.%player's uuid%} to 0
-		if {homev3transfer.%player's uuid%} is 0:
 			set {homev3transfer.%player's uuid%} to 1
 			send "&e&m===&r[&4&l警告! - Warning!&r&e]==="
 			send "&eHomeV3からHomeV3への移行を行います。"
@@ -337,12 +335,13 @@ command /homev3transfer:
 			send "&4本当に行う場合は、&n30秒以内に&r&4もう一度&e/hometransfer&4を入力してください。"
 			wait 30 seconds
 			if {homev3transfer.%player's uuid%} is 1:
-				send "&e[&4HomeV2&e] 30秒以内にコマンドが入力されなかったため、Homeのリセットはキャンセルされました。"
-				set {homev3transfer.%player's uuid%} to 0
+				send "&e[&4HomeV3&e] 30秒以内にコマンドが入力されなかったため、Homeのリセットはキャンセルされました。"
+				delete {homev3transfer.%player's uuid%}
 				stop
 		if {homev3transfer.%player's uuid%} is 1:
 			send "%{homev3.prefix}% &aHomeV2のデータをHomeV3に移動します。" to player
 			add 1 to {homev3.transferused}
+			delete {homev3transfer.%player's uuid%}
 
 			set {_n} to 1
 			set {_uuid} to player's uuid
