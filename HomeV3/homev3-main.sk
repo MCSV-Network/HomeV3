@@ -191,6 +191,18 @@ command /homev3 [<text>] [<text>] [<text>]:
 					add 1 to {_n}
 				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
 			
+			if arg-1 is "rename":
+				if arg-2 is not set:
+					send "%{homev3.prefix}%&cホーム名を指定してください!"
+					stop
+				set {_n} to 1
+				loop 13 time:
+					if {homev3.name.%{_n}%.%{_uuid}%} is {_arg2}:
+						set {homev3.name.%{_n}%.%{_uuid}%} to {_arg2}
+						send "%{homev3.prefix}%&e%{homev3.name.%{_n}%.%{_uuid}%}%&aの名前を&e%{_arg2}%&aに変更しました!"
+						stop
+					add 1 to {_n}
+				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
 
 			#!Home Reset=======================
 			if arg-1 is "reset":
