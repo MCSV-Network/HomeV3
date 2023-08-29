@@ -191,6 +191,7 @@ command /homev3 [<text>] [<text>] [<text>]:
 					add 1 to {_n}
 				send "%{homev3.prefix}%&cそのホーム名は存在しません!"
 			
+			#*Home Rename
 			if arg-1 is "rename":
 				if arg-3 is not set:
 					send "%{homev3.prefix}%&c項目が不足しています!"
@@ -341,7 +342,7 @@ command /homev3transfer:
 		if {homev3transfer.%player's uuid%} is not set:
 			set {homev3transfer.%player's uuid%} to 1
 			send "&e&m===&r[&4&l警告! - Warning!&r&e]==="
-			send "&eHomeV3からHomeV3への移行を行います。"
+			send "&eHomeV2からHomeV3への移行を行います。"
 			send "&e・HomeV3にあるデータは&nリセットされます!!"
 			send "&e・移行が完了するまでは退出/離席しないでください!正常に移行出来なくなる可能性があります!"
 			send "&4この操作は取り消す事ができません!"
