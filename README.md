@@ -1,7 +1,6 @@
 # HomeV3
 HomeV2の進化版
 
-> ⚠ このリポジトリは開発中です!
 
 ![Alt](https://repobeats.axiom.co/api/embed/8d916b03257bef9565246db35c0798a0eba297c1.svg "Repobeats analytics image")
 
