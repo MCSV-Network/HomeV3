@@ -30,8 +30,8 @@ on leave:
 
 
 #!TAB COMPLETE
-on tab complete of "/homev3":
-	set tab completions for position 1 to "help", "warp", "set", "delete", "share", "get", "setspawn", "debug" and "reset"
+on tab complete of "/home":
+	set tab completions for position 1 to "help", "warp", "set", "delete", "share", "get", "setspawn", "debug", "rename" and "reset"
 	if tab arg-1 is "warp" or "delete" or "share":
 		set {_n} to 1
 		set {_uuid} to player's uuid
