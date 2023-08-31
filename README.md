@@ -31,6 +31,7 @@ HomeV3を使えば、どんな場所でも保存でき、どんな場所にも�
 * /homev3 get - shareされたホームを入手します。
 * /homev3 gui - GUIを表示します。
 * /homev3 setspawn - ホームをリスポーン地点に設定します!
+* /homev3 rename - ホーム名を変更します。
 * /homev3 debug - デバッグ情報を表示します
 * /homev3 reset - **ユーザーのHomeV3に関する情報をリセットします。**
 
