@@ -1,7 +1,6 @@
 # HomeV3
 HomeV2の進化版
 
-> ⚠ このリポジトリは開発中です!
 
 ![Alt](https://repobeats.axiom.co/api/embed/8d916b03257bef9565246db35c0798a0eba297c1.svg "Repobeats analytics image")
 
@@ -32,8 +31,14 @@ HomeV3を使えば、どんな場所でも保存でき、どんな場所にも�
 * /homev3 get - shareされたホームを入手します。
 * /homev3 gui - GUIを表示します。
 * /homev3 setspawn - ホームをリスポーン地点に設定します!
+* /homev3 rename - ホーム名を変更します。
 * /homev3 debug - デバッグ情報を表示します
 * /homev3 reset - **ユーザーのHomeV3に関する情報をリセットします。**
+
+## インストール方法
+1. homev3.skと、動作環境に書かれている全てのアドオンを導入してください。
+2. サーバーを再起動してください。
+3. plugins/Skript/scriptsの中にHomeV3というフォルダが生成されていれば完了です！HomeV3をお楽しみください！
 
 ## 動作環境
 HomeV3は以下の環境で動作を確認しています。
