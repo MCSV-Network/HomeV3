@@ -259,12 +259,12 @@ command /home [<text>] [<text>] [<text>]:
 #!Home Debug=============================================================================
 
 #!ADMIN COMMAND==========================================================================
-command /homev3admin [<text>]:
+command /homev3admin [<text>] [<text>]:
 	permission: admin
 	trigger:
 		if arg-1 is not set:
 			send "&carg-1が指定されていません。"
-			send "&7/homev3admion (deletegui/deletespawn/gengui)"
+			send "&7/homev3admin (deletegui, deletespawn, gengui, showinfo)"
 			stop
 		if arg-1 is "deletegui":
 			delete {homev3_gui.%player%}
@@ -296,6 +296,33 @@ command /homev3admin [<text>]:
 			set slot 11 of {hv3gui_resetconfirm} to emerald block named "&aリセットする"
 			set slot 15 of {hv3gui_resetconfirm} to redstone block named "&cリセットしない"
 			send "完了"
+		if arg-1 is "showinfo":
+			if arg-2 is not set:
+				send "missing arguments."
+				stop
+			set {_p} to arg-1 parsed as offlineplayer
+			set {_uuid} to {_p}'s uuid
+			send "INFO - %{_p}% | %{_uuid}%"
+			permcheck({_p})
+			send ""
+			send "HomeV3-Debug"
+			send ""
+			send "homev3.amount -> &a%{homev3.amount.%{_uuid}%}%"
+			send "homev3.maxamount -> &a%{homev3.limitcount.%{_p}%}%"
+			homev3list({_p})
+			wait a tick
+			send ""
+			send "registered home -> &a%{temp.hv3_list.%{_p}%}%"
+			set {_n} to 1
+			send "HomeList:"
+			loop 13 time:
+				send "%{_n}%. -> &a%{homev3.name.%{_n}%.%{_uuid}%}%"
+				send "(Loc -> &a%{homev3.loc.%{_n}%.%{_uuid}%}%&r)"
+				add 1 to {_n}
+				wait a tick
+			send "END"
+			send ""
+			stop
 
 
 
