@@ -75,6 +75,7 @@ command /home [<text>] [<text>] [<text>]:
 					if {_x} is {homev3.name.%{_n}%.%{_uuid}%}:
 						teleport player to {homev3.loc.%{_n}%.%{_uuid}%}
 						send "%{homev3.prefix}% &a%{homev3.name.%{_n}%.%{_uuid}%}%にテレポートしました!"
+						stop
 					add 1 to {_n}
 				send "&cそのようなHomeは存在しません! 正しく入力しているか確認してください。"
 				stop

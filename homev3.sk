@@ -4,7 +4,7 @@ Variables:
 	#*Prefix
 	{homev3.prefix} = "&a[&bHomeV3&a]&f"
 options:
-	version: 3.0.0-stable
+	version: 3.0.1-stable
 	hv3api: https://github.com/MCSV-Network/HomeV3/raw/main/hv3version
 #!=======[DO NOT EDIT]=======
 
