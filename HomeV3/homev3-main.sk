@@ -300,7 +300,7 @@ command /homev3admin [<text>] [<text>]:
 			if arg-2 is not set:
 				send "missing arguments."
 				stop
-			set {_p} to arg-1 parsed as offlineplayer
+			set {_p} to arg-2 parsed as offline player
 			set {_uuid} to {_p}'s uuid
 			send "INFO - %{_p}% | %{_uuid}%"
 			permcheck({_p})
