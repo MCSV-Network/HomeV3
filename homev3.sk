@@ -10,6 +10,9 @@ options:
 
 	#*==========[OPTIONS]==========
 	checkupdate: true #アップデートをチェックするか(デフォルト: true)
+	#*==========[OPTIONS]==========
+
+
 
 #*NOTIFY UPDATE
 on join:
@@ -76,12 +79,14 @@ on skript load:
 				delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 				delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
 				delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
+				delete file "plugins/Skript/scripts/homev3.sk"
 				wait a tick
+				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/homev3.sk" to file "plugins/Skript/scripts/homev3.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 				download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
-				send "[HomeV3] Reloading HomeV3 files..." to console
+				send "[HomeV3] Reloading HomeV3 sub files..." to console
 				reload script "/HomeV3/homev3-functions.sk"
 				reload script "/HomeV3/homev3-gui.sk"
 				reload script "/HomeV3/homev3-main.sk"
@@ -89,6 +94,8 @@ on skript load:
 				send "[HomeV3] Done!" to console
 			delete {hv3.update}
 			delete {hv3.latest}
+			send "[HomeV3] Reloading homev3.sk..." to console
+			reload script "homev3.sk"
 		else:
 			send "[HomeV3] New version aviliable! {@version} -> %{_v}%" to console
 			set {hv3.update} to true

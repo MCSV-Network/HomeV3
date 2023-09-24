@@ -4,16 +4,20 @@ function hv3updater(p: player):
 	delete file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 	delete file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 	delete file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+	delete file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
 	wait a tick
 	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/homev3.sk" to file "plugins/Skript/scripts/homev3.sk"
 	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-functions.sk" to file "plugins/Skript/scripts/HomeV3/homev3-functions.sk"
 	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-gui.sk" to file "plugins/Skript/scripts/HomeV3/homev3-gui.sk"
 	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-main.sk" to file "plugins/Skript/scripts/HomeV3/homev3-main.sk"
+	download file from "https://github.com/MCSV-Network/HomeV3/raw/main/HomeV3/homev3-updater.sk" to file "plugins/Skript/scripts/HomeV3/homev3-updater.sk"
 	send "[HomeV3] Reloading HomeV3 files..." to {_p}
 	reload script "/HomeV3/homev3-functions.sk"
 	reload script "/HomeV3/homev3-gui.sk"
 	reload script "/HomeV3/homev3-main.sk"
+	reload script "homev3.sk"
 	send "[HomeV3] Done!" to {_p}
 	set {hv3.version} to {hv3.latest}
 	delete {hv3.update}
 	delete {hv3.latest}
+	reload script "/HomeV3/homev3-updater.sk"
