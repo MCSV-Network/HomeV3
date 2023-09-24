@@ -34,17 +34,17 @@ function permcheck(p: player):
 function homev3help(p: player):
 	send "&7=================" to {_p}
 	send "&bHomeV3 &8- &aCommands" to {_p}
-	send "&a/homev3 help &7- このヘルプを見れます!" to {_p}
-	send "&a/homev3 warp ホーム名 &7- 登録したホームにワープできます!" to {_p}
-	send "&a/homev3 set ホーム名 &7- ホームを登録します!" to {_p}
-	send "&a/homev3 delete ホーム名 &7- ホームを削除します!" to {_p}
-	send "&a/homev3 rename ホーム名 変更後のホーム名&7- ホーム名を変更します! &e[NEW!]" to {_p}
-	send "&a/homev3 setspawn ホーム名 &7- リスポーン地点を設定します! &e[NEW!]" to {_p}
-	send "&a/homev3 &dshare &aホーム名 &7- ホームをシェアできます! &e[NEW!]" to {_p}
-	send "&a/homev3 &dget &aホーム名 &7- シェアされたホームを入手します! &e[NEW!]" to {_p}
-	send "&a/homev3 &dGUI &7- HomeV3のGUIを表示します! &e[NEW!]" to {_p}
-	send "&c/homev3 reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
-	send "&a/homev3 debug &7- HomeV3のデバッグに使うメッセージを表示します。" to {_p}
+	send "&a/home help &7- このヘルプを見れます!" to {_p}
+	send "&a/home warp ホーム名 &7- 登録したホームにワープできます!" to {_p}
+	send "&a/home set ホーム名 &7- ホームを登録します!" to {_p}
+	send "&a/home delete ホーム名 &7- ホームを削除します!" to {_p}
+	send "&a/home rename ホーム名 変更後のホーム名&7- ホーム名を変更します! &e[NEW!]" to {_p}
+	send "&a/home setspawn ホーム名 &7- リスポーン地点を設定します! &e[NEW!]" to {_p}
+	send "&a/home &dshare &aホーム名 &7- ホームをシェアできます! &e[NEW!]" to {_p}
+	send "&a/home &dget &aホーム名 &7- シェアされたホームを入手します! &e[NEW!]" to {_p}
+	send "&a/home &dGUI &7- HomeV3のGUIを表示します! &e[NEW!]" to {_p}
+	send "&c/home reset &7- あなたのHomeV3を&c&l削除&7します!!" to {_p}
+	send "&a/home debug &7- HomeV3のデバッグに使うメッセージを表示します。" to {_p}
 	send "&b=================" to {_p}
 
 #?home表示(create cache)
